@@ -642,6 +642,15 @@ const NODES = [
   { id:"ulisses", tipo:"parlamentar", corrida:"ALE", nome:"Ulisses Gabriel", sub:"SC · eleito",
     bio:"Delegado eleito deputado estadual por Santa Catarina. Responde a ação de improbidade administrativa pela condução pública do caso do cão Orelha, quando chefiava a Polícia Civil; o Ministério Público pede multa e indenização. Não é caso criminal de corrupção." },
 
+  { id:"marceloqueiroz", tipo:"parlamentar", corrida:"ALE", nome:"Marcelo Queiroz", sub:"RJ · Op. Castratio",
+    bio:"Parlamentar do Rio investigado na Operação Castratio por suspeita de rachadinha com assessores que indicou para cargos no governo estadual, além de peculato e lavagem. A maioria das fontes o descreve como deputado estadual; uma o trata como deputado federal — a divergência está registrada aqui porque não foi possível resolvê-la nas fontes consultadas. Nega irregularidades." },
+  { id:"marciofernandes", tipo:"parlamentar", corrida:"ALE", nome:"Marcio Fernandes", sub:"PL · MS · reeleito",
+    bio:"Deputado estadual de Mato Grosso do Sul, reeleito em 2026 e alvo da Operação Jogo Limpo cerca de uma semana antes do primeiro turno. Não foi preso por causa do foro. Nega que o valor apreendido fosse de R$ 260 mil e admite ter sido abordado após sacar R$ 100 mil da conta pessoal." },
+  { id:"sergioassis", tipo:"parlamentar", corrida:"ALE", nome:"Sérgio Assis", sub:"ex-deputado · MS",
+    bio:"Ex-deputado estadual de Mato Grosso do Sul, preso em 4 de março de 2026 na Operação Agro Fantasma e denunciado pelo Ministério Público por um golpe que causou prejuízo de quase R$ 58 milhões a um produtor rural. A defesa nega o envolvimento." },
+  { id:"nenorazuk", tipo:"parlamentar", corrida:"ALE", nome:"Neno Razuk", sub:"ex-deputado · MS · condenado",
+    bio:"Roberto Razuk Filho, ex-deputado estadual de Mato Grosso do Sul, condenado a 15 anos de prisão por explorar o jogo do bicho. O Gaeco recorreu pedindo aumento da pena, sob o argumento de que a atividade era financiada com salários pagos pela Assembleia." },
+
   /* ---------- CASOS ---------- */
   { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
     orgao:"STF — Primeira Turma", periodo:"2022–2026",
@@ -1178,7 +1187,7 @@ const NODES = [
   /* ---------- CASOS DAS ASSEMBLEIAS ---------- */
   { id:"unha_carne", tipo:"caso", corrida:"ALE", nome:"Operação Unha e Carne", sub:"PF · STF · Alerj e Seeduc", status:"reu",
     orgao:"Polícia Federal / STF — relator Alexandre de Moraes", periodo:"2025–2026",
-    resumo:"A maior apuração sobre uma assembleia estadual no país. A PF aponta uma organização liderada, segundo a decisão judicial, por Rodrigo Bacellar quando presidia a Alerj: direcionamento de obras e compras na Secretaria Estadual de Educação (Seeduc) em troca de apoio político e de financiamento ilícito de campanhas, com lavagem através de uma rede de postos de combustíveis. A primeira fase prendeu Bacellar em dezembro de 2025; a quarta prendeu o deputado Thiago Rangel em maio de 2026; a quinta alcançou o pastor Márcio Poncio e o bicheiro “Adilsinho”; a sexta, em julho, mirou os postos; a oitava prendeu Márcio Canella em outubro, onze dias depois de ele ser eleito. O TRF2 tornou deputados da Alerj réus e negou a suspensão das preventivas.",
+    resumo:"A maior apuração sobre uma assembleia estadual no país. A PF aponta uma organização liderada, segundo a decisão judicial, por Rodrigo Bacellar quando presidia a Alerj: direcionamento de obras e compras na Secretaria Estadual de Educação (Seeduc) em troca de apoio político e de financiamento ilícito de campanhas, com lavagem através de uma rede de postos de combustíveis. A primeira fase prendeu Bacellar em dezembro de 2025; a quarta prendeu o deputado Thiago Rangel em maio de 2026; a quinta alcançou o pastor Márcio Poncio e o bicheiro “Adilsinho”; a sexta, em julho, mirou os postos; a oitava prendeu Márcio Canella em outubro, onze dias depois de ele ser eleito. Um computador apreendido na Alerj continha uma planilha com nomes de deputados e indicações de cargos no governo estadual. O TRF2 tornou deputados da Alerj réus e negou a suspensão das preventivas.",
     nota:"É o espelho estadual do que a Make Up e a Overclean apuram no Congresso — e a mesma casa legislativa do caso das rachadinhas de Flávio Bolsonaro, por fatos e períodos distintos.",
     fontes:[
       {t:"Operação Unha e Carne — verbete", u:"https://pt.wikipedia.org/wiki/Opera%C3%A7%C3%A3o_Unha_e_Carne", v:"Wikipédia", l:"centro"},
@@ -1264,6 +1273,54 @@ const NODES = [
     nota:"Ação civil de improbidade, não processo criminal, e sem relação com desvio de recursos — entra na rede como controvérsia, para não ser confundida com os casos de corrupção.",
     fontes:[
       {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"castratio", tipo:"caso", corrida:"ALE", nome:"Operação Castratio", sub:"PF · STF · Secretaria de Agricultura do RJ", status:"investigado",
+    orgao:"Polícia Federal / STF — relator Flávio Dino", periodo:"2026",
+    resumo:"A PF investiga um esquema que envolveria cerca de R$ 200 milhões na Secretaria Estadual de Agricultura do Rio. As suspeitas de rachadinha surgiram da análise de um celular apreendido em maio de 2026, na primeira fase; a segunda, autorizada por Flávio Dino, ocorreu em outubro. Uma assessora relatou que parte dos salários de assessores indicados para cargos no governo fluminense era repassada ao parlamentar Marcelo Queiroz, também investigado por peculato e lavagem. Ele nega e diz que nunca teve conhecimento de qualquer ilegalidade.",
+    nota:"Terceiro mecanismo de rachadinha desenhado nesta rede, ao lado da Alerj e da Alepe — aqui o desvio não sai do gabinete, mas de cargos indicados no Executivo estadual.",
+    fontes:[
+      {t:"PF investiga deputado Marcelo Queiroz por suspeita de rachadinha na Secretaria de Agricultura do RJ", u:"https://www.ururau.com.br/noticias/politica/pf-investiga-deputado-marcelo-queiroz-por-suspeita-de-rachadinha-na-secretaria-de-agricultura-do-rj/83003/", v:"Ururau", l:"centro"},
+      {t:"Marcelo Queiroz é investigado por rachadinha e lavagem", u:"https://folhadoleste.com.br/marcelo-queiroz-investigado-rachadinha-lavagem-dinheiro-castratio/", v:"Folha do Leste", l:"centro"},
+      {t:"PF investiga deputado Marcelo Queiroz por suspeita de rachadinha e lavagem de dinheiro", u:"https://www.brasil247.com/sudeste/pf-investiga-deputado-marcelo-queiroz-por-suspeita-de-rachadinha-e-lavagem-de-dinheiro/", v:"Brasil 247", l:"centro-esquerda"}
+    ]},
+  { id:"alap_9mi", tipo:"caso", corrida:"ALE", nome:"Desvio de R$ 9 milhões na Alap", sub:"MP-AP", status:"reu",
+    orgao:"Ministério Público do Amapá", periodo:"2018–2026",
+    resumo:"Apuração sobre o desvio de R$ 9 milhões da Assembleia Legislativa do Amapá. Segundo o Ministério Público, Felipe Show — hoje deputado federal eleito — seria um dos responsáveis por trocar por dinheiro vivo os cheques do esquema. Ele chegou a ficar cinco dias preso em 2018.",
+    nota:"A mesma casa legislativa alcançada em 2026 pela Operação Gabinete Empresarial, por fatos e pessoas distintos.",
+    fontes:[
+      {t:"Felipe Show é réu em três ações judiciais", u:"https://conectamapa.com/felipe-show-e-reu-em-tres-acoes-judiciais/", v:"ConectAmapá", l:"centro"},
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"jogo_limpo", tipo:"caso", corrida:"ALE", nome:"Operação Jogo Limpo", sub:"PF · MS", status:"investigado",
+    orgao:"Polícia Federal", periodo:"2026",
+    resumo:"Deflagrada cerca de uma semana antes do primeiro turno de 2026, apura movimentações financeiras que poderiam estar ligadas a financiamento irregular de campanha e indução de voto em Mato Grosso do Sul. O deputado estadual Marcio Fernandes (PL), reeleito, foi alvo e não foi preso por causa do foro; foi flagrado sacando dinheiro em espécie durante a ação. Ele contesta o valor atribuído à apreensão.",
+    fontes:[
+      {t:"Alvo de batida da PF, deputado teve o custo do voto mais caro de Mato Grosso do Sul", u:"https://midiamax.com.br/politica/2026/alvo-batida-pf-deputado-teve-custo-voto-mais-caro-mato-grosso-sul/", v:"Midiamax", l:"centro"},
+      {t:"Marcio Fernandes foi flagrado sacando alto valor em espécie durante operação da PF", u:"https://midiamax.com.br/politica/2026/marcio-fernandes-foi-flagrado-sacando-alto-valor-especie-durante-operacao-pf/", v:"Midiamax", l:"centro"}
+    ]},
+  { id:"agro_fantasma", tipo:"caso", corrida:"ALE", nome:"Operação Agro Fantasma", sub:"MP · golpe a produtor rural", status:"reu",
+    orgao:"Polícia Civil / Ministério Público", periodo:"2026",
+    resumo:"Sérgio Assis, ex-deputado estadual de Mato Grosso do Sul, foi preso em 4 de março de 2026 e denunciado pelo Ministério Público por usar influência política para aplicar um golpe que causou prejuízo de quase R$ 58 milhões a um produtor rural. A defesa nega o envolvimento.",
+    nota:"O dinheiro desviado aqui é privado, não público — entra na rede porque a acusação é de uso da influência do mandato para viabilizar o golpe.",
+    fontes:[
+      {t:"Operação Agro Fantasma indicia ex-deputado de MS e filho por golpe de R$ 58 milhões a produtores", u:"https://midiamax.com.br/policia/2026/operacao-agro-fantasma-indicia-ex-deputado-filho-golpe-r-58-milhoes-produtores/", v:"Midiamax", l:"centro"},
+      {t:"Ex-deputado Sérgio Assis usava influência política para aplicar golpe de R$ 58 milhões", u:"https://midiamax.com.br/politica/2026/ex-deputado-sergio-assis-usava-influencia-politica-aplicar-golpes-r-58-milhoes/", v:"Midiamax", l:"centro"}
+    ]},
+  { id:"bicho_ms", tipo:"caso", corrida:"ALE", nome:"Jogo do bicho financiado pela Assembleia", sub:"Gaeco · MS", status:"condenado",
+    orgao:"Gaeco / Justiça de Mato Grosso do Sul", periodo:"até 2026",
+    resumo:"O ex-deputado estadual Roberto Razuk Filho, o Neno Razuk, foi condenado a 15 anos de prisão por explorar o jogo do bicho. O Gaeco recorreu para pedir pena maior, sustentando que a exploração era bancada com salários pagos pela Assembleia Legislativa de Mato Grosso do Sul.",
+    nota:"A tese da acusação é o que torna o caso relevante aqui: folha de pagamento do Legislativo sustentando atividade criminosa.",
+    fontes:[
+      {t:"Gaeco pede aumento da pena de Neno Razuk, condenado por explorar jogo do bicho", u:"https://midiamax.com.br/policia/2026/gaeco-pede-aumento-pena-neno-razuk-condenado-explorar-jogo-bicho/", v:"Midiamax", l:"centro"}
+    ]},
+  { id:"revoga_prisao", tipo:"caso", corrida:"ALE", nome:"Assembleias que revogam prisões", sub:"STF · regra em revisão", status:"controversia",
+    orgao:"STF", periodo:"2025–2026",
+    resumo:"Em maio de 2026, ao manter a prisão de Thiago Rangel, Alexandre de Moraes propôs limitar o poder das assembleias legislativas de revogar prisões de deputados estaduais. Ele citou levantamento segundo o qual, em treze prisões de deputados estaduais por crimes sem relação com o mandato, doze foram revogadas pelas respectivas assembleias. Foi o que ocorreu com Rodrigo Bacellar, solto por 42 votos a 21 na Alerj — até perder o mandato no TSE e ser preso de novo.",
+    nota:"Não é acusação contra ninguém: é o mecanismo institucional que explica por que tantos casos deste recorte avançam e recuam. Entra como controvérsia por isso.",
+    fontes:[
+      {t:"Revisão de prisão é obrigatória só para parlamentares federais", u:"https://conjur.com.br/2026-mai-05/stf-questiona-revogacao-de-prisoes-de-deputados-por-assembleias-legislativas-2/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Moraes propõe limitar poder das assembleias legislativas para revogar prisões de deputados", u:"https://www.ocafezinho.com/2026/05/07/moraes-propoe-limitar-poder-das-assembleias-legislativas-para-revogar-prisoes-de-deputados/", v:"O Cafezinho", l:"centro-esquerda"},
+      {t:"STF pode mudar regra sobre prisão de deputados e barrar interferência política", u:"http://www.blogdomano.com/2026/05/stf-pode-mudar-regra-sobre-prisao-de.html", v:"Blog do Mano", l:"centro"}
     ]}
 ];
 
@@ -1496,7 +1553,16 @@ const LINKS = [
   { s:"araujo", t:"contas_ro", st:"investigado", rel:"direto", rot:"Contas de 2023 rejeitadas, com cerca de R$ 1 mi retido" },
   { s:"mauromoraes", t:"alep_pf", st:"investigado", rel:"direto", rot:"Abordado pela PF dentro da Assembleia, 2 dias antes do 1º turno" },
   { s:"ulisses", t:"orelha", st:"controversia", rel:"direto", rot:"Réu em ação de improbidade; MP pede multa e indenização" },
-  { s:"bulhoes", t:"unha_carne", st:"citado", rel:"politico", rot:"Caso-espelho: também é réu por verba de gabinete de assembleia" }
+  { s:"bulhoes", t:"unha_carne", st:"citado", rel:"politico", rot:"Caso-espelho: também é réu por verba de gabinete de assembleia" },
+  { s:"marceloqueiroz", t:"castratio", st:"investigado", rel:"direto", rot:"Assessora relatou repasse de parte dos salários; ele nega" },
+  { s:"dino", t:"castratio", st:"judicial", rel:"judicial", rot:"Autorizou a segunda fase, em outubro de 2026" },
+  { s:"felipeshow", t:"alap_9mi", st:"reu", rel:"direto", rot:"Apontado como quem trocava os cheques do esquema por dinheiro vivo" },
+  { s:"marciofernandes", t:"jogo_limpo", st:"investigado", rel:"direto", rot:"Alvo a uma semana do 1º turno; não preso por causa do foro" },
+  { s:"sergioassis", t:"agro_fantasma", st:"reu", rel:"direto", rot:"Preso em março e denunciado pelo MP; a defesa nega" },
+  { s:"nenorazuk", t:"bicho_ms", st:"condenado", rel:"direto", rot:"15 anos por explorar o jogo do bicho; Gaeco pede pena maior" },
+  { s:"moraes", t:"revoga_prisao", st:"judicial", rel:"judicial", rot:"Propôs limitar o poder das assembleias de revogar prisões" },
+  { s:"bacellar", t:"revoga_prisao", st:"citado", rel:"direto", rot:"Solto por 42 a 21 na Alerj antes de perder o mandato" },
+  { s:"rangel", t:"revoga_prisao", st:"citado", rel:"direto", rot:"Foi ao manter sua prisão que Moraes levantou a questão" }
 ];
 
 /* ============================================================
@@ -1862,10 +1928,10 @@ function renderMethod(){
     <div class="d-eyebrow">Como este grafo foi montado</div>
     <h2 class="d-title">Metodologia</h2>
     <div class="method">
-      <p class="d-body"><strong>${c}</strong> candidatos ao Executivo, <strong>${df}</strong> deputados federais, <strong>${de}</strong> deputados estaduais, <strong>${p}</strong> pessoas próximas, <strong>${m}</strong> ministros do STF e <strong>${n}</strong> casos, apoiados em <strong>${todas.length}</strong> reportagens e documentos de <strong>${veiculos}</strong> veículos distintos.</p>
+      <p class="d-body"><strong>${c}</strong> candidatos ao Executivo, <strong>${df}</strong> parlamentares do Congresso, <strong>${de}</strong> deputados estaduais, <strong>${p}</strong> pessoas próximas, <strong>${m}</strong> ministros do STF e <strong>${n}</strong> casos, apoiados em <strong>${todas.length}</strong> reportagens e documentos de <strong>${veiculos}</strong> veículos distintos.</p>
 
       <h4>Os parlamentares</h4>
-      <p>Os hexágonos são deputados — federais, no recorte <b>Câmara</b>, e estaduais, no recorte <b>Assembleias</b>. Entram aqui os eleitos, reeleitos ou cassados de 2026 cujo nome aparece em caso documentado, não a bancada inteira. Dois nós são de <em>agregação</em>: “Fraude em licitações — réus na Câmara” e “Emendas sob rastreio no STF” reúnem processos distintos sob a mesma acusação, para mostrar a escala — não são um único processo, e estão rotulados como tais.</p>
+      <p>Os hexágonos são parlamentares — deputados federais e senadores, no recorte <b>Congresso</b>, e deputados estaduais, no recorte <b>Assembleias</b>. Entram aqui os eleitos, reeleitos, derrotados ou cassados de 2026 cujo nome aparece em caso documentado, não a bancada inteira. Senadores derrotados permanecem na rede porque o foro por prerrogativa de função sobrevive ao fim do mandato quando o crime é do exercício do cargo — decisão do STF de março de 2025. Três nós são de <em>agregação</em>: “Fraude em licitações — cinco réus eleitos”, “Emendas sob rastreio no STF” e “Senadores derrotados com casos no STF” reúnem processos distintos sob a mesma acusação ou o mesmo levantamento, para mostrar a escala — não são um único processo, e estão rotulados como tais.</p>
       <p>Emenda parlamentar não é irregularidade: o que as operações apuram é a cobrança de propina ou o direcionamento de contratos por quem indica o recurso. O caso do Maranhão, única condenação criminal por venda de emendas na rede, é o parâmetro do que precisa ser provado.</p>
 
       <h4>Os ministros do STF</h4>
@@ -1881,7 +1947,7 @@ function renderMethod(){
         <li><b>Réu / denunciado</b> — denúncia ou ação aceita pela Justiça.</li>
         <li><b>Investigado</b> — inquérito, indiciamento policial ou pedido de indiciamento em CPI. Não é acusação formal.</li>
         <li><b>Citado</b> — o nome aparece nos autos, em planilha ou em depoimento, sem ser alvo. É o vínculo mais fraco do grafo.</li>
-        <li><b>Controvérsia</b> — episódio de forte repercussão pública que <em>não</em> virou processo: uma decisão de governo contestada, um conflito de interesse aparente. Está numa cor fora da escala penal de propósito.</li>
+        <li><b>Controvérsia</b> — episódio de forte repercussão pública que <em>não</em> virou processo: uma decisão de governo contestada, um conflito de interesse aparente, ou um mecanismo institucional que molda os casos, como a revogação de prisões pelas assembleias. Está numa cor fora da escala penal de propósito.</li>
         <li><b>Atuação judicial</b> — relator, julgador ou autoridade que instaurou o caso. Não é imputação de nada.</li>
         <li><b>Encerrado</b> — absolvido, arquivado, anulado ou prescrito. Permanece no grafo porque a memória pública dos casos costuma sobreviver ao seu desfecho jurídico.</li>
       </ul>
@@ -1903,7 +1969,7 @@ function renderMethod(){
 
       <h4>Escopo</h4>
       <p>Chapas registradas para a Presidência e para os governos de São Paulo, Minas Gerais e Goiás na eleição de 4 de outubro de 2026, incluindo os candidatos a vice, e os deputados federais e estaduais eleitos em 2026 que aparecem em caso documentado. Candidatos de partidos sem casos documentados constam do grafo apenas quando aparecem em alguma ligação.</p>
-      <p>A cobertura do Legislativo é <em>deliberadamente incompleta</em>, e não por escolha editorial: não existe cadastro nacional que reúna a situação criminal dos 513 deputados federais e das 1.059 cadeiras estaduais. O grafo parte dos levantamentos publicados após a eleição — 69 eleitos ao Congresso e ao menos 75 eleitos no total, segundo UOL e O Brasilianista — e dos casos noticiados individualmente. Há, com certeza, nomes de fora.</p>
+      <p>A cobertura do Legislativo é <em>deliberadamente incompleta</em>, e não por escolha editorial: não existe cadastro nacional que reúna a situação criminal dos 513 deputados federais, dos 81 senadores e das 1.059 cadeiras estaduais. O grafo parte dos levantamentos publicados após a eleição — 69 eleitos ao Congresso e ao menos 75 eleitos no total, segundo UOL e O Brasilianista — e dos casos noticiados individualmente. Há, com certeza, nomes de fora.</p>
       <p>Atualizado em 15 de novembro de 2026, com o resultado dos dois turnos já apurado.</p>
     </div>`;
 }
