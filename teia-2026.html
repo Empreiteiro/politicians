@@ -672,6 +672,27 @@ const NODES = [
   { id:"adrianolima", tipo:"pessoa", corrida:"ALE", nome:"Adriano Lima", sub:"ex-prefeito de Serrinha",
     bio:"Ex-prefeito de Serrinha (BA), apontado pela PF como responsável, com servidores e empresas, por fraudar licitações de locação de veículos no município entre 2017 e 2024. As fontes divergem sobre seu partido." },
 
+  { id:"velloso", tipo:"parlamentar", corrida:"CAM", nome:"Eduardo Velloso", sub:"União Brasil · AC",
+    bio:"Deputado federal pelo Acre, alvo da Operação Graco em 29 de janeiro de 2026. A PF e a CGU apuram o desvio de R$ 912 mil em emendas Pix que ele destinou à prefeitura de Sena Madureira e que foram usadas para pagar shows musicais. Afirmou ter agido conforme a lei e dizer-se à disposição da Justiça." },
+  { id:"mazinho", tipo:"pessoa", corrida:"CAM", nome:"Mazinho Serafim", sub:"ex-prefeito de Sena Madureira",
+    bio:"Ex-prefeito de Sena Madureira (AC) no período do contrato de shows pago com emendas Pix. Alvo da Operação Graco junto com o deputado e com o advogado Giordano Simplício Jordão." },
+
+  { id:"hermeto", tipo:"parlamentar", corrida:"ALE", nome:"Hermeto", sub:"MDB · DF · líder do governo",
+    bio:"Deputado distrital e líder do governo Ibaneis Rocha na Câmara Legislativa do Distrito Federal. Alvo de buscas na Operação Blackboard, do MPDFT, em 12 de março de 2026. Nega participação: afirma que não tem gestão sobre contratos da Secretaria de Educação e que suas emendas eram para reforma de escola, não para aluguel." },
+
+  { id:"torquato", tipo:"parlamentar", corrida:"ALE", nome:"Gutierres Torquato", sub:"PDT · TO",
+    bio:"Deputado estadual do Tocantins, investigado pelo Ministério Público estadual desde agosto de 2026 por suposto uso de servidores do gabinete em atividades particulares e direcionamento de emendas a entidades e empresas ligadas a familiares. Nega as irregularidades e diz que não tinha conhecimento prévio da apuração." },
+
+  { id:"valceasa", tipo:"parlamentar", corrida:"ALE", nome:"Val Ceasa", sub:"PRD · RJ · registro indeferido",
+    bio:"Deputado estadual do Rio, nome de urna de Roosevelt Barreto Barcelos. Alvo de busca e apreensão do MPRJ em 18 de junho de 2026 por suspeita de ligação com o Terceiro Comando Puro; R$ 166 mil em espécie foram apreendidos em sua residência. Em novembro de 2026 o TRE-RJ indeferiu o registro de sua candidatura. Diz sofrer perseguição política." },
+  { id:"ulissesmarins", tipo:"pessoa", corrida:"ALE", nome:"Ulisses Marins", sub:"ex-vereador do Rio",
+    bio:"Ex-vereador do Rio de Janeiro pelo União Brasil, um dos três investigados na operação do MPRJ sobre a demolição no Complexo de Israel. Não confundir com Ulisses Gabriel, deputado estadual eleito em Santa Catarina, que aparece no grafo por outro caso." },
+
+  { id:"rafaelnobre", tipo:"parlamentar", corrida:"ALE", nome:"Rafael Nobre", sub:"RJ · denunciado",
+    bio:"Deputado estadual do Rio, denunciado pelo MPRJ em julho de 2026 por organização criminosa, fraude em licitações, falsidade ideológica e lavagem de dinheiro em contratos de R$ 357,9 milhões nas prefeituras de Magé e Japeri. Seu gabinete na Alerj foi alvo de busca. A defesa nega qualquer vinculação com os fatos." },
+  { id:"magraonobre", tipo:"pessoa", corrida:"ALE", nome:"Magrão Nobre", sub:"vereador em São João de Meriti",
+    bio:"Julio Ricardo dos Santos Henriques, vereador de São João de Meriti pelo União Brasil. Denunciado com Rafael Nobre; o Ministério Público pede a perda dos dois mandatos em caso de condenação." },
+
   { id:"thjoias", tipo:"parlamentar", corrida:"ALE", nome:"TH Joias", sub:"ex-deputado estadual · RJ",
     bio:"Ex-deputado estadual do Rio, alvo da Operação Zargun, deflagrada em setembro de 2025 contra investigados por envolvimento com o Comando Vermelho. Segundo a acusação, foi alertado da operação antes dela ocorrer. Permanece preso." },
   { id:"macario", tipo:"pessoa", corrida:"ALE", nome:"Macário Júdice", sub:"desembargador do TRF-2",
@@ -1415,6 +1436,63 @@ const NODES = [
       {t:"Moraes manda soltar desembargador acusado de vazar operação da PF", u:"https://www.migalhas.com.br/quentes/467657/moraes-manda-soltar-desembargador-acusado-de-vazar-operacao-da-pf", v:"Migalhas", l:"institucional"},
       {t:"Moraes solta desembargador acusado de vazar operação contra TH Joias", u:"https://www.diariodocentrodomundo.com.br/moraes-solta-desembargador-acusado-de-vazar-operacao-contra-th-joias/", v:"Diário do Centro do Mundo", l:"centro-esquerda"},
       {t:"STF solta desembargador e autoriza transferência de Bacellar", u:"https://brasilemfolhas.com.br/2026/10/stf-solta-desembargador-e-autoriza-transferencia-de-bacellar/", v:"Brasil em Folhas", l:"centro"}
+    ]},
+
+  { id:"graco", tipo:"caso", corrida:"CAM", nome:"Operação Graco", sub:"PF e CGU · STF", status:"investigado",
+    orgao:"PF e CGU — mandados autorizados pelo STF, relatoria de Cármen Lúcia", periodo:"2024–2026",
+    resumo:"Deflagrada em 29 de janeiro de 2026, apura o desvio de cerca de R$ 912 mil em emendas Pix que o deputado federal Eduardo Velloso destinou à prefeitura de Sena Madureira (AC) e que foram usados para pagar shows musicais em setembro de 2024. Foram 14 mandados de busca no Acre e no Distrito Federal, incluindo o apartamento funcional do deputado em Brasília e endereços ligados a ele em Rio Branco. Também são alvos o ex-prefeito Mazinho Serafim e o advogado Giordano Simplício Jordão. Foram apreendidos R$ 15 mil em espécie, três veículos de luxo, uma arma de fogo, celulares e computadores. Apuram-se fraude em licitação, corrupção, lavagem de dinheiro e associação criminosa. Não há denúncia nem condenação.",
+    nota:"As fontes divergem em dois pontos. A maioria fala em 14 mandados; uma reportagem mais ampla sobre emendas Pix menciona 41 mandados em quatro estados. E o valor de R$ 912 mil aparece ora como montante desviado, ora como sobrepreço apontado pela CGU no contrato — não são a mesma coisa.",
+    fontes:[
+      {t:"Quem é Eduardo Velloso, deputado alvo da PF em desvio de emendas Pix", u:"https://www.cnnbrasil.com.br/politica/quem-e-eduardo-velloso-deputado-alvo-da-pf-em-desvio-de-emendas-pix/", v:"CNN Brasil", l:"centro"},
+      {t:"Deputado é alvo de operação por suspeita de desvio de ‘emendas pix’", u:"https://www.correiobraziliense.com.br/politica/2026/01/7343178-deputado-e-alvo-de-operacao-por-suspeita-de-desvio-de-emendas-pix.html", v:"Correio Braziliense", l:"centro"},
+      {t:"Operação Graco investiga suspeita de desvio de R$ 912 mil em shows financiados em Sena Madureira", u:"https://acreagora.com/2026/01/29/operacao-graco-investiga-suspeita-de-desvio-de-r-912-mil-em-shows-financiados-em-sena-madureira/", v:"Acre Agora", l:"centro"},
+      {t:"CGU aponta sobrepreço de R$ 912 mil em contrato milionário de shows financiado com emendas Pix", u:"https://agazeta.net/cgu-aponta-sobrepreco-de-r-912-mil-em-contrato-milionario-de-shows-financiado-com-emendas-pix-em-sena-madureira/", v:"A Gazeta (AC)", l:"centro"},
+      {t:"Deputado federal é alvo da PF em operação após pagar show milionário por meio de “emenda pix”", u:"https://www.bahianoticias.com.br/noticia/313112-deputado-federal-e-alvo-da-pf-em-operacao-apos-pagar-show-milionario-por-meio-de-emenda-pix", v:"Bahia Notícias", l:"centro"}
+    ]},
+
+  { id:"blackboard", tipo:"caso", corrida:"ALE", nome:"Operação Blackboard", sub:"MPDFT · R$ 46 mi na Educação", status:"investigado",
+    orgao:"MPDFT — Gaeco e Vice-Procuradoria-Geral de Justiça", periodo:"2026",
+    resumo:"Deflagrada em 12 de março de 2026, apura um esquema que teria desviado mais de R$ 46 milhões da educação pública do Distrito Federal. Segundo o MPDFT, parte dos recursos teria origem em emendas destinadas de forma irregular pelo deputado distrital Hermeto, líder do governo Ibaneis Rocha na Câmara Legislativa, que tem prerrogativa de foro — o Ministério Público aponta emendas via PDAF direcionadas a uma associação ligada a uma investigada. O núcleo do esquema seria a locação de um imóvel pela Secretaria de Educação, com dispensa ilegal de licitação e valores apontados como superfaturados. Apuram-se fraude em licitação, peculato, lavagem de dinheiro e organização criminosa. São suspeitas, sem denúncia aceita nem condenação.",
+    nota:"É o único caso do grafo no Distrito Federal e o único em que a Câmara Legislativa aparece — uma casa que não é assembleia estadual nem Congresso, e que por isso escapa dos dois levantamentos nacionais que serviram de base ao recorte.",
+    fontes:[
+      {t:"Hermeto é alvo de operação sobre desvio de R$ 46 milhões da educação no DF", u:"https://www.correiobraziliense.com.br/cidades-df/2026/03/7373863-hermeto-e-alvo-de-operacao-sobre-desvio-de-rs-46-milhoes-da-educacao-no-df.html", v:"Correio Braziliense", l:"centro"},
+      {t:"Alvo de operação, Hermeto nega participação em contratos da Educação", u:"https://www.metropoles.com/distrito-federal/alvo-de-operacao-hermeto-nega-participacao-em-contratos-da-educacao", v:"Metrópoles", l:"centro"},
+      {t:"Hermeto após operação: “Minha emenda era para reforma da escola, não para aluguel”", u:"https://www.metropoles.com/distrito-federal/hermeto-apos-operacao-minha-emenda-era-para-reforma-da-escola-nao-pra-aluguel", v:"Metrópoles", l:"centro"},
+      {t:"Líder do governo Ibaneis na Câmara do DF é alvo de operação por corrupção", u:"https://www.acessa.com/politica/2026/03/314867-lider-do-governo-ibaneis-na-camara-do-df-e-alvo-de-operacao-por-corrupcao.html", v:"Acessa (Folha)", l:"centro"},
+      {t:"Deputado é alvo de operação por desvio de R$ 46 milhões na educação", u:"https://atarde.com.br/politica/deputado-e-alvo-de-operacao-por-desvio-de-r-46-milhoes-na-educacao-1382397", v:"A Tarde", l:"centro"}
+    ]},
+
+  { id:"gratidao", tipo:"caso", corrida:"ALE", nome:"Gabinete e emendas no Tocantins", sub:"MPTO · 22ª Promotoria", status:"investigado",
+    orgao:"MPTO — 22ª Promotoria de Justiça de Palmas", periodo:"2023–2026",
+    resumo:"Portaria publicada em 13 de agosto de 2026 abriu apuração sobre o deputado estadual Gutierres Torquato. São duas suspeitas: o uso de servidores pagos pela Assembleia Legislativa em atividades particulares e o direcionamento de emendas parlamentares a empresas e entidades ligadas a familiares, com o Instituto Gratidão Tocantins entre os citados. A Assembleia foi intimada a entregar a relação de servidores lotados no gabinete entre 2023 e 2026, e a Secretaria de Planejamento a detalhar as emendas individuais do período. O deputado nega, diz que o instituto não recebeu recursos públicos e classificou a acusação sobre familiares como “um absurdo”.",
+    nota:"É o caso em estágio mais inicial de todo o grafo. A portaria não informa valores nem identifica servidores, empresas ou familiares, e o Ministério Público ainda reúne documentos para decidir se avança, judicializa ou arquiva. Entra aqui porque é um procedimento formal e público — não porque haja acusação.",
+    fontes:[
+      {t:"MPTO investiga Gutierres Torquato por suspeitas envolvendo servidores e emendas; deputado nega irregularidades", u:"https://gazetadocerrado.com.br/tocantins/mpto-investiga-gutierres-torquato-por-suspeitas-envolvendo-servidores-e-emendas-deputado-nega-irregularidades/", v:"Gazeta do Cerrado", l:"centro"},
+      {t:"Investigação mira gabinete de deputado, emendas e possível uso de servidores em atividades privadas", u:"https://afnoticias.com.br/blog-do-arnaldo-filho/investigacao-mira-gabinete-de-deputado-emendas-e-possivel-uso-de-servidores-em-atividades-privadas", v:"AF Notícias", l:"centro"},
+      {t:"MP faz averiguações sobre emendas e Assembleia informa que trabalha em regulamentação interna", u:"https://gazetadocerrado.com.br/tocantins/mp-faz-averiguacoes-sobre-emendas-e-assembleia-informa-que-trabalha-na-construcao-de-sistema-de-regulamentacao-interna-de-divulgacao/", v:"Gazeta do Cerrado", l:"centro"}
+    ]},
+
+  { id:"israel", tipo:"caso", corrida:"ALE", nome:"Demolição no Complexo de Israel", sub:"MPRJ · TJ-RJ", status:"investigado",
+    orgao:"MPRJ e Polícia Civil — mandados do Órgão Especial do TJ-RJ", periodo:"2026",
+    resumo:"Em 18 de junho de 2026 o MPRJ e a Polícia Civil cumpriram 14 mandados de busca contra três investigados: o deputado estadual Val Ceasa, o ex-vereador Ulisses Marins e um ex-assessor parlamentar que hoje trabalha em uma empresa pública do setor de energia. Houve buscas na Alerj, na Ceasa e em endereços na capital e no Espírito Santo. A apuração começou com indícios de que parlamentares procuraram a Polícia Militar para saber de uma operação sigilosa de demolição de imóveis do Terceiro Comando Puro em Parada de Lucas, no Complexo de Israel. R$ 166 mil em espécie foram apreendidos na residência do deputado. A demolição acabou adiada. As defesas não se manifestaram de imediato; em plenário, o deputado falou em perseguição política.",
+    nota:"A hipótese de que os investigados tentaram barrar a demolição não foi confirmada pela apuração, segundo as próprias fontes — o que está documentado é a consulta sobre a operação sigilosa, não o seu resultado. Em novembro o TRE-RJ indeferiu o registro da candidatura e determinou novo processamento da totalização dos votos, o que pode alterar a composição da Alerj e da Câmara.",
+    fontes:[
+      {t:"Deputado do Rio é alvo de operação por suspeita de vínculo com facção", u:"https://agenciabrasil.ebc.com.br/geral/noticia/2026-06/deputado-do-rio-e-alvo-de-operacao-por-suspeita-de-vinculo-com-faccao", v:"Agência Brasil", l:"institucional"},
+      {t:"Deputado do Rio é alvo de operação por ligação com a facção TCP", u:"https://www.correiobraziliense.com.br/politica/2026/06/7443600-deputado-do-rio-e-alvo-de-operacao-por-ligacao-com-a-faccao-tcp.html", v:"Correio Braziliense", l:"centro"},
+      {t:"MPRJ faz operação na Alerj contra deputado Val Ceasa por suposta ligação com facção", u:"https://revistaoeste.com/politica/mprj-faz-operacao-na-alerj-contra-deputado-val-ceasa-por-suposta-ligacao-com-faccao/", v:"Revista Oeste", l:"centro-direita"},
+      {t:"Deputado Val Ceasa é alvo do MPRJ por suspeita de tentar barrar demolição de ‘resort’ ligado ao traficante Peixão", u:"https://diariodorio.com/deputado-val-ceasa-e-alvo-do-mprj-por-suspeita-de-tentar-barrar-demolicao-de-resort-ligado-ao-traficante-peixao/", v:"Diário do Rio", l:"centro"},
+      {t:"TRE-RJ reconta votos e resultado pode mudar composição da Alerj e da Câmara dos Deputados", u:"https://www.camposemfoco.com.br/tre-rj-reconta-votos-e-resultado-pode-mudar-composicao-da-alerj-e-da-camara-dos-deputados/", v:"Campos em Foco", l:"centro"}
+    ]},
+
+  { id:"mage_japeri", tipo:"caso", corrida:"ALE", nome:"Licitações em Magé e Japeri", sub:"MPRJ · R$ 357,9 mi", status:"reu",
+    orgao:"MPRJ — buscas autorizadas pelo TJ-RJ", periodo:"2026",
+    resumo:"Em julho de 2026 o MPRJ denunciou dez pessoas por organização criminosa, fraude em licitações, falsidade ideológica e lavagem de dinheiro. Segundo a acusação, o deputado estadual Rafael Nobre e o vereador de São João de Meriti Magrão Nobre comandavam nos bastidores um conjunto de empresas que disputava licitações de forma irregular para garantir contratos com as prefeituras de Magé e Japeri, na Baixada Fluminense. O prejuízo estimado é de R$ 357,9 milhões; o Ministério Público pede condenação criminal, ressarcimento mínimo do mesmo valor e a perda dos dois mandatos. A Justiça autorizou dez mandados de busca, inclusive no gabinete do deputado na Alerj. A defesa nega qualquer vinculação com os fatos.",
+    nota:"É o maior valor de toda a camada estadual do grafo. As fontes divergem sobre o dinheiro apreendido: uma fala em R$ 21 mil na casa do deputado, outra em R$ 66 mil nas residências dos dois. Não localizei registro do recebimento da denúncia pela Justiça — denúncia oferecida não é denúncia aceita, e nenhuma das duas é condenação.",
+    fontes:[
+      {t:"Polícia faz buscas na Alerj e deputado estadual é denunciado por desvios", u:"https://www.cnnbrasil.com.br/politica/mp-denuncia-10-pessoas-por-fraude-em-licitacoes-e-lavagem-de-dinheiro-no-rj/", v:"CNN Brasil", l:"centro"},
+      {t:"Deputado Rafael Nobre é denunciado por fraude de R$ 357 milhões no RJ", u:"https://www.correiodamanha.com.br/estado-do-rio/2026/07/302668-deputado-rafael-nobre-e-denunciado-por-fraude-de-rs-357-milhoes-no-rj.html", v:"Correio da Manhã (RJ)", l:"centro"},
+      {t:"MPRJ denuncia deputado por fraude em contratos de R$ 357,9 milhões", u:"https://arede.info/cotidiano/661769/mprj-denuncia-deputado-por-fraude-em-contratos-de-r-3579-milhoes", v:"aRede", l:"centro"},
+      {t:"Alerj na mira: MPRJ denuncia deputado Rafael Nobre, vereador e mais oito por fraude e lavagem de dinheiro", u:"https://www.tribunadosertao.com.br/rj-em-foco/2026/07/16/940976-alerj-na-mira-mprj-denuncia-deputado-rafael-nobre-vereador-e-mais-oito-por-fraude-e-lavagem-de-dinheiro", v:"Tribuna do Sertão", l:"centro"}
     ]}
 ];
 
@@ -1676,7 +1754,20 @@ const LINKS = [
   { s:"thjoias", t:"zargun", st:"investigado", rel:"direto", rot:"Alvo da Zargun; teria sido alertado antes da operação" },
   { s:"macario", t:"bacellar", st:"citado", rel:"direto", rot:"Destinatário apontado das informações sigilosas" },
   { s:"moraes", t:"zargun", st:"judicial", rel:"judicial", rot:"Relator; converteu a preventiva do desembargador em cautelares" },
-  { s:"thjoias", t:"canella_cv", st:"citado", rel:"politico", rot:"Outro parlamentar fluminense apurado por elo com o Comando Vermelho" }
+  { s:"thjoias", t:"canella_cv", st:"citado", rel:"politico", rot:"Outro parlamentar fluminense apurado por elo com o Comando Vermelho" },
+
+  /* --- busca por nome nos estados sem resultado na varredura --- */
+  { s:"velloso", t:"graco", st:"investigado", rel:"direto", rot:"Destinou as emendas Pix; buscas no apartamento funcional e em Rio Branco" },
+  { s:"mazinho", t:"graco", st:"investigado", rel:"direto", rot:"Ex-prefeito de Sena Madureira no período do contrato de shows" },
+  { s:"velloso", t:"jrbetao", st:"citado", rel:"politico", rot:"Dois eleitos do Acre em 2026, cada um em um caso próprio" },
+  { s:"hermeto", t:"blackboard", st:"investigado", rel:"direto", rot:"MPDFT aponta emendas via PDAF a associação ligada a investigada; ele nega" },
+  { s:"torquato", t:"gratidao", st:"investigado", rel:"direto", rot:"Portaria do MPTO de agosto de 2026; sem valores informados" },
+  { s:"valceasa", t:"israel", st:"investigado", rel:"direto", rot:"R$ 166 mil apreendidos em casa; buscas na Alerj e na Ceasa" },
+  { s:"ulissesmarins", t:"israel", st:"investigado", rel:"direto", rot:"Ex-vereador, um dos três alvos dos 14 mandados" },
+  { s:"valceasa", t:"canella_cv", st:"citado", rel:"politico", rot:"Terceiro parlamentar fluminense apurado por elo com facção" },
+  { s:"rafaelnobre", t:"mage_japeri", st:"reu", rel:"direto", rot:"Denunciado com outras nove pessoas; busca no gabinete da Alerj" },
+  { s:"magraonobre", t:"mage_japeri", st:"reu", rel:"direto", rot:"Vereador apontado como sócio oculto das mesmas empresas" },
+  { s:"rafaelnobre", t:"magraonobre", st:"citado", rel:"negocio", rot:"MP pede a perda dos dois mandatos em caso de condenação" }
 ];
 
 /* ============================================================
@@ -2083,7 +2174,8 @@ function renderMethod(){
 
       <h4>Escopo</h4>
       <p>Chapas registradas para a Presidência e para os governos de São Paulo, Minas Gerais e Goiás na eleição de 4 de outubro de 2026, incluindo os candidatos a vice, e os deputados federais e estaduais eleitos em 2026 que aparecem em caso documentado. Candidatos de partidos sem casos documentados constam do grafo apenas quando aparecem em alguma ligação.</p>
-      <p>A camada estadual foi montada em duas passagens: primeiro os levantamentos nacionais publicados após a eleição, depois uma busca estado a estado. A segunda passagem localizou casos na Bahia, em Mato Grosso, Roraima, Paraíba e Minas Gerais, e <em>não</em> localizou nada em São Paulo, Rio Grande do Sul, Espírito Santo, Piauí, Rio Grande do Norte, Tocantins, Acre, Sergipe e no Distrito Federal. Ausência de resultado não é ausência de caso: significa que a imprensa local indexada não trouxe nada, e a densidade do grafo acompanha a densidade da cobertura jornalística de cada estado, não a incidência real.</p>
+      <p>A camada estadual foi montada em três passagens: primeiro os levantamentos nacionais publicados após a eleição, depois uma busca estado a estado e, por fim, uma busca por nome nos estados que a segunda passagem deixou vazios. A segunda localizou casos na Bahia, em Mato Grosso, Roraima, Paraíba e Minas Gerais. A terceira alcançou o Distrito Federal, o Tocantins e o Acre, e reabriu o Rio de Janeiro com dois casos que os levantamentos nacionais não traziam. Continuam sem nada localizado São Paulo, Rio Grande do Sul, Espírito Santo, Piauí e Sergipe. Ausência de resultado não é ausência de caso: significa que a imprensa local indexada não trouxe nada, e a densidade do grafo acompanha a densidade da cobertura jornalística de cada estado, não a incidência real.</p>
+      <p>Dois achados dessa terceira passagem ficaram <em>fora</em> do grafo, e o critério importa tanto quanto o que entrou. Um inquérito da PF contra um deputado estadual do Rio Grande do Norte por suspeita de integrar facção apareceu em um único blog local, com fontes não identificadas, sem confirmação oficial e sem acusação formal — abaixo do mínimo de duas fontes independentes que o grafo exige, e grave o bastante para que a dúvida pese contra incluí-lo. E um pedido de cassação contra um deputado paulista trata de violência contra ex-companheira: é matéria séria, mas não tem dimensão de recurso público, e entraria aqui apenas como ruído.</p>
       <p>A cobertura do Legislativo é <em>deliberadamente incompleta</em>, e não por escolha editorial: não existe cadastro nacional que reúna a situação criminal dos 513 deputados federais, dos 81 senadores e das 1.059 cadeiras estaduais. O grafo parte dos levantamentos publicados após a eleição — 69 eleitos ao Congresso e ao menos 75 eleitos no total, segundo UOL e O Brasilianista — e dos casos noticiados individualmente. Há, com certeza, nomes de fora.</p>
       <p>Atualizado em 15 de novembro de 2026, com o resultado dos dois turnos já apurado.</p>
     </div>`;
