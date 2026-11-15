@@ -280,9 +280,9 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
 <header>
   <div class="brand">
     <h1>Teia de Casos <span class="yr">2026</span></h1>
-    <span class="kicker">Eleições gerais · 4 de outubro</span>
+    <span class="kicker">Eleições gerais apuradas · atualizado em 15 nov. 2026</span>
   </div>
-  <p class="deck">Candidatos a presidente e a governador de <b>SP</b>, <b>MG</b> e <b>GO</b> ligados a casos de corrupção &mdash; diretamente ou através de parentes e pessoas próximas. A cor de cada ligação é a <b>situação jurídica</b>, não a acusação.</p>
+  <p class="deck">Eleitos e derrotados de 2026 &mdash; Presidência, governos de <b>SP</b>, <b>MG</b> e <b>GO</b>, <b>Câmara</b> e <b>assembleias estaduais</b> &mdash; ligados a casos de corrupção, diretamente ou através de parentes e pessoas próximas. A cor de cada ligação é a <b>situação jurídica</b>, não a acusação.</p>
   <div class="masthead-actions">
     <button class="btn" id="btn-method">Metodologia</button>
     <button class="btn" id="btn-fit">Enquadrar</button>
@@ -364,27 +364,35 @@ const STATUS = {
 };
 
 const RACES = {
-  PR:{ rot:"Presidência", sub:"13 chapas registradas", dy:-330 },
-  SP:{ rot:"São Paulo",   sub:"7 candidatos",          dy:-330 },
-  MG:{ rot:"Minas Gerais",sub:"11 candidatos",         dy:-330 },
-  GO:{ rot:"Goiás",       sub:"6 candidatos",          dy:-330 },
+  PR:{ rot:"Presidência", sub:"Lula reeleito no 2º turno · 51,79%", dy:-330 },
+  SP:{ rot:"São Paulo",   sub:"Tarcísio reeleito no 1º turno", dy:-330 },
+  MG:{ rot:"Minas Gerais",sub:"Cleitinho eleito no 1º turno", dy:-330 },
+  GO:{ rot:"Goiás",       sub:"Daniel Vilela reeleito no 1º turno", dy:-330 },
   STF:{ rot:"Supremo Tribunal Federal", sub:"10 ministros em atividade · 1 vaga aberta", dy:-235 }
 };
 
 const NODES = [
   /* ---------- PRESIDÊNCIA ---------- */
-  { id:"lula", tipo:"candidato", corrida:"PR", nome:"Lula", sub:"PT · presidente",
-    bio:"Luiz Inácio Lula da Silva, presidente desde 2023, concorre à reeleição com Geraldo Alckmin (PSB) como vice." },
+  { id:"lula", tipo:"candidato", corrida:"PR", nome:"Lula", sub:"PT · reeleito presidente",
+    bio:"Luiz Inácio Lula da Silva, presidente desde 2023, foi reeleito no segundo turno de 25 de outubro de 2026 com 51,79% dos votos válidos, contra 48,21% de Flávio Bolsonaro. Perdeu em São Paulo e em Goiás e venceu em Minas Gerais. Terá Geraldo Alckmin (PSB) outra vez como vice.",
+    fontes:[
+      {t:"Resultado oficial do 2º turno 2026: Lula reeleito e governadores", u:"https://pactopublico.org/resultado-segundo-turno", v:"Pacto Público", l:"institucional"},
+      {t:"O que definiu o resultado do segundo turno de 2026", u:"https://ranking.org.br/en/articles/resultado-segundo-turno-2026-lula-reeleito", v:"Ranking dos Políticos", l:"centro-direita"}
+    ] },
   { id:"alckmin", tipo:"candidato", corrida:"PR", nome:"Geraldo Alckmin", sub:"PSB · vice de Lula",
     bio:"Vice-presidente e ex-governador de São Paulo (1994–2006, 2011–2018)." },
-  { id:"flavio", tipo:"candidato", corrida:"PR", nome:"Flávio Bolsonaro", sub:"PL · senador",
-    bio:"Senador pelo Rio de Janeiro, filho mais velho de Jair Bolsonaro. Vice na chapa: Alfredo Gaspar (PL)." },
+  { id:"flavio", tipo:"candidato", corrida:"PR", nome:"Flávio Bolsonaro", sub:"PL · derrotado no 2º turno",
+    bio:"Senador pelo Rio de Janeiro, filho mais velho de Jair Bolsonaro. Foi ao segundo turno com Alfredo Gaspar (PL) e perdeu para Lula por 48,21% a 51,79% — venceu em São Paulo (53,85%) e em Goiás (59,66%). Mantém o mandato de senador e chegou ao fim da disputa com o inquérito do Banco Master em aberto: não houve denúncia da PGR, e sua defesa pediu ao STF a suspeição de Alexandre de Moraes.",
+    fontes:[
+      {t:"Flávio Bolsonaro disputa segundo turno com investigação do caso Banco Master em aberto", u:"https://grabois.org.br/2026/10/09/flavio-bolsonaro-segundo-turno-investigacao-banco-master/", v:"Fundação Maurício Grabois", l:"centro-esquerda"},
+      {t:"Caso Banco Master completa um ano e amplia desgaste no STF e repercussão política", u:"https://www.radiodamatafm.com.br/caso-banco-master-completa-um-ano-e-amplia-desgaste-no-stf-e-repercussao-politica/", v:"Rádio da Mata", l:"centro"}
+    ] },
   { id:"gaspar", tipo:"candidato", corrida:"PR", nome:"Alfredo Gaspar", sub:"PL · vice de Flávio",
     bio:"Deputado federal por Alagoas e ex-procurador. Foi o relator da CPMI do INSS." },
   { id:"zema", tipo:"candidato", corrida:"PR", nome:"Romeu Zema", sub:"NOVO · ex-gov. MG",
-    bio:"Governou Minas Gerais de 2019 a março de 2026, quando renunciou para disputar a Presidência." },
+    bio:"Governou Minas Gerais de 2019 a março de 2026, quando renunciou para disputar a Presidência. Não chegou ao segundo turno, decidido entre Lula e Flávio Bolsonaro." },
   { id:"caiado", tipo:"candidato", corrida:"PR", nome:"Ronaldo Caiado", sub:"PSD · ex-gov. GO",
-    bio:"Governou Goiás de 2019 a 2026, quando renunciou para disputar a Presidência. Vice: Gilberto Kassab." },
+    bio:"Governou Goiás de 2019 a 2026, quando renunciou para disputar a Presidência, com Gilberto Kassab como vice. Não chegou ao segundo turno." },
   { id:"kassab", tipo:"candidato", corrida:"PR", nome:"Gilberto Kassab", sub:"PSD · vice de Caiado",
     bio:"Presidente do PSD, ex-prefeito de São Paulo e ex-secretário de Governo de Tarcísio de Freitas." },
   { id:"marcal", tipo:"candidato", corrida:"PR", nome:"Pablo Marçal", sub:"PRTB · empresário",
@@ -395,8 +403,8 @@ const NODES = [
     bio:"Psiquiatra e escritor. Não foram localizados casos de corrupção associados ao candidato." },
 
   /* ---------- SÃO PAULO ---------- */
-  { id:"tarcisio", tipo:"candidato", corrida:"SP", nome:"Tarcísio de Freitas", sub:"Republicanos · governador",
-    bio:"Governador de São Paulo desde 2023, candidato à reeleição. Foi ministro da Infraestrutura (2019–2022) e diretor do DNIT (2012–2014)." },
+  { id:"tarcisio", tipo:"candidato", corrida:"SP", nome:"Tarcísio de Freitas", sub:"Republicanos · reeleito governador",
+    bio:"Governador de São Paulo desde 2023, reeleito no primeiro turno de 2026 com cerca de 62,7% dos votos. Foi ministro da Infraestrutura (2019–2022) e diretor do DNIT (2012–2014)." },
   { id:"ramuth", tipo:"candidato", corrida:"SP", nome:"Felício Ramuth", sub:"MDB · vice de Tarcísio",
     bio:"Vice-governador de São Paulo e ex-prefeito de São José dos Campos. Sem casos de corrupção localizados." },
   { id:"haddad", tipo:"candidato", corrida:"SP", nome:"Fernando Haddad", sub:"PT · ministro",
@@ -406,9 +414,12 @@ const NODES = [
 
   /* ---------- MINAS GERAIS ---------- */
   { id:"simoes", tipo:"candidato", corrida:"MG", nome:"Mateus Simões", sub:"PSD · governador",
-    bio:"Assumiu o governo de Minas em março de 2026, após a renúncia de Romeu Zema, de quem era vice." },
-  { id:"cleitinho", tipo:"candidato", corrida:"MG", nome:"Cleitinho Azevedo", sub:"Republicanos · senador",
-    bio:"Senador por Minas Gerais desde 2023. Responde a queixas-crime por ofensas — não a casos de corrupção." },
+    bio:"Assumiu o governo de Minas em março de 2026, após a renúncia de Romeu Zema, de quem era vice. Foi derrotado na eleição de outubro por Cleitinho Azevedo, que venceu no primeiro turno." },
+  { id:"cleitinho", tipo:"candidato", corrida:"MG", nome:"Cleitinho Azevedo", sub:"Republicanos · governador eleito",
+    bio:"Senador por Minas Gerais desde 2023, eleito governador do estado no primeiro turno de 2026 com 55,40% dos votos. Responde a queixas-crime por ofensas — não a casos de corrupção.",
+    fontes:[
+      {t:"Veja os governadores eleitos nos 26 Estados e no Distrito Federal", u:"https://www.congressoemfoco.com.br/noticia/123468/veja-os-governadores-eleitos-nos-26-estados-e-no-distrito-federal", v:"Congresso em Foco", l:"centro"}
+    ] },
   { id:"kalil", tipo:"candidato", corrida:"MG", nome:"Alexandre Kalil", sub:"PDT · ex-prefeito BH",
     bio:"Prefeito de Belo Horizonte de 2017 a 2022 e ex-presidente do Atlético Mineiro." },
   { id:"patrus", tipo:"candidato", corrida:"MG", nome:"Patrus Ananias", sub:"PT · deputado federal",
@@ -419,8 +430,8 @@ const NODES = [
     bio:"Ex-vereador de Belo Horizonte. Sem casos de corrupção localizados." },
 
   /* ---------- GOIÁS ---------- */
-  { id:"vilela", tipo:"candidato", corrida:"GO", nome:"Daniel Vilela", sub:"MDB · governador",
-    bio:"Assumiu o governo de Goiás com a renúncia de Ronaldo Caiado, de quem era vice. Filho do ex-governador Maguito Vilela." },
+  { id:"vilela", tipo:"candidato", corrida:"GO", nome:"Daniel Vilela", sub:"MDB · reeleito governador",
+    bio:"Assumiu o governo de Goiás com a renúncia de Ronaldo Caiado, de quem era vice, e foi reeleito no primeiro turno de 2026 com 59,17% dos votos. Filho do ex-governador Maguito Vilela." },
   { id:"perillo", tipo:"candidato", corrida:"GO", nome:"Marconi Perillo", sub:"PSDB · ex-governador",
     bio:"Governou Goiás por quatro mandatos e foi senador. É o candidato com o histórico judicial mais extenso da disputa." },
   { id:"wilder", tipo:"candidato", corrida:"GO", nome:"Wilder Morais", sub:"PL · senador",
@@ -430,7 +441,7 @@ const NODES = [
 
   /* ---------- PESSOAS ---------- */
   { id:"jair", tipo:"pessoa", corrida:"PR", nome:"Jair Bolsonaro", sub:"pai de Flávio",
-    bio:"Presidente da República de 2019 a 2022. Condenado pelo STF em 2025 pela trama golpista." },
+    bio:"Presidente da República de 2019 a 2022. Condenado pelo STF em 2025 pela trama golpista, com trânsito em julgado declarado em 25 de novembro de 2025. Preso desde 22 de novembro de 2025, cumpre prisão domiciliar humanitária concedida em março de 2026 por um quadro de broncopneumonia. A defesa protocolou revisão criminal, e a Lei da Dosimetria, sancionada em 8 de maio de 2026, abriu caminho para pedido de redução da pena." },
   { id:"carlosb", tipo:"pessoa", corrida:"PR", nome:"Carlos Bolsonaro", sub:"irmão de Flávio",
     bio:"Ex-vereador do Rio de Janeiro." },
   { id:"eduardob", tipo:"pessoa", corrida:"PR", nome:"Eduardo Bolsonaro", sub:"irmão de Flávio",
@@ -521,25 +532,30 @@ const NODES = [
     bio:"Ex-governador do Maranhão e ex-ministro da Justiça de Lula; tomou posse em fevereiro de 2024. Relator das ações sobre emendas parlamentares — foi ele quem determinou a investigação sobre Wilder Morais. Integrou a Primeira Turma que condenou Bolsonaro." },
   { id:"vaga", tipo:"ministro", corrida:"STF", nome:"Vaga aberta", sub:"desde outubro de 2025", vaga:true,
     cargo:"Cadeira vaga", indicadoPor:"—", ano:null,
-    bio:"Cadeira deixada por Luís Roberto Barroso, que se aposentou antecipadamente em outubro de 2025. Lula indicou o então advogado-geral da União Jorge Messias, aprovado na CCJ por 16 a 11 — mas rejeitado pelo plenário do Senado em abril de 2026, a primeira rejeição de uma indicação ao STF em 132 anos.",
+    bio:"Cadeira deixada por Luís Roberto Barroso, que se aposentou antecipadamente em outubro de 2025. Lula indicou o então advogado-geral da União Jorge Messias, aprovado na CCJ por 16 a 11 — mas rejeitado pelo plenário do Senado por 42 a 34 em abril de 2026, a primeira rejeição de uma indicação ao STF em 132 anos. Lula anunciou que reenviaria o nome, mas o Ato da Mesa 1/2010 do Senado impede nova votação do mesmo indicado no mesmo ano legislativo. Em 13 de novembro de 2026 passou a avaliar alternativas — o ex-senador Rodrigo Pacheco e ministras do STJ —, enquanto Fachin defende publicamente a indicação de uma mulher negra. A cadeira segue vaga, treze meses depois.",
     fontes:[
       {t:"Indicação de Jorge Messias ao STF é rejeitada pelo Senado", u:"https://www12.senado.leg.br/noticias/materias/2026/04/29/indicacao-de-jorge-messias-ao-stf-e-rejeitada-pelo-senado", v:"Senado Notícias", l:"institucional"},
       {t:"Quem indicou e quando se aposenta cada ministro do STF", u:"https://www.em.com.br/politica/2026/09/7499899-quem-indicou-e-quando-se-aposenta-cada-ministro-do-stf.html", v:"Estado de Minas", l:"centro"},
-      {t:"Composição Atual do STF", u:"https://portal.stf.jus.br/textos/verTexto.asp?servico=bibliotecaConsultaProdutoBibliotecaPastaMinistro&pagina=ComposicaoAtual", v:"STF", l:"institucional"}
+      {t:"Composição Atual do STF", u:"https://portal.stf.jus.br/textos/verTexto.asp?servico=bibliotecaConsultaProdutoBibliotecaPastaMinistro&pagina=ComposicaoAtual", v:"STF", l:"institucional"},
+      {t:"Jorge Messias é primeiro indicado ao STF rejeitado em 132 anos", u:"https://www.congressoemfoco.com.br/noticia/118417/jorge-messias-e-primeiro-indicado-ao-stf-rejeitado-em-132-anos", v:"Congresso em Foco", l:"centro"},
+      {t:"Lula recua de Messias e avalia Pacheco ou mulher para vaga no STF", u:"https://tvsimbrasil.com.br/brasil/politica/noticia/2026/11/13/lula-recua-messias-avalia-pacheco-mulher-stf", v:"TV Sim Brasil", l:"centro"}
     ] },
   { id:"wagner", tipo:"pessoa", corrida:"PR", nome:"Jaques Wagner", sub:"líder do governo Lula no Senado",
     bio:"Senador pela Bahia e líder do governo Lula no Senado no período apurado." },
 
   /* ---------- CASOS ---------- */
   { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
-    orgao:"STF — Primeira Turma", periodo:"2022–2025",
-    resumo:"O STF condenou Jair Bolsonaro e outros sete réus por tentativa de abolição do Estado Democrático de Direito e golpe de Estado. Pena: 27 anos e 3 meses em regime fechado. Recursos foram rejeitados por unanimidade em novembro de 2025; a pena só começa a correr após o trânsito em julgado.",
-    nota:"Não é um caso de corrupção patrimonial, mas é o processo criminal de maior peso na rede — e a razão pela qual Jair Bolsonaro não é candidato.",
+    orgao:"STF — Primeira Turma", periodo:"2022–2026",
+    resumo:"O STF condenou Jair Bolsonaro e outros sete réus por tentativa de abolição do Estado Democrático de Direito e golpe de Estado. Pena: 27 anos e 3 meses em regime fechado. Os recursos foram rejeitados por unanimidade e a Primeira Turma declarou o trânsito em julgado em 25 de novembro de 2025, iniciando a execução. Bolsonaro está preso desde 22 de novembro de 2025 e, em março de 2026, obteve prisão domiciliar humanitária por doença; os generais Heleno, Braga Netto e Paulo Sérgio também passaram a cumprir pena. Em 2026 a defesa apresentou revisão criminal, e a Lei da Dosimetria, sancionada em 8 de maio, permite pedir redução da pena.",
+    nota:"Não é um caso de corrupção patrimonial, mas é o processo criminal de maior peso na rede — e a razão pela qual Jair Bolsonaro não foi candidato em 2026, cedendo a vaga ao filho Flávio.",
     fontes:[
       {t:"STF concluiu julgamento de ações contra réus que planejaram golpe de Estado", u:"https://noticias.stf.jus.br/postsnoticias/stf-concluiu-julgamento-de-acoes-contra-reus-que-planejaram-golpe-de-estado/", v:"STF", l:"institucional"},
       {t:"Por 4 a 1, STF condena Bolsonaro e mais sete pela trama golpista", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2025-09/por-4-1-stf-condena-bolsonaro-e-mais-sete-pela-trama-golpista", v:"Agência Brasil", l:"institucional"},
       {t:"STF rejeita recurso e mantém condenação de Bolsonaro na trama golpista", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2025-11/stf-rejeita-recurso-e-mantem-condenacao-de-bolsonaro-na-trama-golpista", v:"Agência Brasil", l:"institucional"},
-      {t:"De candidato a prisão: os detalhes da trajetória de Jair Bolsonaro", u:"https://apublica.org/2025/09/retrospectiva-jair-bolsonaro-completa-de-candidato-a-condenado/", v:"Agência Pública", l:"centro-esquerda"}
+      {t:"De candidato a prisão: os detalhes da trajetória de Jair Bolsonaro", u:"https://apublica.org/2025/09/retrospectiva-jair-bolsonaro-completa-de-candidato-a-condenado/", v:"Agência Pública", l:"centro-esquerda"},
+      {t:"1ª Turma do Supremo confirma condenação definitiva de Bolsonaro", u:"https://conjur.com.br/2025-nov-25/1a-turma-do-supremo-confirma-condenacao-definitiva-de-bolsonaro/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Ex-presidente Bolsonaro apresenta revisão criminal contra condenação", u:"https://noticias.stf.jus.br/postsnoticias/ex-presidente-bolsonaro-apresenta-revisao-criminal-contra-condenacao-por-tentativa-de-golpe-de-estado/", v:"STF", l:"institucional"},
+      {t:"Prisão de Jair Bolsonaro — verbete", u:"https://pt.wikipedia.org/wiki/Pris%C3%A3o_de_Jair_Bolsonaro", v:"Wikipédia", l:"centro"}
     ]},
   { id:"joias", tipo:"caso", corrida:"PR", nome:"Joias sauditas", sub:"PF · STF", status:"encerrado",
     orgao:"PF / PGR / STF", periodo:"2023–2026",
@@ -657,7 +673,7 @@ const NODES = [
   { id:"banco_master", tipo:"caso", corrida:"PR", nome:"Escândalo do Banco Master", sub:"PF · Op. Compliance Zero", status:"investigado",
     orgao:"Polícia Federal / Banco Central / STF", periodo:"2024–2026",
     resumo:"Em 18 de novembro de 2025 o Banco Central decretou a liquidação extrajudicial do Master e a PF deflagrou a Operação Compliance Zero, prendendo Daniel Vorcaro quando ele tentava deixar o país. A apuração aponta fabricação de carteiras de crédito inexistentes para esconder um rombo estimado em R$ 52 bilhões — o maior acionado no Fundo Garantidor de Créditos desde o Bamerindus. A quebra de sigilos revelou uma rede de pagamentos e contatos que atravessa todos os campos: o escritório da mulher de Alexandre de Moraes firmou contrato de R$ 131 milhões com o banco; a PF aponta vantagens indevidas ao senador Jaques Wagner (PT), então líder do governo no Senado; há pagamentos declarados a Michel Temer, Guido Mantega, Ricardo Lewandowski e ACM Neto, emenda de Ciro Nogueira (PP) que elevaria a cobertura do FGC, e o financiamento do filme “Dark Horse”, pelo qual Flávio Bolsonaro é investigado. Todos os citados negam irregularidades.",
-    nota:"É o caso mais transversal da rede — atinge PT, PL, PP, MDB, União Brasil e o próprio Supremo. Estão desenhados aqui apenas os vínculos com atores já presentes no grafo; os demais nomes ficam no texto. A delação rejeitada de Vorcaro, que atinge Kassab e Tarcísio, é um episódio à parte e tem nó próprio.",
+    nota:"Um ano depois da liquidação, o caso continua em inquérito: a PGR não denunciou Flávio Bolsonaro, que é apurado no INQ 5.070 por repasses de R$ 61 milhões atribuídos a Vorcaro, e sua defesa pediu a suspeição de Moraes. É o caso mais transversal da rede — atinge PT, PL, PP, MDB, União Brasil e o próprio Supremo. Estão desenhados aqui apenas os vínculos com atores já presentes no grafo; os demais nomes ficam no texto. A delação rejeitada de Vorcaro, que atinge Kassab e Tarcísio, é um episódio à parte e tem nó próprio.",
     fontes:[
       {t:"Toffoli deixa relatoria de investigação sobre o Banco Master", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2026-02/toffoli-deixa-relatoria-de-investigacao-sobre-o-banco-master", v:"Agência Brasil", l:"institucional"},
       {t:"STF divulga contrato de R$ 131 milhões entre mulher de Moraes e Master", u:"https://www.metropoles.com/brasil/stf-divulga-contrato-de-r-131-milhoes-entre-mulher-de-moraes-e-master", v:"Metrópoles", l:"centro"},
@@ -668,7 +684,9 @@ const NODES = [
       {t:"Sem explicar dinheiro de Vorcaro, Flávio Bolsonaro diz que Dark Horse é “página virada”", u:"https://www.brasildefato.com.br/2026/08/20/sem-explicar-dinheiro-de-vorcaro-e-do-banco-master-flavio-bolsonaro-diz-que-dark-horse-e-pagina-virada/", v:"Brasil de Fato", l:"centro-esquerda"},
       {t:"Leia a íntegra do contrato de R$ 131 mi entre o Master e a mulher de Moraes", u:"https://revistaoeste.com/politica/leia-a-integra-do-contrato-de-r-131-mi-entre-o-master-e-a-mulher-de-moraes/", v:"Revista Oeste", l:"centro-direita"},
       {t:"Dias Toffoli decide deixar relatoria do caso do Banco Master", u:"https://conjur.com.br/2026-fev-12/dias-toffoli-decide-deixar-relatoria-do-caso-do-banco-master/", v:"Consultor Jurídico", l:"centro"},
-      {t:"Escândalo do Banco Master — verbete", u:"https://pt.wikipedia.org/wiki/Esc%C3%A2ndalo_do_Banco_Master", v:"Wikipédia", l:"centro"}
+      {t:"Escândalo do Banco Master — verbete", u:"https://pt.wikipedia.org/wiki/Esc%C3%A2ndalo_do_Banco_Master", v:"Wikipédia", l:"centro"},
+      {t:"Escândalo do Master extrapola política e põe STF sob suspeita inédita", u:"https://paraibaonline.com.br/brasil/2026/11/15/escandalo-do-master-extrapola-politica-e-poe-stf-sob-suspeita-inedita/", v:"Paraíba Online", l:"centro"},
+      {t:"STF abre inquérito para investigar Flávio Bolsonaro por repasses ligados ao Banco Master", u:"https://www.portalsalvadorfm.com.br/politica/stf-abre-inquerito-para-investigar-flavio-bolsonaro-por-repasses-ligados-ao-banco-master/", v:"Salvador FM", l:"centro"}
     ]},
   { id:"coffee", tipo:"caso", corrida:"SP", nome:"Operação Coffee Break", sub:"PF · CGU", status:"investigado",
     orgao:"Polícia Federal / CGU", periodo:"2025–2026",
