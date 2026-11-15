@@ -1777,6 +1777,8 @@ function renderMethod(){
   const c = nodes.filter(d => d.tipo === "candidato").length;
   const p = nodes.filter(d => d.tipo === "pessoa").length;
   const m = nodes.filter(d => d.tipo === "ministro" && !d.vaga).length;
+  const df = nodes.filter(d => d.tipo === "parlamentar" && d.corrida === "CAM").length;
+  const de = nodes.filter(d => d.tipo === "parlamentar" && d.corrida === "ALE").length;
   const todas = nodes.flatMap(d => d.fontes || []);
   const veiculos = new Set(todas.map(f => f.v)).size;
 
@@ -1784,7 +1786,11 @@ function renderMethod(){
     <div class="d-eyebrow">Como este grafo foi montado</div>
     <h2 class="d-title">Metodologia</h2>
     <div class="method">
-      <p class="d-body"><strong>${c}</strong> candidatos, <strong>${p}</strong> pessoas próximas, <strong>${m}</strong> ministros do STF e <strong>${n}</strong> casos, apoiados em <strong>${todas.length}</strong> reportagens e documentos de <strong>${veiculos}</strong> veículos distintos.</p>
+      <p class="d-body"><strong>${c}</strong> candidatos ao Executivo, <strong>${df}</strong> deputados federais, <strong>${de}</strong> deputados estaduais, <strong>${p}</strong> pessoas próximas, <strong>${m}</strong> ministros do STF e <strong>${n}</strong> casos, apoiados em <strong>${todas.length}</strong> reportagens e documentos de <strong>${veiculos}</strong> veículos distintos.</p>
+
+      <h4>Os parlamentares</h4>
+      <p>Os hexágonos são deputados — federais, no recorte <b>Câmara</b>, e estaduais, no recorte <b>Assembleias</b>. Entram aqui os eleitos, reeleitos ou cassados de 2026 cujo nome aparece em caso documentado, não a bancada inteira. Dois nós são de <em>agregação</em>: “Fraude em licitações — réus na Câmara” e “Emendas sob rastreio no STF” reúnem processos distintos sob a mesma acusação, para mostrar a escala — não são um único processo, e estão rotulados como tais.</p>
+      <p>Emenda parlamentar não é irregularidade: o que as operações apuram é a cobrança de propina ou o direcionamento de contratos por quem indica o recurso. O caso do Maranhão, única condenação criminal por venda de emendas na rede, é o parâmetro do que precisa ser provado.</p>
 
       <h4>Os ministros do STF</h4>
       <p>Cada ministro traz, na própria etiqueta, <em>quem o indicou e em que ano</em>. O grafo mostra o dado e para por aí: não existe aresta ligando ministro a quem o nomeou, porque a indicação não é prova de alinhamento — quem quiser ler um padrão nas etiquetas lê por conta própria.</p>
@@ -1820,7 +1826,9 @@ function renderMethod(){
       </ul>
 
       <h4>Escopo</h4>
-      <p>Chapas registradas para a Presidência e para os governos de São Paulo, Minas Gerais e Goiás na eleição de 4 de outubro de 2026, incluindo os candidatos a vice. Candidatos de partidos sem casos documentados constam do grafo apenas quando aparecem em alguma ligação.</p>
+      <p>Chapas registradas para a Presidência e para os governos de São Paulo, Minas Gerais e Goiás na eleição de 4 de outubro de 2026, incluindo os candidatos a vice, e os deputados federais e estaduais eleitos em 2026 que aparecem em caso documentado. Candidatos de partidos sem casos documentados constam do grafo apenas quando aparecem em alguma ligação.</p>
+      <p>A cobertura do Legislativo é <em>deliberadamente incompleta</em>, e não por escolha editorial: não existe cadastro nacional que reúna a situação criminal dos 513 deputados federais e das 1.059 cadeiras estaduais. O grafo parte dos levantamentos publicados após a eleição — 69 eleitos ao Congresso e ao menos 75 eleitos no total, segundo UOL e O Brasilianista — e dos casos noticiados individualmente. Há, com certeza, nomes de fora.</p>
+      <p>Atualizado em 15 de novembro de 2026, com o resultado dos dois turnos já apurado.</p>
     </div>`;
 }
 
