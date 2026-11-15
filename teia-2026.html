@@ -298,6 +298,7 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
     <button class="chip" data-race="MG" aria-pressed="false">Minas Gerais</button>
     <button class="chip" data-race="GO" aria-pressed="false">Goiás</button>
     <button class="chip" data-race="CAM" aria-pressed="false">Câmara</button>
+    <button class="chip" data-race="ALE" aria-pressed="false">Assembleias</button>
     <button class="chip" data-race="STF" aria-pressed="false">Supremo</button>
   </div>
   <div class="ctl-group">
@@ -332,7 +333,7 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="var(--panel-2)" stroke="var(--ink)" stroke-width="2"/></svg>Candidato 2026</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="3.6" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="1.4"/></svg>Parente / pessoa próxima</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="5" y="1.5" width="11" height="11" rx="2" fill="var(--st-investigado)" fill-opacity=".22" stroke="var(--st-investigado)" stroke-width="1.6"/></svg>Caso / operação</div>
-      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><polygon points="16,7 13.5,11.3 8.5,11.3 6,7 8.5,2.7 13.5,2.7" fill="var(--panel-2)" stroke="var(--ink-2)" stroke-width="1.6"/></svg>Deputado federal</div>
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><polygon points="16,7 13.5,11.3 8.5,11.3 6,7 8.5,2.7 13.5,2.7" fill="var(--panel-2)" stroke="var(--ink-2)" stroke-width="1.6"/></svg>Deputado federal ou estadual</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="6.5" y="3" width="9" height="9" rx="1" transform="rotate(45 11 7.5)" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"/></svg>Ministro do STF</div>
     </div>
     </div>
@@ -371,6 +372,7 @@ const RACES = {
   MG:{ rot:"Minas Gerais",sub:"Cleitinho eleito no 1º turno", dy:-330 },
   GO:{ rot:"Goiás",       sub:"Daniel Vilela reeleito no 1º turno", dy:-330 },
   CAM:{ rot:"Câmara dos Deputados", sub:"ao menos 69 eleitos réus ou investigados", dy:-300 },
+  ALE:{ rot:"Assembleias Legislativas", sub:"1.059 cadeiras · nenhum cadastro nacional de processos", dy:-300 },
   STF:{ rot:"Supremo Tribunal Federal", sub:"10 ministros em atividade · 1 vaga aberta", dy:-235 }
 };
 
@@ -585,6 +587,37 @@ const NODES = [
     bio:"Deputado federal por Alagoas, reeleito em 2026. É réu por peculato: cerca de R$ 242 mil em verba de gabinete teriam sido justificados com notas fiscais falsas no período em que era deputado estadual." },
   { id:"jrbetao", tipo:"parlamentar", corrida:"CAM", nome:"Júnior Betão", sub:"PL · AC · eleito",
     bio:"Eleito deputado federal pelo Acre em 2026. Foi condenado em primeira instância por peculato na Operação Sanguessuga, o escândalo das ambulâncias; o recurso subiu ao STF com a diplomação." },
+
+  /* ---------- DEPUTADOS ESTADUAIS ---------- */
+  { id:"bacellar", tipo:"parlamentar", corrida:"ALE", nome:"Rodrigo Bacellar", sub:"União Brasil · RJ · cassado",
+    bio:"Ex-presidente da Assembleia Legislativa do Rio. Preso pela primeira vez em 3 de dezembro de 2025 — a Alerj chegou a revogar a preventiva por 42 a 21 —, teve o mandato cassado pelo TSE em 24 de março de 2026 no caso Ceperj e foi preso outra vez três dias depois, já sem foro. Está no Instituto Penal Coronel PM Francisco Spargoli Rocha, em Niterói, após passar pelo presídio federal de Mossoró." },
+  { id:"rangel", tipo:"parlamentar", corrida:"ALE", nome:"Thiago Rangel", sub:"Avante · RJ",
+    bio:"Deputado estadual do Rio, preso em 5 de maio de 2026 na quarta fase da Operação Unha e Carne. Segundo a decisão, atuava como um dos braços da organização apontada como liderada por Bacellar. A defesa nega irregularidades." },
+  { id:"canella", tipo:"parlamentar", corrida:"ALE", nome:"Márcio Canella", sub:"RJ · eleito com 197 mil votos",
+    bio:"Eleito deputado estadual do Rio com 197.178 votos e preso em 15 de outubro de 2026, na oitava fase da Unha e Carne. O Ministério Público Eleitoral pediu ao TSE a anulação de seu registro por supostos vínculos com milícias e com o Comando Vermelho; o TRE-RJ havia mantido a candidatura por 6 a 1. A defesa chama a acusação de “narrativa estapafúrdia”.",
+    fontes:[
+      {t:"MP pede que Justiça barre eleição de Canella no Rio por relação com milícias e o CV", u:"https://jornaldebrasilia.com.br/noticias/politica-e-poder/mp-pede-que-justica-barre-eleicao-de-canella-no-rio-por-relacao-com-milicias-e-o-cv/", v:"Jornal de Brasília", l:"centro"},
+      {t:"MPE pede anulação da candidatura de Márcio Canella, aliado de Flávio, por elo com milícias e CV", u:"https://revistaforum.com.br/politica/canella-anulacao-candidatura-elo-milicia-cv/", v:"Revista Fórum", l:"centro-esquerda"},
+      {t:"TRE-RJ mantém candidatura de Márcio Canella após suspeita de ligação com milícias", u:"https://capitalfmradio.com.br/tre-rj-mantem-candidatura-de-marcio-canella-adeputado-estadual-apos-suspeita-de-ligacao-com-milicias/", v:"Rádio Capital FM", l:"centro"}
+    ] },
+  { id:"aldilene", tipo:"parlamentar", corrida:"ALE", nome:"Aldilene Souza", sub:"PDT · AP · reeleita",
+    bio:"Deputada estadual do Amapá, reeleita em 2026 para o mandato de 2027 a 2030. Alvo da Operação Gabinete Empresarial em 11 de novembro de 2026. Em nota, afirmou que a apuração envolve exclusivamente questões de natureza empresarial e privada, sem ligação com suas atividades legislativas." },
+  { id:"alessandro", tipo:"pessoa", corrida:"ALE", nome:"Alessandro Monteiro", sub:"vereador, marido de Aldilene",
+    bio:"Vereador em Macapá, preso em flagrante durante a Operação Gabinete Empresarial, quando foram encontradas seis barras de ouro. Deixou a prisão após pagar R$ 150 mil de fiança." },
+  { id:"vasques", tipo:"parlamentar", corrida:"ALE", nome:"Felipe Vasques", sub:"CE · eleito",
+    bio:"Eleito deputado estadual pelo Ceará e alvo de uma operação da PF menos de 24 horas depois da eleição. Já havia sido alvo da Operação Aletheia, sobre fraude em licitações, em setembro de 2026." },
+  { id:"jeanoliveira", tipo:"parlamentar", corrida:"ALE", nome:"Jean Oliveira", sub:"RO · condenado",
+    bio:"Eleito deputado estadual por Rondônia mesmo condenado por corrupção passiva a 4 anos, 4 meses e 15 dias em regime semiaberto, mais multa, por fatos de 2011. A Câmara Especial do TJ-RO manteve a condenação e a perda do mandato." },
+  { id:"araujo", tipo:"parlamentar", corrida:"ALE", nome:"Delegado Araújo", sub:"RO · eleito",
+    bio:"Arismar Araújo de Lima, eleito deputado estadual por Rondônia. Teve as contas de 2023 como prefeito de Pimenta Bueno rejeitadas, com cerca de R$ 1 milhão retido; o caso foi encaminhado à Justiça Eleitoral, ao Ministério Público e ao Tribunal de Contas." },
+  { id:"mauromoraes", tipo:"parlamentar", corrida:"ALE", nome:"Mauro Moraes", sub:"PL · PR",
+    bio:"Deputado estadual do Paraná e candidato à reeleição, abordado pela PF em 2 de outubro de 2026 numa operação dentro de uma agência bancária da própria Assembleia — dois dias antes do primeiro turno." },
+  { id:"leonardodias", tipo:"parlamentar", corrida:"ALE", nome:"Leonardo Dias", sub:"ex-deputado · PE",
+    bio:"Ex-deputado estadual de Pernambuco, filiado ao PSB à época dos fatos apurados, investigado na Operação Draft. Era secretário-executivo de Micro e Pequena Empresa quando a operação foi deflagrada; a governadora Raquel Lyra o exonerou em seguida." },
+  { id:"romariodias", tipo:"pessoa", corrida:"ALE", nome:"Romário Dias", sub:"pai de Leonardo · ex-presidente da Alepe",
+    bio:"Ex-presidente da Assembleia Legislativa de Pernambuco e ex-conselheiro do Tribunal de Contas do estado, também investigado na Operação Draft." },
+  { id:"ulisses", tipo:"parlamentar", corrida:"ALE", nome:"Ulisses Gabriel", sub:"SC · eleito",
+    bio:"Delegado eleito deputado estadual por Santa Catarina. Responde a ação de improbidade administrativa pela condução pública do caso do cão Orelha, quando chefiava a Polícia Civil; o Ministério Público pede multa e indenização. Não é caso criminal de corrupção." },
 
   /* ---------- CASOS ---------- */
   { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
@@ -1084,6 +1117,96 @@ const NODES = [
     fontes:[
       {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
       {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  /* ---------- CASOS DAS ASSEMBLEIAS ---------- */
+  { id:"unha_carne", tipo:"caso", corrida:"ALE", nome:"Operação Unha e Carne", sub:"PF · STF · Alerj e Seeduc", status:"reu",
+    orgao:"Polícia Federal / STF — relator Alexandre de Moraes", periodo:"2025–2026",
+    resumo:"A maior apuração sobre uma assembleia estadual no país. A PF aponta uma organização liderada, segundo a decisão judicial, por Rodrigo Bacellar quando presidia a Alerj: direcionamento de obras e compras na Secretaria Estadual de Educação (Seeduc) em troca de apoio político e de financiamento ilícito de campanhas, com lavagem através de uma rede de postos de combustíveis. A primeira fase prendeu Bacellar em dezembro de 2025; a quarta prendeu o deputado Thiago Rangel em maio de 2026; a quinta alcançou o pastor Márcio Poncio e o bicheiro “Adilsinho”; a sexta, em julho, mirou os postos; a oitava prendeu Márcio Canella em outubro, onze dias depois de ele ser eleito. O TRF2 tornou deputados da Alerj réus e negou a suspensão das preventivas.",
+    nota:"É o espelho estadual do que a Make Up e a Overclean apuram no Congresso — e a mesma casa legislativa do caso das rachadinhas de Flávio Bolsonaro, por fatos e períodos distintos.",
+    fontes:[
+      {t:"Operação Unha e Carne — verbete", u:"https://pt.wikipedia.org/wiki/Opera%C3%A7%C3%A3o_Unha_e_Carne", v:"Wikipédia", l:"centro"},
+      {t:"Moraes manda prender deputado e mira esquema de corrupção na Alerj", u:"https://www.correiobraziliense.com.br/politica/2026/05/7412666-moraes-manda-prender-deputado-e-mira-esquema-de-corrupcao-na-alerj.html", v:"Correio Braziliense", l:"centro"},
+      {t:"Polícia Federal prende deputado estadual por fraude e desvio no RJ", u:"https://www.correiobraziliense.com.br/politica/2026/05/7412573-policia-federal-prende-deputado-estadual-por-fraude-e-desvio-no-rj.html", v:"Correio Braziliense", l:"centro"},
+      {t:"Operação Unha e Carne: PF mira fraudes na Educação do Rio", u:"https://revistaforum.com.br/politica/operacao-unha-e-carne-educacao-rio/", v:"Revista Fórum", l:"centro-esquerda"},
+      {t:"PF deflagra 6ª fase da Unha e Carne contra esquema bilionário de lavagem no RJ", u:"https://natividadefm.com.br/2026/07/07/pf-deflagra-6a-fase-da-operacao-unha-e-carne-contra-esquema-bilionario-de-lavagem-de-dinheiro-no-rj/", v:"Natividade FM", l:"centro"}
+    ]},
+  { id:"ceperj", tipo:"caso", corrida:"ALE", nome:"Caso Ceperj", sub:"TSE · cassação", status:"condenado",
+    orgao:"TSE", periodo:"2022–2026",
+    resumo:"Em 24 de março de 2026 o TSE julgou, por 5 a 2, as irregularidades em contratações da fundação Ceperj e da Uerj durante o governo de Cláudio Castro. O governador e o vice Thiago Pampolha ficaram inelegíveis por oito anos, e a Corte anulou o mandato de deputado estadual de Rodrigo Bacellar pelos mesmos fatos. A perda do mandato derrubou o foro que obrigava a Alerj a referendar medidas cautelares — e abriu caminho para a prisão de Bacellar três dias depois.",
+    nota:"Decisão eleitoral, não criminal: cassa e torna inelegível, mas não impõe pena de prisão. Seu efeito prático aqui foi retirar a proteção institucional do investigado.",
+    fontes:[
+      {t:"PF prende novamente Rodrigo Bacellar, ex-presidente da Alerj", u:"https://www.gazetadopovo.com.br/republica/pf-prende-novamente-rodrigo-bacellar-ex-presidente-da-alerj/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"Rodrigo Bacellar é preso após cassação e perda de foro privilegiado", u:"https://painelpolitico.com/rodrigo-bacellar-e-preso-apos-cassacao-2", v:"Painel Político", l:"centro"},
+      {t:"Cassado e preso: Bacellar volta a ser alvo da Polícia Federal", u:"https://www.portalviu.com.br/brasil/cassado-e-preso-bacellar-volta-a-ser-alvo-da-policia-federal", v:"Portal Viu", l:"centro"}
+    ]},
+  { id:"canella_cv", tipo:"caso", corrida:"ALE", nome:"Elos com milícias e o Comando Vermelho", sub:"MP Eleitoral · TSE · INQ 5.020", status:"investigado",
+    orgao:"Ministério Público Eleitoral / TSE / STF", periodo:"2021–2026",
+    resumo:"O vice-procurador-geral eleitoral Alexandre Espinosa pediu ao TSE a anulação do registro de Márcio Canella, eleito deputado estadual do Rio. Segundo o MPE, ele nomeou chefes de milícia para duas secretarias municipais em Belford Roxo — um já condenado por constituição de milícia, outro depois condenado por extorsão e posse ilegal de arma. O pedido se apoia no inquérito 5.020/DF, cujo sigilo o STF levantou após a prisão de Canella, e num fuzil Colt 5.56 de uso restrito da PM encontrado em seu carro blindado em julho. O TRE-RJ havia mantido o registro por 6 a 1.",
+    nota:"Até o fechamento desta atualização não havia decisão do TSE. A defesa nega e classifica a acusação como “narrativa estapafúrdia”.",
+    fontes:[
+      {t:"MP cita fuzil, R$ 919 mil e supostos vínculos com facções ao pedir que TSE barre Canella", u:"https://cidadedeniteroi.com/justica/mp-cita-fuzil-r-919-mil-e-supostos-vinculos-com-faccoes-ao-pedir-que-tse-barre-canella/", v:"Cidade de Niterói", l:"centro"},
+      {t:"MPE pede ao TSE cassação de Márcio Canella por supostos vínculos com milícias e facções", u:"https://www.plantaobrasil.net/noticias/159108-mpe-pede-ao-tse-cassacao-de-marcio-canella-por-supostos-vinculos-com-milicias-e-faccoes", v:"Plantão Brasil", l:"centro"},
+      {t:"MPE pede anulação da candidatura de Márcio Canella, aliado de Flávio, por elo com milícias e CV", u:"https://revistaforum.com.br/politica/canella-anulacao-candidatura-elo-milicia-cv/", v:"Revista Fórum", l:"centro-esquerda"}
+    ]},
+  { id:"gab_empresarial", tipo:"caso", corrida:"ALE", nome:"Operação Gabinete Empresarial", sub:"Gaeco · Alap", status:"investigado",
+    orgao:"Gaeco / MP do Amapá", periodo:"2026",
+    resumo:"Em 11 de novembro de 2026 o Gaeco cumpriu 27 mandados de busca em 28 endereços de Macapá e Santana, inclusive na sede da Assembleia Legislativa do Amapá. A apuração trata de suspeita de desvio de recursos públicos no gabinete da deputada Aldilene Souza: os levantamentos apontaram diferença superior a R$ 1,76 milhão entre ressarcimentos pedidos à Assembleia e os pagamentos efetivamente feitos a fornecedores. O vereador Alessandro Monteiro, marido da deputada, foi preso em flagrante com seis barras de ouro e saiu após pagar R$ 150 mil.",
+    nota:"O Ministério Público ainda não divulgou oficialmente os crimes apurados. A deputada diz que o caso é estritamente empresarial e privado.",
+    fontes:[
+      {t:"Gaeco deflagra operação na Assembleia do Amapá e mira deputada, vereador e empresas", u:"https://ac24horas.com/2026/11/11/gaeco-deflagra-operacao-na-assembleia-do-amapa-e-mira-deputada-vereador-e-empresas-em-ofensiva-contra-o-legislativo/", v:"ac24horas", l:"centro"},
+      {t:"Deputada diz que vai ‘esclarecer fatos’ após Gaeco cumprir mandados em empresas e gabinete na Alap", u:"https://selesnafes.com/2026/11/deputada-diz-que-vai-esclarecer-fatos-apos-gaeco-cumprir-mandados-em-empresas-e-gabinete-na-alap/", v:"SelesNafes", l:"centro"},
+      {t:"Após pagar R$ 150 mil, vereador Alessandro Monteiro deixa prisão em Macapá", u:"https://debubuia.com.br/noticia/apos-pagar-r-150-mil-vereador-alessandro-monteiro-deixa-prisao-em-macapa", v:"De Bubuia Notícias", l:"centro"}
+    ]},
+  { id:"ap_votos", tipo:"caso", corrida:"ALE", nome:"Programa social e compra de votos no AP", sub:"PF · Justiça Eleitoral", status:"citado",
+    orgao:"Polícia Federal", periodo:"2026",
+    resumo:"Em 1º de outubro de 2026, três dias antes do primeiro turno, a PF apreendeu cerca de R$ 1,85 milhão em espécie na casa da deputada Aldilene Souza, em operação que investiga compra de votos e uso eleitoral de benefícios de programas sociais no Amapá. A deputada não era alvo da operação.",
+    nota:"Caso distinto da Operação Gabinete Empresarial, embora atinja a mesma casa e o mesmo mês eleitoral. A apreensão não equivale a acusação formal.",
+    fontes:[
+      {t:"Operação apreende R$ 1,85 mi e investiga uso eleitoral de benefícios sociais no Amapá", u:"https://platobr.com.br/operacao-apreende-r-185-mi-e-investiga-uso-eleitoral-de-programa-social-no-amapa", v:"PlatôBR", l:"centro"},
+      {t:"Polícia Federal apreende R$ 1,8 milhão e investiga indícios de compra de votos no Amapá", u:"https://www.brasil247.com/brasil/policia-federal-apreende-r-18-milhao-e-investiga-indicios-de-compra-de-votos-no-amapa/", v:"Brasil 247", l:"centro-esquerda"}
+    ]},
+  { id:"draft", tipo:"caso", corrida:"ALE", nome:"Operação Draft", sub:"Polícia Civil · Alepe", status:"investigado",
+    orgao:"Polícia Civil de Pernambuco", periodo:"2015–2026",
+    resumo:"Deflagrada em 15 de abril de 2026, apura uma estrutura montada para recrutar assessores — inclusive funcionários-fantasmas — e ficar com parte dos salários pagos pela Assembleia Legislativa de Pernambuco entre 2015 e 2019. O prejuízo estimado varia entre R$ 2,7 milhões e R$ 6 milhões, conforme a fonte. Oito pessoas são investigadas, entre elas o ex-deputado Leonardo Dias e seu pai, Romário Dias, ex-presidente da Alepe e ex-conselheiro do TCE. Houve exonerações em cadeia, inclusive de um assessor lotado em outro gabinete.",
+    nota:"Rachadinha é o mesmo mecanismo do caso da Alerj que envolveu Flávio Bolsonaro: salários de assessores devolvidos ao gabinete. Aqui a apuração é estadual e os fatos, outros.",
+    fontes:[
+      {t:"Rachadinha e funcionários fantasmas: operação mira desvios milionários a partir de gabinete de ex-deputado estadual", u:"https://www.diariodepernambuco.com.br/vida-urbana/2026/04/11712220-rachadinha-e-funcionarios-fantasmas-operacao-mira-desvios-milionarios-a-partir-de-gabinete-de-ex-deputado-estadual.html", v:"Diario de Pernambuco", l:"centro"},
+      {t:"Rachadinha na Alepe: ex-deputado é alvo de esquema de até R$ 6 milhões", u:"https://tribunaonline.com.br/pernambuco/policia/rachadinha-na-alepe-ex-deputado-e-alvo-de-esquema-de-ate-r-6-milhoes-299187", v:"Tribuna Online", l:"centro"},
+      {t:"Raquel Lyra exonera secretário-executivo suspeito de rachadinha na Alepe após operação policial", u:"https://jamildo.com/violencia-e-seguranca-publica/raquel-lyra-exonera-secretario-executivo-suspeito-de-rachadinha-na-alepe-apos-operacao-policial.html", v:"Blog de Jamildo", l:"centro"}
+    ]},
+  { id:"vasques_ce", tipo:"caso", corrida:"ALE", nome:"Peculato e crimes eleitorais no Ceará", sub:"PF · MP Eleitoral", status:"investigado",
+    orgao:"Polícia Federal / Ministério Público Eleitoral", periodo:"2026",
+    resumo:"Felipe Vasques virou alvo de uma operação da Polícia Federal menos de 24 horas depois de ser eleito deputado estadual pelo Ceará. A apuração trata de crimes eleitorais e peculato, incluindo o suposto uso de recursos da Câmara Municipal em sua campanha. Em setembro de 2026 ele já havia sido alvo da Operação Aletheia, sobre fraude em licitações.",
+    fontes:[
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"jean_ro", tipo:"caso", corrida:"ALE", nome:"Corrupção passiva em Rondônia", sub:"TJ-RO · Câmara Especial", status:"condenado",
+    orgao:"TJ-RO — Câmara Especial", periodo:"2011–2026",
+    resumo:"Jean Oliveira foi condenado por corrupção passiva, por fatos de 2011, a 4 anos, 4 meses e 15 dias em regime semiaberto, além de multa. A Câmara Especial do TJ-RO manteve a condenação e a perda do mandato em grau de recurso — e ainda assim ele foi eleito deputado estadual em 2026.",
+    nota:"Condenação mantida em segunda instância, com perda de mandato decretada; a eleição é posterior e o caso ilustra o descompasso entre o calendário judicial e o eleitoral.",
+    fontes:[
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"contas_ro", tipo:"caso", corrida:"ALE", nome:"Contas rejeitadas em Pimenta Bueno", sub:"TCE · Justiça Eleitoral", status:"investigado",
+    orgao:"Tribunal de Contas / Ministério Público / Justiça Eleitoral", periodo:"2023–2026",
+    resumo:"As contas de 2023 do Delegado Araújo como prefeito de Pimenta Bueno (RO) foram rejeitadas, com cerca de R$ 1 milhão retido. O caso foi encaminhado à Justiça Eleitoral, ao Ministério Público e ao Tribunal de Contas. Ele foi eleito deputado estadual em 2026.",
+    nota:"Rejeição de contas é decisão administrativa com efeitos eleitorais possíveis; não é condenação criminal.",
+    fontes:[
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"alep_pf", tipo:"caso", corrida:"ALE", nome:"Operação na agência bancária da Alep", sub:"PF · Paraná", status:"investigado",
+    orgao:"Polícia Federal", periodo:"2026",
+    resumo:"Em 2 de outubro de 2026, dois dias antes do primeiro turno, a PF abordou o deputado estadual Mauro Moraes (PL), candidato à reeleição, em operação realizada dentro de uma agência bancária instalada na própria Assembleia Legislativa do Paraná.",
+    nota:"As fontes consultadas não detalham o objeto da apuração. O registro aqui é do fato, não de uma acusação formulada.",
+    fontes:[
+      {t:"PF mira deputado do PL em operação no Itaú da Alep", u:"https://www.esmaelmorais.com.br/pf-operacao-itau-alep-deputado-pl-curitiba/", v:"Blog do Esmael", l:"centro-esquerda"}
+    ]},
+  { id:"orelha", tipo:"caso", corrida:"ALE", nome:"Improbidade no caso do cão Orelha", sub:"MP-SC", status:"controversia",
+    orgao:"Ministério Público de Santa Catarina", periodo:"2024–2026",
+    resumo:"Ação de improbidade administrativa contra Ulisses Gabriel pela condução pública do caso do cão Orelha no período em que chefiava a Polícia Civil de Santa Catarina. O Ministério Público pede multa e indenização. Ele foi eleito deputado estadual em 2026.",
+    nota:"Ação civil de improbidade, não processo criminal, e sem relação com desvio de recursos — entra na rede como controvérsia, para não ser confundida com os casos de corrupção.",
+    fontes:[
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
     ]}
 ];
 
@@ -1275,7 +1398,29 @@ const LINKS = [
   { s:"jrbetao", t:"sanguessuga", st:"condenado", rel:"direto", rot:"Condenado em 1ª instância por peculato; recurso no STF" },
   { s:"neysantos", t:"ney_pcc", st:"reu", rel:"direto", rot:"Réu por organização criminosa e lavagem; nega elo com o PCC" },
   { s:"bulhoes", t:"bulhoes_gab", st:"reu", rel:"direto", rot:"Réu por peculato de R$ 242 mil em verba de gabinete" },
-  { s:"gaspar", t:"inss", st:"citado", rel:"politico", rot:"Relator da CPMI; pediu o indiciamento de 216 pessoas" }
+  { s:"gaspar", t:"inss", st:"citado", rel:"politico", rot:"Relator da CPMI; pediu o indiciamento de 216 pessoas" },
+
+  /* --- Assembleias Legislativas --- */
+  { s:"bacellar", t:"unha_carne", st:"reu", rel:"direto", rot:"Apontado na decisão como líder da organização; preso duas vezes" },
+  { s:"rangel", t:"unha_carne", st:"reu", rel:"direto", rot:"Preso na 4ª fase; apontado como um dos braços do esquema" },
+  { s:"canella", t:"unha_carne", st:"investigado", rel:"direto", rot:"Preso na 8ª fase, onze dias após ser eleito" },
+  { s:"moraes", t:"unha_carne", st:"judicial", rel:"judicial", rot:"Relator; expediu as ordens de prisão" },
+  { s:"bacellar", t:"ceperj", st:"condenado", rel:"direto", rot:"Mandato anulado pelo TSE; perdeu o foro e foi preso 3 dias depois" },
+  { s:"canella", t:"canella_cv", st:"investigado", rel:"direto", rot:"MPE pede ao TSE a anulação do registro; defesa nega" },
+  { s:"canella", t:"flavio", st:"citado", rel:"politico", rot:"Descrito pela imprensa como aliado do senador no Rio" },
+  { s:"aldilene", t:"gab_empresarial", st:"investigado", rel:"direto", rot:"Suspeita de desvio no gabinete; R$ 1,76 mi sem contrapartida" },
+  { s:"alessandro", t:"gab_empresarial", st:"investigado", rel:"direto", rot:"Preso em flagrante com seis barras de ouro; pagou R$ 150 mil" },
+  { s:"aldilene", t:"alessandro", st:"citado", rel:"familiar", rot:"Casados; ele é vereador em Macapá" },
+  { s:"aldilene", t:"ap_votos", st:"citado", rel:"direto", rot:"R$ 1,85 mi apreendidos em sua casa; não era alvo da operação" },
+  { s:"leonardodias", t:"draft", st:"investigado", rel:"direto", rot:"Investigado; exonerado da secretaria após a operação" },
+  { s:"romariodias", t:"draft", st:"investigado", rel:"direto", rot:"Ex-presidente da Alepe, também investigado" },
+  { s:"leonardodias", t:"romariodias", st:"citado", rel:"familiar", rot:"Pai e filho, ambos investigados no mesmo caso" },
+  { s:"vasques", t:"vasques_ce", st:"investigado", rel:"direto", rot:"Alvo da PF menos de 24h depois de eleito" },
+  { s:"jeanoliveira", t:"jean_ro", st:"condenado", rel:"direto", rot:"Condenado a 4 anos, 4 meses e 15 dias; perda do mandato mantida" },
+  { s:"araujo", t:"contas_ro", st:"investigado", rel:"direto", rot:"Contas de 2023 rejeitadas, com cerca de R$ 1 mi retido" },
+  { s:"mauromoraes", t:"alep_pf", st:"investigado", rel:"direto", rot:"Abordado pela PF dentro da Assembleia, 2 dias antes do 1º turno" },
+  { s:"ulisses", t:"orelha", st:"controversia", rel:"direto", rot:"Réu em ação de improbidade; MP pede multa e indenização" },
+  { s:"bulhoes", t:"unha_carne", st:"citado", rel:"politico", rot:"Caso-espelho: também é réu por verba de gabinete de assembleia" }
 ];
 
 /* ============================================================
@@ -1288,7 +1433,8 @@ const CENTERS = {
   PR:{x:W*0.19, y:H*0.26}, SP:{x:W*0.81, y:H*0.24},
   MG:{x:W*0.17, y:H*0.78}, GO:{x:W*0.83, y:H*0.79},
   STF:{x:W*0.50, y:H*0.51},
-  CAM:{x:W*0.50, y:H*0.11}
+  CAM:{x:W*0.50, y:H*0.11},
+  ALE:{x:W*0.50, y:H*0.91}
 };
 
 /* grau: quantas ligações cada nó tem (usado no tamanho dos nós de caso) */
