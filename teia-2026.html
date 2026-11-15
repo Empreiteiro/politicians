@@ -297,7 +297,7 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
     <button class="chip" data-race="SP" aria-pressed="false">São Paulo</button>
     <button class="chip" data-race="MG" aria-pressed="false">Minas Gerais</button>
     <button class="chip" data-race="GO" aria-pressed="false">Goiás</button>
-    <button class="chip" data-race="CAM" aria-pressed="false">Câmara</button>
+    <button class="chip" data-race="CAM" aria-pressed="false">Congresso</button>
     <button class="chip" data-race="ALE" aria-pressed="false">Assembleias</button>
     <button class="chip" data-race="STF" aria-pressed="false">Supremo</button>
   </div>
@@ -333,7 +333,7 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="var(--panel-2)" stroke="var(--ink)" stroke-width="2"/></svg>Candidato 2026</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="3.6" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="1.4"/></svg>Parente / pessoa próxima</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="5" y="1.5" width="11" height="11" rx="2" fill="var(--st-investigado)" fill-opacity=".22" stroke="var(--st-investigado)" stroke-width="1.6"/></svg>Caso / operação</div>
-      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><polygon points="16,7 13.5,11.3 8.5,11.3 6,7 8.5,2.7 13.5,2.7" fill="var(--panel-2)" stroke="var(--ink-2)" stroke-width="1.6"/></svg>Deputado federal ou estadual</div>
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><polygon points="16,7 13.5,11.3 8.5,11.3 6,7 8.5,2.7 13.5,2.7" fill="var(--panel-2)" stroke="var(--ink-2)" stroke-width="1.6"/></svg>Parlamentar — Congresso ou assembleia</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="6.5" y="3" width="9" height="9" rx="1" transform="rotate(45 11 7.5)" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"/></svg>Ministro do STF</div>
     </div>
     </div>
@@ -371,7 +371,7 @@ const RACES = {
   SP:{ rot:"São Paulo",   sub:"Tarcísio reeleito no 1º turno", dy:-330 },
   MG:{ rot:"Minas Gerais",sub:"Cleitinho eleito no 1º turno", dy:-330 },
   GO:{ rot:"Goiás",       sub:"Daniel Vilela reeleito no 1º turno", dy:-330 },
-  CAM:{ rot:"Câmara dos Deputados", sub:"ao menos 69 eleitos réus ou investigados", dy:-300 },
+  CAM:{ rot:"Congresso Nacional", sub:"69 eleitos réus ou investigados · 6 senadores derrotados com casos no STF", dy:-300 },
   ALE:{ rot:"Assembleias Legislativas", sub:"1.059 cadeiras · nenhum cadastro nacional de processos", dy:-300 },
   STF:{ rot:"Supremo Tribunal Federal", sub:"10 ministros em atividade · 1 vaga aberta", dy:-235 }
 };
@@ -393,7 +393,10 @@ const NODES = [
       {t:"Caso Banco Master completa um ano e amplia desgaste no STF e repercussão política", u:"https://www.radiodamatafm.com.br/caso-banco-master-completa-um-ano-e-amplia-desgaste-no-stf-e-repercussao-politica/", v:"Rádio da Mata", l:"centro"}
     ] },
   { id:"gaspar", tipo:"candidato", corrida:"PR", nome:"Alfredo Gaspar", sub:"PL · vice de Flávio",
-    bio:"Deputado federal por Alagoas e ex-procurador. Foi o relator da CPMI do INSS." },
+    bio:"Deputado federal por Alagoas e ex-procurador. Foi o relator da CPMI do INSS, cujo relatório pediu 216 indiciamentos e acabou rejeitado em plenário. Em outubro de 2026, Gilmar Mendes arquivou, seguindo parecer contrário da PGR, uma representação da Polícia Federal que pedia investigação contra ele.",
+    fontes:[
+      {t:"STF acolhe parecer da PGR e arquiva pedido de investigação contra deputado federal", u:"https://www.justicaemfoco.com.br/noticias/stf-acolhe-parecer-pgr-arquiva-pedido-investigacao-contra-deputado-federal-", v:"Justiça em Foco", l:"institucional"}
+    ] },
   { id:"zema", tipo:"candidato", corrida:"PR", nome:"Romeu Zema", sub:"NOVO · ex-gov. MG",
     bio:"Governou Minas Gerais de 2019 a março de 2026, quando renunciou para disputar a Presidência. Não chegou ao segundo turno, decidido entre Lula e Flávio Bolsonaro." },
   { id:"caiado", tipo:"candidato", corrida:"PR", nome:"Ronaldo Caiado", sub:"PSD · ex-gov. GO",
@@ -562,7 +565,7 @@ const NODES = [
   { id:"yury", tipo:"parlamentar", corrida:"CAM", nome:"Yury do Paredão", sub:"MDB · CE",
     bio:"Deputado federal pelo Ceará, citado em inquérito do STF sobre suspeita de desvio de emendas parlamentares. Não há denúncia formalizada." },
   { id:"juscelino", tipo:"parlamentar", corrida:"CAM", nome:"Juscelino Filho", sub:"União Brasil · MA",
-    bio:"Deputado federal pelo Maranhão e ex-ministro das Comunicações de Lula, cargo que deixou em 2023. É investigado no STF por suspeita de desvio de emendas parlamentares em mais de uma operação." },
+    bio:"Deputado federal pelo Maranhão e ex-ministro das Comunicações de Lula, cargo que deixou em 2025. Foi denunciado pela PGR em abril daquele ano por seis crimes, entre eles corrupção, lavagem e organização criminosa, por emendas destinadas à prefeitura comandada pela irmã. Também é citado em outras apurações do STF sobre emendas. Nega tudo." },
   { id:"josimar", tipo:"parlamentar", corrida:"CAM", nome:"Josimar Maranhãozinho", sub:"PL · MA · condenado",
     bio:"Deputado federal pelo Maranhão, apontado pela PGR como o líder do esquema que cobrava 25% de propina sobre emendas destinadas a São José de Ribamar. Condenado pela Primeira Turma do STF a 6 anos e 5 meses de reclusão em março de 2026." },
   { id:"pastorgil", tipo:"parlamentar", corrida:"CAM", nome:"Pastor Gil", sub:"PL · MA · condenado",
@@ -587,6 +590,26 @@ const NODES = [
     bio:"Deputado federal por Alagoas, reeleito em 2026. É réu por peculato: cerca de R$ 242 mil em verba de gabinete teriam sido justificados com notas fiscais falsas no período em que era deputado estadual." },
   { id:"jrbetao", tipo:"parlamentar", corrida:"CAM", nome:"Júnior Betão", sub:"PL · AC · eleito",
     bio:"Eleito deputado federal pelo Acre em 2026. Foi condenado em primeira instância por peculato na Operação Sanguessuga, o escândalo das ambulâncias; o recurso subiu ao STF com a diplomação." },
+
+  /* ---------- SENADO E MAIS DEPUTADOS FEDERAIS ---------- */
+  { id:"felipeshow", tipo:"parlamentar", corrida:"CAM", nome:"Felipe Show", sub:"União Brasil · AP · eleito",
+    bio:"Eleito deputado federal pelo Amapá em 2026 e réu em três ações na Justiça estadual. O MP-AP o acusa de corrupção e de obter sem licitação uma permissão para explorar transporte coletivo em Macapá; em 2018 chegou a ficar cinco dias preso na apuração sobre o desvio de R$ 9 milhões da Assembleia Legislativa do Amapá." },
+  { id:"ciro", tipo:"parlamentar", corrida:"CAM", nome:"Ciro Nogueira", sub:"PP · PI · senador derrotado",
+    bio:"Senador pelo Piauí e ex-ministro da Casa Civil de Jair Bolsonaro, derrotado em 2026. A PF aponta indícios de que recebeu pagamentos de Daniel Vorcaro entre 2024 e 2025, e é dele a emenda que elevaria a cobertura do Fundo Garantidor de Créditos — o mecanismo que socorreria o Banco Master. Nega irregularidades." },
+  { id:"weverton", tipo:"parlamentar", corrida:"CAM", nome:"Weverton Rocha", sub:"PDT · MA · senador derrotado",
+    bio:"Senador pelo Maranhão, derrotado em 2026. É alvo de apuração por suspeita de lavagem de dinheiro ligada às fraudes do INSS e de outro procedimento sobre suposta interferência numa investigação de homicídio no estado. Nega a interferência." },
+  { id:"zequinha", tipo:"parlamentar", corrida:"CAM", nome:"Zequinha Marinho", sub:"Podemos · PA · senador derrotado",
+    bio:"Senador pelo Pará, derrotado em 2026. É réu por exigir que comissionados do gabinete repassassem 5% dos salários ao PSC sob ameaça de exoneração, quando era deputado federal. Diz que a contribuição sempre foi opcional. A defesa pede que a ação, hoje em primeira instância, suba ao STF." },
+  { id:"viana", tipo:"parlamentar", corrida:"CAM", nome:"Carlos Viana", sub:"PSD · MG · senador derrotado",
+    bio:"Senador por Minas Gerais, derrotado em 2026. Responde a apuração no STF sobre recursos de emendas parlamentares destinados a uma fundação." },
+  { id:"favaro", tipo:"parlamentar", corrida:"CAM", nome:"Carlos Fávaro", sub:"PSD · MT · senador derrotado",
+    bio:"Senador por Mato Grosso e ex-ministro da Agricultura, derrotado em 2026. É alvo de auditorias sobre repasses de emendas a municípios do estado e de um pedido de impeachment no STF por não ter atendido a requerimento da Câmara quando era ministro." },
+  { id:"renancalheiros", tipo:"parlamentar", corrida:"CAM", nome:"Renan Calheiros", sub:"MDB · AL · senador derrotado",
+    bio:"Senador por Alagoas desde 1995, derrotado em 2026. Deixa o Congresso com queixas-crime apresentadas por Arthur Lira por supostos crimes contra a honra, além de outros recursos — não são casos de corrupção." },
+  { id:"zenaide", tipo:"parlamentar", corrida:"CAM", nome:"Zenaide Maia", sub:"PSD · RN · senadora derrotada",
+    bio:"Senadora pelo Rio Grande do Norte, derrotada em 2026. É alvo de queixa-crime por supostos crimes contra a honra, ligada a publicações em redes sociais — não é caso de corrupção." },
+  { id:"luanna", tipo:"pessoa", corrida:"CAM", nome:"Luanna Rezende", sub:"irmã de Juscelino Filho",
+    bio:"Ex-prefeita de Vitorino Freire (MA), município para o qual o irmão, então deputado federal, destinou as emendas que a PGR aponta como origem de propina." },
 
   /* ---------- DEPUTADOS ESTADUAIS ---------- */
   { id:"bacellar", tipo:"parlamentar", corrida:"ALE", nome:"Rodrigo Bacellar", sub:"União Brasil · RJ · cassado",
@@ -1030,7 +1053,7 @@ const NODES = [
     ]},
   { id:"overclean", tipo:"caso", corrida:"CAM", nome:"Operação Overclean", sub:"PF · STF · emendas da Codevasf", status:"investigado",
     orgao:"Polícia Federal / STF — relator Nunes Marques", periodo:"2024–2026",
-    resumo:"Apura fraudes em licitações e contratos bancados por emendas parlamentares, boa parte por convênios da Codevasf na Bahia. A investigação começou na Justiça Federal da Bahia, em dezembro de 2024, e subiu ao STF por citar o deputado Elmar Nascimento — que virou alvo por emendas indicadas em 2022 a convênios da estatal. Na quinta fase, em julho de 2025, Nunes Marques mandou bloquear R$ 85,7 milhões em contas de investigados. Em janeiro de 2026 uma nova fase mirou o deputado Félix Mendonça Júnior. Ambos negam.",
+    resumo:"Apura fraudes em licitações e contratos bancados por emendas parlamentares, boa parte por convênios da Codevasf na Bahia. A investigação começou na Justiça Federal da Bahia, em dezembro de 2024, e subiu ao STF por citar o deputado Elmar Nascimento — que virou alvo por emendas indicadas em 2022 a convênios da estatal. Na quinta fase, em julho de 2025, Nunes Marques mandou bloquear R$ 85,7 milhões em contas de investigados. Em janeiro de 2026 uma nova fase mirou o deputado Félix Mendonça Júnior, com bloqueio de R$ 24 milhões; os investigados podem responder por organização criminosa, corrupção, peculato, fraude em licitações e lavagem. Ambos negam.",
     nota:"Emenda parlamentar não é ilegal: o que se investiga é a cobrança de propina ou o direcionamento de contratos por quem indica o recurso. Nenhum dos dois deputados foi denunciado.",
     fontes:[
       {t:"Citação a Elmar Nascimento faz PF enviar operação Overclean ao STF", u:"https://www.metropoles.com/colunas/fabio-serapiao/citacoes-a-elmar-nascimento-faz-pf-enviar-operacao-overclean-ao-stf", v:"Metrópoles", l:"centro"},
@@ -1066,7 +1089,7 @@ const NODES = [
       {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
       {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
     ]},
-  { id:"licitacoes_cam", tipo:"caso", corrida:"CAM", nome:"Fraude em licitações — réus na Câmara", sub:"ações penais em curso", status:"reu",
+  { id:"licitacoes_cam", tipo:"caso", corrida:"CAM", nome:"Fraude em licitações — cinco réus eleitos", sub:"ações penais em curso", status:"reu",
     orgao:"Justiça criminal — instâncias não detalhadas pelas fontes", periodo:"em curso em 2026",
     resumo:"Levantamento do UOL sobre os eleitos de 2026 identificou um bloco de cinco deputados federais que respondem como réus por fraude em licitações: Wilson Santiago (Republicanos-PB), Junior Lourenço (MDB-MA), Jadyel Alencar (Republicanos-PI), Elmo Vaz (Avante-BA) e João Maia (PP-RN). São processos distintos, agrupados aqui pela mesma acusação; as reportagens não detalham o órgão julgador de cada um.",
     nota:"Nó de agregação, não de um único processo: serve para mostrar quantos mandatos convivem com a mesma acusação. Ser réu não é ser condenado.",
@@ -1117,6 +1140,40 @@ const NODES = [
     fontes:[
       {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
       {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"senado_stf", tipo:"caso", corrida:"CAM", nome:"Senadores derrotados com casos no STF", sub:"Estadão · levantamento", status:"investigado",
+    orgao:"STF", periodo:"2026",
+    resumo:"Levantamento do Estadão mostrou que seis dos dezoito senadores que tentaram a reeleição e perderam deixarão o Congresso, em janeiro de 2027, com investigações ou procedimentos abertos no Supremo: Ciro Nogueira, Weverton Rocha, Zequinha Marinho, Carlos Viana, Carlos Fávaro e — conforme a fonte — Renan Calheiros ou Zenaide Maia. Em março de 2025 o STF decidiu, por 7 a 4, que o foro por prerrogativa de função continua depois do fim do mandato, desde que o crime seja do exercício do cargo; os ex-senadores perdem, porém, a restrição à prisão de congressistas e a possibilidade de o Senado suspender ações penais.",
+    nota:"Nó de agregação. Os casos são de naturezas muito diferentes: há apuração sobre dinheiro público e há queixa-crime por ofensa, que não é caso de corrupção e está marcada como tal nos nós de Renan Calheiros e Zenaide Maia.",
+    fontes:[
+      {t:"Além de Flávio, seis senadores derrotados deixam o Congresso sob investigação no STF", u:"https://acessepolitica.com.br/noticia/183541/alem-de-flavio-seis-senadores-derrotados-deixam-o-congresso-sob-investigacao-no-stf", v:"Acesse Política", l:"centro"},
+      {t:"Zenaide Maia e outros cinco senadores derrotados têm casos no STF", u:"https://agorarn.com.br/politica/zenaide-maia-senadores-derrotados-processos-stf/", v:"Agora RN", l:"centro"},
+      {t:"Flávio Bolsonaro e seis senadores derrotados deixarão Congresso com inquéritos no STF", u:"https://www.brasil247.com/brasil/flavio-bolsonaro-e-seis-senadores-derrotados-deixarao-congresso-com-pendencias-no-stf/", v:"Brasil 247", l:"centro-esquerda"},
+      {t:"Seis senadores derrotados nas urnas deixam Congresso com processos no STF", u:"https://brasilemfolhas.com.br/2026/11/seis-senadores-derrotados-nas-urnas-deixam-congresso-com-processos-no-stf/", v:"Brasil em Folhas", l:"centro"}
+    ]},
+  { id:"zequinha_5pc", tipo:"caso", corrida:"CAM", nome:"Cota de 5% do gabinete para o partido", sub:"ação penal · PA", status:"reu",
+    orgao:"Justiça do Pará — defesa pede remessa ao STF", periodo:"2007–2026",
+    resumo:"Zequinha Marinho é réu sob a acusação de exigir que servidores comissionados de seu gabinete repassassem 5% dos salários ao PSC, sob pena de exoneração, no período em que era deputado federal. As fontes divergem sobre o intervalo exato dos fatos, entre 2007 e 2014. Ele nega e sustenta que a contribuição era opcional. A defesa pede que a ação suba ao Supremo.",
+    nota:"É rachadinha com destinatário partidário, não pessoal — a variante institucional do mesmo mecanismo da Alerj e da Alepe.",
+    fontes:[
+      {t:"STF abre inquérito contra deputado", u:"https://tribunadonorte.com.br/politica/stf-abre-inquerito-contra-deputado/", v:"Tribuna do Norte", l:"centro"},
+      {t:"Flávio e mais seis: os senadores derrotados e investigados no STF", u:"https://www.diariodocentrodomundo.com.br/flavio-e-mais-seis-os-senadores-derrotados-e-investigados-no-stf", v:"Diário do Centro do Mundo", l:"centro-esquerda"}
+    ]},
+  { id:"juscelino_vf", tipo:"caso", corrida:"CAM", nome:"Emendas a Vitorino Freire", sub:"PGR · STF", status:"investigado",
+    orgao:"PGR / STF — relator Flávio Dino", periodo:"2019–2026",
+    resumo:"Em abril de 2025 a PGR denunciou Juscelino Filho, então ministro das Comunicações, por seis crimes — entre eles corrupção, lavagem de dinheiro e organização criminosa. Segundo a denúncia, quando era deputado federal ele destinou emendas à prefeitura de Vitorino Freire (MA), administrada pela irmã Luanna Rezende, e recebeu propina sobre as obras. Cabe à Primeira Turma do STF decidir se recebe a denúncia e o transforma em réu. Ele reafirma inocência e diz que apenas indicou emendas para obras públicas.",
+    nota:"Classificado como investigado porque não há notícia, nas fontes consultadas, de que a denúncia tenha sido recebida — e denúncia oferecida não torna ninguém réu.",
+    fontes:[
+      {t:"PGR denuncia ministro Juscelino Filho por supostos desvios em emendas quando era deputado", u:"https://www.otempo.com.br/politica/judiciario/2025/4/8/pgr-denuncia-ministro-juscelino-filho-por-supostos-desvios-em-emendas-quando-era-deputado", v:"O Tempo", l:"centro"},
+      {t:"PGR denuncia ministro Juscelino Filho por desvio de emendas parlamentares", u:"https://www.infomoney.com.br/politica/pgr-denuncia-ministro-juscelino-filho-por-desvio-de-emendas-parlamentares/", v:"InfoMoney", l:"centro-direita"},
+      {t:"PGR denuncia ministro Juscelino Filho por suspeita de desvio de emendas", u:"https://revistaforum.com.br/politica/pgr-denuncia-ministro-juscelino-filho-por-suspeita-de-desvio-de-emendas/", v:"Revista Fórum", l:"centro-esquerda"}
+    ]},
+  { id:"ap_transporte", tipo:"caso", corrida:"CAM", nome:"Permissão de transporte em Macapá", sub:"MP-AP", status:"reu",
+    orgao:"Ministério Público do Amapá", periodo:"em curso em 2026",
+    resumo:"O MP-AP acusa Felipe Show de corrupção e de obter, sem licitação, permissão para explorar o transporte coletivo na capital do Amapá. É uma das três ações em que ele figura como réu na Justiça estadual.",
+    fontes:[
+      {t:"Felipe Show é réu em três ações judiciais", u:"https://conectamapa.com/felipe-show-e-reu-em-tres-acoes-judiciais/", v:"ConectAmapá", l:"centro"},
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"}
     ]},
   /* ---------- CASOS DAS ASSEMBLEIAS ---------- */
   { id:"unha_carne", tipo:"caso", corrida:"ALE", nome:"Operação Unha e Carne", sub:"PF · STF · Alerj e Seeduc", status:"reu",
@@ -1399,6 +1456,25 @@ const LINKS = [
   { s:"neysantos", t:"ney_pcc", st:"reu", rel:"direto", rot:"Réu por organização criminosa e lavagem; nega elo com o PCC" },
   { s:"bulhoes", t:"bulhoes_gab", st:"reu", rel:"direto", rot:"Réu por peculato de R$ 242 mil em verba de gabinete" },
   { s:"gaspar", t:"inss", st:"citado", rel:"politico", rot:"Relator da CPMI; pediu o indiciamento de 216 pessoas" },
+
+  /* --- Senado e mais deputados federais --- */
+  { s:"ciro", t:"banco_master", st:"investigado", rel:"direto", rot:"PF aponta pagamentos de Vorcaro em 2024–2025; emenda que elevaria o FGC" },
+  { s:"ciro", t:"senado_stf", st:"investigado", rel:"direto", rot:"Deixa o Senado com o inquérito do Master aberto" },
+  { s:"weverton", t:"inss", st:"investigado", rel:"direto", rot:"Suspeita de lavagem ligada às fraudes nos descontos" },
+  { s:"weverton", t:"senado_stf", st:"investigado", rel:"direto", rot:"Também apurado por suposta interferência em investigação de homicídio" },
+  { s:"zequinha", t:"zequinha_5pc", st:"reu", rel:"direto", rot:"Réu por exigir 5% dos salários dos comissionados" },
+  { s:"zequinha", t:"senado_stf", st:"reu", rel:"direto", rot:"Deixa o Senado como réu; defesa quer levar a ação ao STF" },
+  { s:"viana", t:"senado_stf", st:"investigado", rel:"direto", rot:"Emendas destinadas a uma fundação sob apuração" },
+  { s:"viana", t:"emendas_stf", st:"investigado", rel:"direto", rot:"Recursos de emendas a uma fundação" },
+  { s:"favaro", t:"senado_stf", st:"investigado", rel:"direto", rot:"Auditorias sobre emendas a municípios e pedido de impeachment" },
+  { s:"favaro", t:"emendas_stf", st:"investigado", rel:"direto", rot:"Repasses de emendas a municípios de Mato Grosso sob auditoria" },
+  { s:"renancalheiros", t:"senado_stf", st:"citado", rel:"direto", rot:"Queixas-crime por ofensa, não caso de corrupção" },
+  { s:"zenaide", t:"senado_stf", st:"citado", rel:"direto", rot:"Queixa-crime por ofensa, não caso de corrupção" },
+  { s:"juscelino", t:"juscelino_vf", st:"investigado", rel:"direto", rot:"Denunciado pela PGR por seis crimes; aguarda decisão da 1ª Turma" },
+  { s:"luanna", t:"juscelino_vf", st:"citado", rel:"direto", rot:"Prefeita do município que recebeu as emendas apuradas" },
+  { s:"juscelino", t:"luanna", st:"citado", rel:"familiar", rot:"Irmãos" },
+  { s:"dino", t:"juscelino_vf", st:"judicial", rel:"judicial", rot:"Relator da denúncia no STF" },
+  { s:"felipeshow", t:"ap_transporte", st:"reu", rel:"direto", rot:"Réu por corrupção e permissão de transporte sem licitação" },
 
   /* --- Assembleias Legislativas --- */
   { s:"bacellar", t:"unha_carne", st:"reu", rel:"direto", rot:"Apontado na decisão como líder da organização; preso duas vezes" },
