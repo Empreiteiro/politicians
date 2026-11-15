@@ -297,6 +297,7 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
     <button class="chip" data-race="SP" aria-pressed="false">São Paulo</button>
     <button class="chip" data-race="MG" aria-pressed="false">Minas Gerais</button>
     <button class="chip" data-race="GO" aria-pressed="false">Goiás</button>
+    <button class="chip" data-race="CAM" aria-pressed="false">Câmara</button>
     <button class="chip" data-race="STF" aria-pressed="false">Supremo</button>
   </div>
   <div class="ctl-group">
@@ -331,6 +332,7 @@ ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="var(--panel-2)" stroke="var(--ink)" stroke-width="2"/></svg>Candidato 2026</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="3.6" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="1.4"/></svg>Parente / pessoa próxima</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="5" y="1.5" width="11" height="11" rx="2" fill="var(--st-investigado)" fill-opacity=".22" stroke="var(--st-investigado)" stroke-width="1.6"/></svg>Caso / operação</div>
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><polygon points="16,7 13.5,11.3 8.5,11.3 6,7 8.5,2.7 13.5,2.7" fill="var(--panel-2)" stroke="var(--ink-2)" stroke-width="1.6"/></svg>Deputado federal</div>
       <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="6.5" y="3" width="9" height="9" rx="1" transform="rotate(45 11 7.5)" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"/></svg>Ministro do STF</div>
     </div>
     </div>
@@ -368,6 +370,7 @@ const RACES = {
   SP:{ rot:"São Paulo",   sub:"Tarcísio reeleito no 1º turno", dy:-330 },
   MG:{ rot:"Minas Gerais",sub:"Cleitinho eleito no 1º turno", dy:-330 },
   GO:{ rot:"Goiás",       sub:"Daniel Vilela reeleito no 1º turno", dy:-330 },
+  CAM:{ rot:"Câmara dos Deputados", sub:"ao menos 69 eleitos réus ou investigados", dy:-300 },
   STF:{ rot:"Supremo Tribunal Federal", sub:"10 ministros em atividade · 1 vaga aberta", dy:-235 }
 };
 
@@ -520,7 +523,7 @@ const NODES = [
     bio:"O ministro com mais casos desta rede sob relatoria: trama golpista, joias sauditas, ação contra Eduardo Bolsonaro, caso Roberto Jefferson e o inquérito das fake news, que relatou de 2019 até setembro de 2026. É também o ministro alcançado pelo caso Banco Master, através do contrato do escritório da esposa." },
   { id:"nunesmarques", tipo:"ministro", corrida:"STF", nome:"Nunes Marques", sub:"indicado por Bolsonaro · 2020",
     cargo:"Ministro", indicadoPor:"Jair Bolsonaro (PSL/PL)", ano:2020,
-    bio:"Primeira indicação de Jair Bolsonaro ao STF. Nenhum dos casos representados nesta rede está sob sua relatoria." },
+    bio:"Primeira indicação de Jair Bolsonaro ao STF. É o relator da Operação Overclean, que subiu da Justiça Federal da Bahia para o Supremo justamente por citar o deputado Elmar Nascimento; nessa condição mandou bloquear R$ 85,7 milhões em contas de investigados." },
   { id:"mendonca", tipo:"ministro", corrida:"STF", nome:"André Mendonça", sub:"indicado por Bolsonaro · 2021",
     cargo:"Ministro", indicadoPor:"Jair Bolsonaro (PL)", ano:2021,
     bio:"Segunda indicação de Bolsonaro, apresentada como a de um ministro “terrivelmente evangélico”. Relator do caso Banco Master desde fevereiro de 2026: abriu em julho o inquérito que investiga Flávio Bolsonaro e, em setembro, levantou o sigilo dos relatórios da PF — inclusive o que expôs as mensagens de Vorcaro a Moraes." },
@@ -542,6 +545,46 @@ const NODES = [
     ] },
   { id:"wagner", tipo:"pessoa", corrida:"PR", nome:"Jaques Wagner", sub:"líder do governo Lula no Senado",
     bio:"Senador pela Bahia e líder do governo Lula no Senado no período apurado." },
+
+  /* ---------- DEPUTADOS FEDERAIS ---------- */
+  { id:"frias", tipo:"parlamentar", corrida:"CAM", nome:"Mario Frias", sub:"PL · SP · reeleito",
+    bio:"Ex-secretário especial da Cultura de Jair Bolsonaro e deputado federal por São Paulo, reeleito em 2026. Alvo da primeira fase da Operação Make Up, em setembro de 2026. Nega a suspeita e diz que apresentará documentos." },
+  { id:"kicis", tipo:"parlamentar", corrida:"CAM", nome:"Bia Kicis", sub:"PL · DF · senadora eleita",
+    bio:"Deputada federal pelo Distrito Federal desde 2019 e eleita senadora em 2026. Além de citada na apuração sobre as emendas do filme “Dark Horse”, é investigada na Justiça Eleitoral, a pedido do STF, sobre uma emenda de R$ 250 mil que teria custeado publicidade de campanha." },
+  { id:"pollon", tipo:"parlamentar", corrida:"CAM", nome:"Marcos Pollon", sub:"PL · MS · deputado federal",
+    bio:"Deputado federal por Mato Grosso do Sul e fundador do Proarmas. Seu nome aparece na apuração da PF sobre emendas Pix destinadas à ONG ligada à produção de “Dark Horse” — não foi alvo das buscas." },
+  { id:"elmar", tipo:"parlamentar", corrida:"CAM", nome:"Elmar Nascimento", sub:"União Brasil · BA",
+    bio:"Deputado federal pela Bahia e ex-líder do União Brasil na Câmara. Foi a citação ao seu nome que fez a Operação Overclean subir da Justiça Federal da Bahia para o STF. Afirma que jamais negociou a execução de emendas, nunca indicou empresas e não é ordenador de despesas." },
+  { id:"felixjr", tipo:"parlamentar", corrida:"CAM", nome:"Félix Mendonça Júnior", sub:"PDT · BA",
+    bio:"Deputado federal pela Bahia, alvo da fase da Operação Overclean deflagrada em janeiro de 2026 — não foi a primeira vez. Nega ter negociado emendas e sua assessoria afirma que nada foi comprovado depois de mais de um ano de apuração." },
+  { id:"yury", tipo:"parlamentar", corrida:"CAM", nome:"Yury do Paredão", sub:"MDB · CE",
+    bio:"Deputado federal pelo Ceará, citado em inquérito do STF sobre suspeita de desvio de emendas parlamentares. Não há denúncia formalizada." },
+  { id:"juscelino", tipo:"parlamentar", corrida:"CAM", nome:"Juscelino Filho", sub:"União Brasil · MA",
+    bio:"Deputado federal pelo Maranhão e ex-ministro das Comunicações de Lula, cargo que deixou em 2023. É investigado no STF por suspeita de desvio de emendas parlamentares em mais de uma operação." },
+  { id:"josimar", tipo:"parlamentar", corrida:"CAM", nome:"Josimar Maranhãozinho", sub:"PL · MA · condenado",
+    bio:"Deputado federal pelo Maranhão, apontado pela PGR como o líder do esquema que cobrava 25% de propina sobre emendas destinadas a São José de Ribamar. Condenado pela Primeira Turma do STF a 6 anos e 5 meses de reclusão em março de 2026." },
+  { id:"pastorgil", tipo:"parlamentar", corrida:"CAM", nome:"Pastor Gil", sub:"PL · MA · condenado",
+    bio:"Deputado federal pelo Maranhão, condenado pelo STF a 5 anos e 6 meses em regime inicial semiaberto por corrupção passiva no mesmo esquema de emendas de São José de Ribamar." },
+  { id:"wsantiago", tipo:"parlamentar", corrida:"CAM", nome:"Wilson Santiago", sub:"Republicanos · PB",
+    bio:"Deputado federal pela Paraíba, réu em ação penal por fraude em licitações." },
+  { id:"jrlourenco", tipo:"parlamentar", corrida:"CAM", nome:"Junior Lourenço", sub:"MDB · MA",
+    bio:"Deputado federal pelo Maranhão, réu em ação penal por fraude em licitações." },
+  { id:"jadyel", tipo:"parlamentar", corrida:"CAM", nome:"Jadyel Alencar", sub:"Republicanos · PI",
+    bio:"Deputado federal pelo Piauí, réu em ação penal por fraude em licitações." },
+  { id:"elmovaz", tipo:"parlamentar", corrida:"CAM", nome:"Elmo Vaz", sub:"Avante · BA",
+    bio:"Deputado federal pela Bahia, réu em ação penal por fraude em licitações." },
+  { id:"joaomaia", tipo:"parlamentar", corrida:"CAM", nome:"João Maia", sub:"PP · RN",
+    bio:"Deputado federal pelo Rio Grande do Norte, réu em ação penal por fraude em licitações." },
+  { id:"juarez", tipo:"parlamentar", corrida:"CAM", nome:"Juarez Costa", sub:"Republicanos · MT",
+    bio:"Deputado federal por Mato Grosso e ex-prefeito de Sinop, réu na Operação Sorrelfa. Nega as acusações, diz ter sido alvo de escutas irregulares e ironiza a delação que lhe atribui uma BMW." },
+  { id:"sidney", tipo:"parlamentar", corrida:"CAM", nome:"Sidney Leite", sub:"PSD · AM · reeleito",
+    bio:"Deputado federal pelo Amazonas e ex-secretário municipal de Manaus, reeleito em 2026. Responde a caso sobre suspeita de desvio de recursos da Manausprev. Nega qualquer irregularidade e diz estar de consciência tranquila." },
+  { id:"neysantos", tipo:"parlamentar", corrida:"CAM", nome:"Ney Santos", sub:"Republicanos · SP · eleito",
+    bio:"Ex-prefeito de Embu das Artes eleito deputado federal por São Paulo em 2026. É réu por organização criminosa e lavagem, com suspeita de ligação com o PCC — que nega —, e foi condenado em 2025 em caso separado, por posse de arma com numeração raspada." },
+  { id:"bulhoes", tipo:"parlamentar", corrida:"CAM", nome:"Isnaldo Bulhões", sub:"MDB · AL · reeleito",
+    bio:"Deputado federal por Alagoas, reeleito em 2026. É réu por peculato: cerca de R$ 242 mil em verba de gabinete teriam sido justificados com notas fiscais falsas no período em que era deputado estadual." },
+  { id:"jrbetao", tipo:"parlamentar", corrida:"CAM", nome:"Júnior Betão", sub:"PL · AC · eleito",
+    bio:"Eleito deputado federal pelo Acre em 2026. Foi condenado em primeira instância por peculato na Operação Sanguessuga, o escândalo das ambulâncias; o recurso subiu ao STF com a diplomação." },
 
   /* ---------- CASOS ---------- */
   { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
@@ -939,6 +982,108 @@ const NODES = [
       {t:"Delações da Odebrecht na Operação Lava Jato", u:"https://pt.wikipedia.org/wiki/Dela%C3%A7%C3%B5es_da_Odebrecht_na_Opera%C3%A7%C3%A3o_Lava_Jato", v:"Wikipédia", l:"centro"},
       {t:"Delação da Odebrecht livrou corruptores e entrega só uma condenação a cada 40 processos", u:"https://www.intercept.com.br/2021/05/25/delacao-odebrecht-lava-jato-falta-provas/", v:"Intercept Brasil", l:"centro-esquerda"},
       {t:"Saiba quem é Daniel Vilela, candidato ao governo de Goiás", u:"https://obrasilianista.com.br/2026/09/09/politica/daniel-vilela-candidato-governo-goias", v:"O Brasilianista", l:"centro"}
+    ]},
+  /* ---------- CASOS DA CÂMARA ---------- */
+  { id:"make_up", tipo:"caso", corrida:"CAM", nome:"Operação Make Up", sub:"PF · emendas do “Dark Horse”", status:"investigado",
+    orgao:"Polícia Federal / STF — relator Flávio Dino", periodo:"2024–2026",
+    resumo:"A PF apura o desvio de emendas parlamentares para entidades ligadas à produção de “Dark Horse”, a cinebiografia de Jair Bolsonaro. A primeira fase, em 10 de setembro de 2026, cumpriu 49 mandados de busca autorizados por Dino e teve como alvos o deputado Mario Frias e Karina Gama, da Go Up Entertainment; a segunda, em 13 de novembro de 2026, buscou um ex-assessor de Frias não localizado antes. Segundo a PF, Frias, Bia Kicis e Marcos Pollon direcionaram em conjunto R$ 2,6 milhões em emendas Pix a uma ONG em 2024, e cerca de R$ 2 milhões foram para o Instituto Conhecer Brasil. Apura peculato, falsidade documental, lavagem, organização criminosa e irregularidades em licitações. Todos negam.",
+    nota:"É o outro lado do mesmo filme: enquanto o caso do Banco Master trata do dinheiro privado que financiou “Dark Horse”, a Make Up trata do dinheiro público. Eduardo Bolsonaro, produtor executivo, é o ponto em que as duas apurações se encontram.",
+    fontes:[
+      {t:"PF deflagra 2ª fase da Operação Make Up sobre desvio de emendas para Dark Horse", u:"https://revistaforum.com.br/brasil/pf-operacao-desvio-emendas-dark-horse/", v:"Revista Fórum", l:"centro-esquerda"},
+      {t:"Entenda investigação da PF sobre suposto desvio de emendas para Dark Horse", u:"https://www.cnnbrasil.com.br/politica/entenda-investigacao-da-pf-sobre-suposto-desvio-de-emendas-para-dark-horse/", v:"CNN Brasil", l:"centro"},
+      {t:"PF faz nova busca em investigação sobre desvio de emendas para o filme ‘Dark Horse’", u:"https://www.cartacapital.com.br/politica/pf-faz-nova-busca-em-investigacao-sobre-desvio-de-emendas-para-o-filme-dark-horse/", v:"CartaCapital", l:"centro-esquerda"},
+      {t:"Operação mira emendas parlamentares ligadas a filme sobre Bolsonaro; entenda", u:"https://www.correiobraziliense.com.br/politica/2026/11/7537997-operacao-mira-emendas-parlamentares-ligadas-a-filme-sobre-bolsonaro-entenda.html", v:"Correio Braziliense", l:"centro"},
+      {t:"PF deflagra operação contra desvio de emendas em Brasília", u:"https://tmc.com.br/politica/pf-operacao-make-up-desvio-emendas/", v:"TMC", l:"centro"}
+    ]},
+  { id:"overclean", tipo:"caso", corrida:"CAM", nome:"Operação Overclean", sub:"PF · STF · emendas da Codevasf", status:"investigado",
+    orgao:"Polícia Federal / STF — relator Nunes Marques", periodo:"2024–2026",
+    resumo:"Apura fraudes em licitações e contratos bancados por emendas parlamentares, boa parte por convênios da Codevasf na Bahia. A investigação começou na Justiça Federal da Bahia, em dezembro de 2024, e subiu ao STF por citar o deputado Elmar Nascimento — que virou alvo por emendas indicadas em 2022 a convênios da estatal. Na quinta fase, em julho de 2025, Nunes Marques mandou bloquear R$ 85,7 milhões em contas de investigados. Em janeiro de 2026 uma nova fase mirou o deputado Félix Mendonça Júnior. Ambos negam.",
+    nota:"Emenda parlamentar não é ilegal: o que se investiga é a cobrança de propina ou o direcionamento de contratos por quem indica o recurso. Nenhum dos dois deputados foi denunciado.",
+    fontes:[
+      {t:"Citação a Elmar Nascimento faz PF enviar operação Overclean ao STF", u:"https://www.metropoles.com/colunas/fabio-serapiao/citacoes-a-elmar-nascimento-faz-pf-enviar-operacao-overclean-ao-stf", v:"Metrópoles", l:"centro"},
+      {t:"Overclean: emendas de Elmar Nascimento foram epicentro para nova ação", u:"https://www.metropoles.com/colunas/mirelle-pinheiro/overclean-emendas-de-elmar-nascimento-foram-epicentro-para-nova-acao", v:"Metrópoles", l:"centro"},
+      {t:"Operação Overclean: Elmar Nascimento vira alvo de investigação", u:"https://www.bnews.com.br/noticias/politica/operacao-overclean-elmar-nascimento-vira-alvo-de-investigacao.html", v:"BNews", l:"centro"},
+      {t:"Deputado Félix Mendonça é alvo de operação contra desvio de emendas", u:"https://www.congressoemfoco.com.br/noticia/115467/deputado-felix-mendonca-e-alvo-de-operacao-contra-desvio-de-emendas", v:"Congresso em Foco", l:"centro"},
+      {t:"STF manda bloquear R$ 85,7 milhões em emendas suspeitas", u:"https://www.msnoticias.com.br/editorias/politica-mato-grosso-sul/stf-manda-bloquear-r-857-milhoes-em-emendas-suspeitas/151634/", v:"MS Notícias", l:"centro"}
+    ]},
+  { id:"emendas_ma", tipo:"caso", corrida:"CAM", nome:"Venda de emendas no Maranhão", sub:"STF · 1ª Turma", status:"condenado",
+    orgao:"STF — Primeira Turma", periodo:"2019–2026",
+    resumo:"A Primeira Turma do STF condenou, em 17 de março de 2026, sete dos oito réus de um esquema que cobrava 25% de propina das prefeituras para liberar emendas parlamentares — o caso-modelo de São José de Ribamar (MA), entre 2019 e 2021. Josimar Maranhãozinho, apontado como líder, pegou 6 anos e 5 meses e 300 dias-multa; Pastor Gil, 5 anos e 6 meses em regime inicial semiaberto. A Turma absolveu os réus da acusação de organização criminosa, por falta de provas, e fixou indenização por dano moral coletivo de cerca de R$ 1,7 milhão. A perda dos mandatos cabe à Câmara dos Deputados.",
+    nota:"É a única condenação criminal por venda de emendas na rede — e mostra onde as apurações da Overclean e da Make Up podem chegar. A condenação não é definitiva enquanto couberem recursos.",
+    fontes:[
+      {t:"STF conclui julgamento de ação penal sobre desvio de emendas parlamentares", u:"https://noticias.stf.jus.br/postsnoticias/stf-condena-sete-reus-por-desvio-de-emendas-parlamentares-destinadas-a-municipio-do-maranhao/", v:"STF", l:"institucional"},
+      {t:"A pedido do MPF, Supremo condena deputados federais que cobravam propina em troca de emendas", u:"https://www.mpf.mp.br/o-mpf/unidades/procuradoria-geral-da-republica-pgr/noticias/a-pedido-do-mpf-supremo-condena-deputados-federais-que-cobravam-propina-em-troca-de-emendas-parlamentares", v:"MPF", l:"institucional"},
+      {t:"STF condena deputados do PL por cobrarem 25% de propina em emendas", u:"https://www.otempo.com.br/politica/judiciario/2026/3/17/stf-condena-tres-deputados-do-pl-por-cobrarem-propinas-em-emendas-parlamentares", v:"O Tempo", l:"centro"},
+      {t:"As penas de deputados do PL condenados pelo STF por desvio de emendas", u:"https://www.cartacapital.com.br/politica/as-penas-de-deputados-do-pl-condenados-pelo-stf-por-desvio-de-emendas/", v:"CartaCapital", l:"centro-esquerda"},
+      {t:"1ª Turma do STF condena deputados por desvio de emendas parlamentares", u:"https://www.congressoemfoco.com.br/noticia/117341/1-turma-do-stf-condena-deputados-por-desvio-de-emendas-parlamentares", v:"Congresso em Foco", l:"centro"}
+    ]},
+  { id:"emendas_stf", tipo:"caso", corrida:"CAM", nome:"Emendas sob rastreio no STF", sub:"STF · inquéritos", status:"investigado",
+    orgao:"STF / Polícia Federal", periodo:"2024–2026",
+    resumo:"Além da Overclean e da Make Up, o Supremo concentra inquéritos abertos sobre suspeita de desvio de emendas parlamentares que alcançam parlamentares de vários partidos, entre eles Yury do Paredão (MDB-CE) e Juscelino Filho (União-MA), ex-ministro das Comunicações. São apurações sem denúncia formalizada, derivadas da decisão que obrigou a rastrear o destino das emendas — relatada por Flávio Dino.",
+    nota:"Nenhum dos citados aqui foi denunciado. A existência do inquérito é consequência direta do regime de transparência imposto pelo STF às emendas, não uma acusação.",
+    fontes:[
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"},
+      {t:"69 eleitos sob investigação: o que os processos mostram — e o que ainda não provam", u:"https://lucianapombo.com.br/noticia/72692/69-eleitos-sob-investigacao-o-que-os-processos-mostram-e-o-que-ainda-nao-provam.html", v:"Blog da Luciana Pombo", l:"centro"}
+    ]},
+  { id:"kicis_emenda", tipo:"caso", corrida:"CAM", nome:"Emenda e publicidade de campanha", sub:"Justiça Eleitoral · a pedido do STF", status:"investigado",
+    orgao:"Justiça Eleitoral, por determinação do STF", periodo:"2024–2026",
+    resumo:"Apuração sobre uma emenda de R$ 250 mil indicada por Bia Kicis e a suspeita de que parte do recurso tenha custeado publicidade de campanha — conduta que, se confirmada, caracteriza uso eleitoral de verba pública. A investigação foi aberta na Justiça Eleitoral por determinação do Supremo. Não há denúncia.",
+    fontes:[
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"licitacoes_cam", tipo:"caso", corrida:"CAM", nome:"Fraude em licitações — réus na Câmara", sub:"ações penais em curso", status:"reu",
+    orgao:"Justiça criminal — instâncias não detalhadas pelas fontes", periodo:"em curso em 2026",
+    resumo:"Levantamento do UOL sobre os eleitos de 2026 identificou um bloco de cinco deputados federais que respondem como réus por fraude em licitações: Wilson Santiago (Republicanos-PB), Junior Lourenço (MDB-MA), Jadyel Alencar (Republicanos-PI), Elmo Vaz (Avante-BA) e João Maia (PP-RN). São processos distintos, agrupados aqui pela mesma acusação; as reportagens não detalham o órgão julgador de cada um.",
+    nota:"Nó de agregação, não de um único processo: serve para mostrar quantos mandatos convivem com a mesma acusação. Ser réu não é ser condenado.",
+    fontes:[
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
+      {t:"Ao menos 69 parlamentares eleitos são réus ou investigados", u:"https://gazetadoparana.com.br/publico/ao-menos-69-parlamentares-eleitos-sao-reus-ou-investigados", v:"Gazeta do Paraná", l:"centro"},
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"sorrelfa", tipo:"caso", corrida:"CAM", nome:"Operação Sorrelfa", sub:"MP-MT · STJ", status:"reu",
+    orgao:"MP-MT / TJ-MT / STJ", periodo:"2016–2026",
+    resumo:"Deflagrada em setembro de 2016, apura a venda de um imóvel público abaixo do preço de mercado em Sinop, quando Juarez Costa era prefeito. Ele é réu por corrupção passiva, falsidade ideológica e lavagem de dinheiro; entre os bens citados estão um Porsche Cayenne e apartamentos em Balneário Camboriú. Em junho de 2026 veio à tona a delação de executivos da Aegea, que afirmaram ao Ministério Público ter pago R$ 30 milhões em propina e uma BMW ao deputado. O processo corre sob sigilo no STJ. Costa nega tudo e alega escutas irregulares.",
+    nota:"Delação premiada é prova a ser confirmada, não condenação. A parte da acusação que vem das delações da Aegea ainda não foi examinada em julgamento.",
+    fontes:[
+      {t:"Executivos afirmam que pagaram R$ 30 milhões e BMW de propina a Juarez Costa", u:"https://olhardireto.com.br/noticias/executivos-afirmam-que-pagaram-r-30-milhoes-e-bmw-de-propina-a-juarez-costa", v:"Olhar Direto", l:"centro"},
+      {t:"Juarez Costa teria recebido R$ 30 milhões e uma BMW em propina", u:"https://www.gazetadigital.com.br/editorias/politica-de-mt/juarez-costa-teria-recebido-r-30-milhoes-e-uma-bmw-em-propina/850121", v:"Gazeta Digital", l:"centro"},
+      {t:"Juarez Costa nega R$ 30 milhões da Aegea e ironiza BMW", u:"https://www.matogrossoaovivo.com.br/17/06/2026/noticia-em-destaque/juarez-costa-nega-r-30-milhoes-da-aegea-ironiza-bmw-e-diz-levar-porrada-por-ser/", v:"Mato Grosso ao Vivo", l:"centro-direita"},
+      {t:"TJ vai julgar ação contra deputado por suposto recebimento de propina", u:"https://www.midiajur.com.br/justica/tj-vai-julgar-acao-contra-deputado-por-suposto-recebimento-de-propina/81292", v:"MídiaJur", l:"institucional"}
+    ]},
+  { id:"manausprev", tipo:"caso", corrida:"CAM", nome:"Desvios na Manausprev", sub:"previdência de Manaus", status:"investigado",
+    orgao:"Ministério Público / Justiça do Amazonas", periodo:"em curso em 2026",
+    resumo:"Apuração sobre suspeita de desvio de recursos da Manausprev, o fundo de previdência dos servidores de Manaus, que alcança o deputado federal Sidney Leite (PSD-AM), ex-secretário municipal e reeleito em 2026. As reportagens divergem sobre a fase do caso — algumas o descrevem como réu, outras como investigado —, e nenhuma informa valores. Ele nega irregularidade.",
+    nota:"Classificado aqui como investigado por ser a leitura mais conservadora diante da divergência entre as fontes.",
+    fontes:[
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
+      {t:"69 parlamentares eleitos respondem a processos criminais", u:"https://tvnova.tv.br/jornalfatonovo/69-parlamentares-eleitos-respondem-a-processos-criminais/", v:"Jornal Fato Novo", l:"centro"},
+      {t:"Ao Congresso, 69 eleitos são réus ou investigados, aponta UOL", u:"https://bncamazonas.com.br/ta_na_midia/ao-congresso-69-eleitos-sao-reus-ou-investigados-aponta-uol/", v:"BNC Amazonas", l:"centro"}
+    ]},
+  { id:"sanguessuga", tipo:"caso", corrida:"CAM", nome:"Operação Sanguessuga", sub:"ambulâncias · peculato", status:"condenado",
+    orgao:"Justiça Federal / STF (recurso)", periodo:"2006–2026",
+    resumo:"O escândalo das ambulâncias, deflagrado em 2006, apurou a compra superfaturada de ambulâncias com verba de emendas e convênios do Ministério da Saúde. Júnior Betão, eleito deputado federal pelo Acre em 2026, foi condenado em primeira instância por peculato nesse caso; com a diplomação, o recurso passou a tramitar no STF.",
+    nota:"Condenação em primeira instância, com recurso pendente — não é condenação definitiva. O caso mostra como um processo de 2006 chega ao Congresso de 2027.",
+    fontes:[
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"},
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"}
+    ]},
+  { id:"ney_pcc", tipo:"caso", corrida:"CAM", nome:"Organização criminosa e elo com o PCC", sub:"Embu das Artes", status:"reu",
+    orgao:"Ministério Público / Justiça de São Paulo", periodo:"em curso em 2026",
+    resumo:"Ney Santos, eleito deputado federal por São Paulo, é réu por organização criminosa e lavagem de dinheiro, em caso que apura suposta ligação com o PCC no período em que foi prefeito de Embu das Artes. Ele nega o vínculo. Em processo separado, foi condenado em 2025 por posse de arma com numeração raspada.",
+    nota:"Segundo vínculo entre a facção e a política eleita nesta rede — o outro é o fornecedor Thiago Telles, nos contratos de saúde de Goiás. São casos independentes.",
+    fontes:[
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
+    ]},
+  { id:"bulhoes_gab", tipo:"caso", corrida:"CAM", nome:"Verba de gabinete em Alagoas", sub:"peculato · notas falsas", status:"reu",
+    orgao:"Justiça de Alagoas", periodo:"em curso em 2026",
+    resumo:"Isnaldo Bulhões, reeleito deputado federal por Alagoas, é réu por peculato: cerca de R$ 242 mil em verba indenizatória de gabinete teriam sido justificados com notas fiscais falsas no período em que era deputado estadual na Assembleia de Alagoas.",
+    nota:"É o mesmo mecanismo das rachadinhas e dos gabinetes fantasmas das assembleias: verba de gabinete comprovada com documentação inexistente.",
+    fontes:[
+      {t:"69 parlamentares eleitos são investigados por crimes; veja nomes", u:"https://fmnews.com.br/2026/10/08/69-parlamentares-eleitos-sao-investigados-por-crimes-veja-nomes/", v:"FM News / UOL", l:"centro"},
+      {t:"País do discurso anticorrupção elege ao menos 75 investigados, réus ou condenados", u:"https://obrasilianista.com.br/2026/10/14/justica/pais-do-discurso-anticorrupcao-elege-ao-menos-75-investigados-reus-ou-condenados/", v:"O Brasilianista", l:"centro"}
     ]}
 ];
 
@@ -1099,7 +1244,38 @@ const LINKS = [
   { s:"perillo", t:"perillo_caixa2", st:"condenado", rel:"direto", rot:"Condenado; absolvido dos demais crimes" },
   { s:"wilder", t:"wilder_emendas", st:"investigado", rel:"direto", rot:"Apuração determinada por Flávio Dino" },
   { s:"vilela", t:"vilela_odb", st:"encerrado", rel:"direto", rot:"Inquérito arquivado no STF" },
-  { s:"vilela", t:"caiado", st:"citado", rel:"politico", rot:"Vice que o sucedeu no governo de Goiás" }
+  { s:"vilela", t:"caiado", st:"citado", rel:"politico", rot:"Vice que o sucedeu no governo de Goiás" },
+
+  /* --- Câmara dos Deputados: emendas --- */
+  { s:"frias", t:"make_up", st:"investigado", rel:"direto", rot:"Alvo da 1ª fase; emendas de R$ 2 mi ao Instituto Conhecer Brasil" },
+  { s:"kicis", t:"make_up", st:"citado", rel:"direto", rot:"Apontada entre os três que destinaram R$ 2,6 mi em emendas Pix à ONG" },
+  { s:"pollon", t:"make_up", st:"citado", rel:"direto", rot:"Apontado entre os três autores das emendas Pix; não foi alvo de busca" },
+  { s:"eduardob", t:"make_up", st:"citado", rel:"direto", rot:"Produtor executivo do filme financiado pelas emendas apuradas" },
+  { s:"dino", t:"make_up", st:"judicial", rel:"judicial", rot:"Expediu os 49 mandados da 1ª fase e autorizou a 2ª" },
+  { s:"kicis", t:"kicis_emenda", st:"investigado", rel:"direto", rot:"Emenda de R$ 250 mil sob suspeita de custear publicidade de campanha" },
+  { s:"elmar", t:"overclean", st:"investigado", rel:"direto", rot:"Citação a ele levou o caso ao STF; emendas a convênios da Codevasf" },
+  { s:"felixjr", t:"overclean", st:"investigado", rel:"direto", rot:"Alvo da fase de janeiro de 2026; nega ter negociado emendas" },
+  { s:"nunesmarques", t:"overclean", st:"judicial", rel:"judicial", rot:"Relator; mandou bloquear R$ 85,7 milhões" },
+  { s:"josimar", t:"emendas_ma", st:"condenado", rel:"direto", rot:"Apontado como líder; 6 anos e 5 meses por corrupção passiva" },
+  { s:"pastorgil", t:"emendas_ma", st:"condenado", rel:"direto", rot:"5 anos e 6 meses em regime inicial semiaberto" },
+  { s:"yury", t:"emendas_stf", st:"investigado", rel:"direto", rot:"Citado em inquérito sobre desvio de emendas" },
+  { s:"juscelino", t:"emendas_stf", st:"investigado", rel:"direto", rot:"Investigado em mais de uma operação sobre emendas" },
+  { s:"elmar", t:"emendas_stf", st:"investigado", rel:"direto", rot:"Também citado no conjunto de inquéritos sobre emendas" },
+  { s:"dino", t:"emendas_stf", st:"judicial", rel:"judicial", rot:"Relator das ações que impuseram o rastreio das emendas" },
+  { s:"wilder", t:"emendas_stf", st:"investigado", rel:"politico", rot:"Senador por Goiás apurado no mesmo regime de rastreio" },
+
+  /* --- Câmara: outros casos --- */
+  { s:"wsantiago", t:"licitacoes_cam", st:"reu", rel:"direto", rot:"Réu por fraude em licitações" },
+  { s:"jrlourenco", t:"licitacoes_cam", st:"reu", rel:"direto", rot:"Réu por fraude em licitações" },
+  { s:"jadyel", t:"licitacoes_cam", st:"reu", rel:"direto", rot:"Réu por fraude em licitações" },
+  { s:"elmovaz", t:"licitacoes_cam", st:"reu", rel:"direto", rot:"Réu por fraude em licitações" },
+  { s:"joaomaia", t:"licitacoes_cam", st:"reu", rel:"direto", rot:"Réu por fraude em licitações" },
+  { s:"juarez", t:"sorrelfa", st:"reu", rel:"direto", rot:"Réu por corrupção passiva, falsidade ideológica e lavagem" },
+  { s:"sidney", t:"manausprev", st:"investigado", rel:"direto", rot:"Apurado por suspeita de desvio do fundo previdenciário" },
+  { s:"jrbetao", t:"sanguessuga", st:"condenado", rel:"direto", rot:"Condenado em 1ª instância por peculato; recurso no STF" },
+  { s:"neysantos", t:"ney_pcc", st:"reu", rel:"direto", rot:"Réu por organização criminosa e lavagem; nega elo com o PCC" },
+  { s:"bulhoes", t:"bulhoes_gab", st:"reu", rel:"direto", rot:"Réu por peculato de R$ 242 mil em verba de gabinete" },
+  { s:"gaspar", t:"inss", st:"citado", rel:"politico", rot:"Relator da CPMI; pediu o indiciamento de 216 pessoas" }
 ];
 
 /* ============================================================
@@ -1107,11 +1283,12 @@ const LINKS = [
    ============================================================ */
 
 const byId = new Map(NODES.map(n => [n.id, n]));
-const W = 2280, H = 1620;
+const W = 2900, H = 2060;
 const CENTERS = {
-  PR:{x:W*0.22, y:H*0.21}, SP:{x:W*0.78, y:H*0.19},
-  MG:{x:W*0.19, y:H*0.82}, GO:{x:W*0.81, y:H*0.83},
-  STF:{x:W*0.50, y:H*0.51}
+  PR:{x:W*0.19, y:H*0.26}, SP:{x:W*0.81, y:H*0.24},
+  MG:{x:W*0.17, y:H*0.78}, GO:{x:W*0.83, y:H*0.79},
+  STF:{x:W*0.50, y:H*0.51},
+  CAM:{x:W*0.50, y:H*0.11}
 };
 
 /* grau: quantas ligações cada nó tem (usado no tamanho dos nós de caso) */
@@ -1122,7 +1299,7 @@ const nodes = NODES.map(n => ({...n}));
 const links = LINKS.map(l => ({...l, source:l.s, target:l.t}));
 
 const raio = n => n.tipo === "candidato" ? 13 : n.tipo === "pessoa" ? 6.5
-  : n.tipo === "ministro" ? 9.5
+  : n.tipo === "ministro" ? 9.5 : n.tipo === "parlamentar" ? 9.5
   : Math.min(15, 8 + grau.get(n.id) * 1.1);
 
 /* posições iniciais em torno do cluster, para uma convergência estável */
@@ -1137,7 +1314,7 @@ const sim = d3.forceSimulation(nodes)
   .force("link", d3.forceLink(links).id(d => d.id)
     .distance(l => l.rel === "familiar" ? 74 : l.rel === "direto" ? 132 : 112)
     .strength(l => l.rel === "familiar" ? .9 : 0.45))
-  .force("charge", d3.forceManyBody().strength(d => d.tipo === "candidato" ? -820 : -430))
+  .force("charge", d3.forceManyBody().strength(d => d.tipo === "candidato" ? -820 : d.tipo === "parlamentar" ? -560 : -430))
   .force("collide", d3.forceCollide().radius(d => raio(d) + 34).strength(.95))
   .force("x", d3.forceX(d => (CENTERS[d.corrida] || CENTERS.PR).x).strength(.13))
   .force("y", d3.forceY(d => (CENTERS[d.corrida] || CENTERS.PR).y).strength(.13))
@@ -1177,7 +1354,7 @@ const nodeSel = gNodes.selectAll("g").data(nodes).join("g")
   .attr("transform", d => `translate(${d.x},${d.y})`)
   .attr("tabindex", 0)
   .attr("role","button")
-  .attr("aria-label", d => `${d.nome}. ${d.tipo === "caso" ? "Caso, situação " + STATUS[d.status].rot : d.tipo === "ministro" ? "Ministro do STF, " + d.sub : d.sub}`);
+  .attr("aria-label", d => `${d.nome}. ${d.tipo === "caso" ? "Caso, situação " + STATUS[d.status].rot : d.tipo === "ministro" ? "Ministro do STF, " + d.sub : d.tipo === "parlamentar" ? "Parlamentar, " + d.sub : d.sub}`);
 
 nodeSel.each(function(d){
   const g = d3.select(this);
@@ -1189,6 +1366,14 @@ nodeSel.each(function(d){
   } else if (d.tipo === "candidato") {
     g.append("circle").attr("r",13).attr("fill","var(--panel-2)")
       .attr("stroke","var(--ink)").attr("stroke-width",2.2);
+  } else if (d.tipo === "parlamentar") {
+    const r = 9.8;
+    const pts = d3.range(6).map(i => {
+      const a = (i * 60) * Math.PI / 180;
+      return [(Math.cos(a) * r).toFixed(2), (Math.sin(a) * r).toFixed(2)].join(",");
+    });
+    g.append("polygon").attr("points", pts.join(" "))
+      .attr("fill","var(--panel-2)").attr("stroke","var(--ink-2)").attr("stroke-width",1.9);
   } else if (d.tipo === "ministro") {
     const r = 9.5;
     g.append("rect").attr("x",-r).attr("y",-r).attr("width",r*2).attr("height",r*2)
@@ -1201,7 +1386,7 @@ nodeSel.each(function(d){
       .attr("stroke","var(--ink-3)").attr("stroke-width",1.6);
   }
   g.append("circle").attr("class","sel-ring").attr("r", raio(d) + 7).attr("display","none");
-  const off = d.tipo === "caso" ? raio(d) + 13 : d.tipo === "candidato" ? 27 : d.tipo === "ministro" ? 24 : 18;
+  const off = d.tipo === "caso" ? raio(d) + 13 : d.tipo === "candidato" ? 27 : (d.tipo === "ministro" || d.tipo === "parlamentar") ? 24 : 18;
   g.append("text").attr("class", `node-label ${d.tipo}`)
     .attr("y", off).attr("font-size", d.tipo === "candidato" ? 13 : null)
     .text(d.nome);
@@ -1254,7 +1439,7 @@ Object.keys(RACES).forEach(r => {
      Presidência, e "Presidência" mostra a Rejeito por causa de Zema. */
   const seeds = r === "STF"
     ? nodes.filter(n => n.tipo === "ministro")
-    : nodes.filter(n => (n.tipo === "candidato" || n.tipo === "caso") && n.corrida === r);
+    : nodes.filter(n => (n.tipo === "candidato" || n.tipo === "parlamentar" || n.tipo === "caso") && n.corrida === r);
   seeds.forEach(add);
 
   /* pessoas próximas alcançadas a partir das sementes, até três saltos */
@@ -1378,7 +1563,7 @@ function renderNode(n){
 function renderCaso(n){
   const todos = links.filter(l => l.source.id === n.id || l.target.id === n.id)
     .map(l => { const o = l.source.id === n.id ? l.target : l.source;
-      return { id:o.id, tipo:o.tipo, nome:o.nome + (o.tipo === "candidato" ? "  ·  candidato" : ""), via:l.rot, st:l.st }; })
+      return { id:o.id, tipo:o.tipo, nome:o.nome + (o.tipo === "candidato" ? "  ·  candidato" : o.tipo === "parlamentar" ? "  ·  parlamentar" : ""), via:l.rot, st:l.st }; })
     .sort((a,b) => STATUS[a.st].ordem - STATUS[b.st].ordem);
   const envolvidos = todos.filter(i => i.st !== "judicial");
   const tribunal   = todos.filter(i => i.st === "judicial");
@@ -1421,6 +1606,7 @@ function renderPessoa(n){
   const vazio = !casos.length && !indiretos.length;
   const min = n.tipo === "ministro";
   const tipoRot = n.tipo === "candidato" ? `Candidato · ${RACES[n.corrida].rot}`
+    : n.tipo === "parlamentar" ? `Parlamentar · ${RACES[n.corrida].rot}`
     : min ? "Supremo Tribunal Federal" : "Pessoa próxima";
   const meta = min
     ? `<b>Cargo</b> ${esc(n.cargo)}<br><b>Indicado por</b> ${esc(n.indicadoPor)}${n.ano ? `<br><b>No STF desde</b> ${n.ano}` : ""}`
