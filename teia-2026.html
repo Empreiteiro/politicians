@@ -1,0 +1,1490 @@
+<title>Teia de Casos 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+
+<style>
+:root{
+  --paper:#F2F5F4;
+  --panel:#FBFCFC;
+  --panel-2:#E8EDEC;
+  --rule:#CBD6D5;
+  --rule-soft:#DEE6E5;
+  --ink:#0D1618;
+  --ink-2:#3D4F52;
+  --ink-3:#68797C;
+  --accent:#0F5A66;
+  --accent-soft:#DCEAEB;
+  --on-accent:#F7FAFA;
+
+  --st-condenado:#8C1420;
+  --st-reu:#B4491F;
+  --st-investigado:#B5850F;
+  --st-citado:#5E757F;
+  --st-controversia:#6B4E93;
+  --st-encerrado:#0E8A4A;
+
+  --shadow:0 1px 2px rgba(13,22,24,.06), 0 8px 24px -12px rgba(13,22,24,.22);
+  --halo:#F2F5F4;
+
+  --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#101719;
+    --panel:#182124;
+    --panel-2:#1F2A2D;
+    --rule:#31403F;
+    --rule-soft:#263234;
+    --ink:#E8EFEE;
+    --ink-2:#AFC0C1;
+    --ink-3:#829698;
+    --accent:#5BC4CE;
+    --accent-soft:#16333A;
+    --on-accent:#08191C;
+
+    --st-condenado:#F2726E;
+    --st-reu:#EE9350;
+    --st-investigado:#DCAF3A;
+    --st-citado:#93A7AD;
+    --st-controversia:#B9A4E8;
+    --st-encerrado:#35BC8B;
+
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px -14px rgba(0,0,0,.8);
+    --halo:#101719;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101719;
+  --panel:#182124;
+  --panel-2:#1F2A2D;
+  --rule:#31403F;
+  --rule-soft:#263234;
+  --ink:#E8EFEE;
+  --ink-2:#AFC0C1;
+  --ink-3:#829698;
+  --accent:#5BC4CE;
+  --accent-soft:#16333A;
+  --on-accent:#08191C;
+
+  --st-condenado:#F2726E;
+  --st-reu:#EE9350;
+  --st-investigado:#DCAF3A;
+  --st-citado:#93A7AD;
+  --st-controversia:#B9A4E8;
+  --st-encerrado:#35BC8B;
+
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 10px 30px -14px rgba(0,0,0,.8);
+  --halo:#101719;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--f-body);
+  -webkit-font-smoothing:antialiased;
+  height:100vh;overflow:hidden;
+  display:grid;grid-template-rows:auto auto 1fr;
+}
+
+/* ---------- masthead ---------- */
+header{
+  border-bottom:1px solid var(--rule);
+  background:var(--panel);
+  padding:14px 22px 12px;
+  display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:baseline;gap:12px;min-width:0}
+h1{
+  font-family:var(--f-display);font-weight:700;font-size:21px;letter-spacing:-.02em;
+  margin:0;white-space:nowrap;
+}
+h1 .yr{color:var(--accent)}
+.kicker{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);white-space:nowrap;
+}
+.deck{
+  font-size:13.5px;color:var(--ink-2);line-height:1.45;max-width:64ch;flex:1 1 340px;margin:0;
+}
+.masthead-actions{display:flex;gap:8px;margin-left:auto;align-self:center}
+
+/* ---------- controls ---------- */
+.controls{
+  border-bottom:1px solid var(--rule);background:var(--panel);
+  padding:9px 22px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+}
+.ctl-group{display:flex;align-items:center;gap:7px}
+.ctl-label{
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);
+}
+.chip{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.02em;
+  padding:4px 10px;border-radius:2px;border:1px solid var(--rule);
+  background:transparent;color:var(--ink-2);cursor:pointer;
+  transition:background .12s,border-color .12s,color .12s;
+}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:500}
+.btn{
+  font-family:var(--f-mono);font-size:11px;padding:5px 11px;border-radius:2px;
+  border:1px solid var(--rule);background:transparent;color:var(--ink-2);cursor:pointer;
+}
+.btn:hover{border-color:var(--accent);color:var(--ink)}
+input[type="search"]{
+  font-family:var(--f-mono);font-size:11.5px;padding:5px 9px;width:190px;
+  border:1px solid var(--rule);border-radius:2px;background:var(--paper);color:var(--ink);
+}
+input[type="search"]:focus-visible,.chip:focus-visible,.btn:focus-visible,
+.node:focus-visible,.src a:focus-visible,.xref:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+.toggle{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;color:var(--ink-2);cursor:pointer}
+.toggle input{accent-color:var(--accent);margin:0}
+
+/* ---------- stage ---------- */
+.stage{position:relative;display:grid;grid-template-columns:1fr 372px;min-height:0}
+@media (max-width:900px){
+  .stage{grid-template-columns:1fr;grid-template-rows:1fr auto}
+  #drawer{max-height:46vh;border-left:none;border-top:1px solid var(--rule)}
+}
+#canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#canvas.grabbing{cursor:grabbing}
+
+.cluster-label{
+  font-family:var(--f-display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  fill:var(--ink);opacity:.07;font-size:44px;
+}
+.cluster-sub{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  fill:var(--ink-3);opacity:.55;
+}
+.link{fill:none;stroke-linecap:round}
+.node{cursor:pointer}
+.node-label{
+  font-family:var(--f-display);font-weight:600;fill:var(--ink);
+  paint-order:stroke;stroke:var(--halo);stroke-width:3.5px;stroke-linejoin:round;
+  pointer-events:none;text-anchor:middle;
+}
+.node-label.pessoa{font-family:var(--f-mono);font-weight:400;font-size:9.5px;fill:var(--ink-2)}
+.node-label.caso{font-family:var(--f-mono);font-weight:500;font-size:9.5px;letter-spacing:.02em}
+.node-label.ministro{font-size:11px;fill:var(--ink)}
+.node-sub{
+  font-family:var(--f-mono);font-size:8.5px;fill:var(--ink-3);
+  paint-order:stroke;stroke:var(--halo);stroke-width:3px;stroke-linejoin:round;
+  pointer-events:none;text-anchor:middle;
+}
+.dim{opacity:.3;transition:opacity .18s}
+.sel-ring{fill:none;stroke:var(--accent);stroke-width:2;opacity:.9}
+
+/* ---------- legend ---------- */
+.legend{
+  position:absolute;left:16px;bottom:16px;z-index:5;
+  background:color-mix(in srgb, var(--panel) 92%, transparent);
+  border:1px solid var(--rule);border-radius:3px;padding:11px 13px;
+  display:flex;flex-direction:row;gap:18px;box-shadow:var(--shadow);
+  backdrop-filter:blur(6px);max-width:none;align-items:flex-start;
+}
+.legend-col{display:flex;flex-direction:column;gap:7px}
+.legend hr.v{border:none;border-left:1px solid var(--rule-soft);align-self:stretch;margin:0}
+@media (max-width:1100px){ .legend{display:none} }
+.legend h3{
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);margin:0;font-weight:500;
+}
+.legend-row{display:flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:10px;color:var(--ink-2)}
+.legend-rows{display:flex;flex-direction:column;gap:4px}
+.swatch{width:22px;height:0;border-top-style:solid;flex:none}
+.legend hr{border:none;border-top:1px solid var(--rule-soft);margin:1px 0}
+
+/* ---------- drawer ---------- */
+#drawer{
+  border-left:1px solid var(--rule);background:var(--panel);
+  overflow-y:auto;padding:20px 22px 40px;min-width:0;
+}
+.d-eyebrow{
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:7px;
+}
+.d-title{
+  font-family:var(--f-display);font-weight:700;font-size:20px;line-height:1.2;
+  letter-spacing:-.015em;margin:0 0 9px;text-wrap:balance;
+}
+.d-meta{
+  font-family:var(--f-mono);font-size:10.5px;color:var(--ink-3);line-height:1.7;
+  margin:0 0 14px;padding-bottom:13px;border-bottom:1px solid var(--rule-soft);
+}
+.d-meta b{color:var(--ink-2);font-weight:500}
+.d-body{font-size:14.5px;line-height:1.58;color:var(--ink-2);margin:0 0 16px}
+.d-body strong{color:var(--ink);font-weight:600}
+.d-section{
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin:20px 0 9px;padding-top:14px;border-top:1px solid var(--rule-soft);
+}
+.d-section:first-of-type{border-top:none;padding-top:0}
+
+.status-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;border:1px solid currentColor;white-space:nowrap;
+}
+.status-chip::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex:none}
+
+ul.xrefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px}
+.xref{
+  display:grid;grid-template-columns:1fr auto;gap:10px;align-items:baseline;
+  width:100%;text-align:left;background:none;border:none;border-bottom:1px solid var(--rule-soft);
+  padding:8px 2px;cursor:pointer;color:var(--ink);font-family:var(--f-body);font-size:13.5px;
+}
+.xref:hover{background:var(--panel-2)}
+.xref .who{line-height:1.35}
+.xref .via{display:block;font-family:var(--f-mono);font-size:9.5px;color:var(--ink-3);margin-top:2px;letter-spacing:.01em}
+
+.src{
+  border-bottom:1px solid var(--rule-soft);padding:9px 0;
+  display:flex;flex-direction:column;gap:4px;
+}
+.src a{color:var(--ink);text-decoration:none;font-size:13.5px;line-height:1.35;border-bottom:1px solid var(--rule)}
+.src a:hover{border-bottom-color:var(--accent);color:var(--accent)}
+.src-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.outlet{font-family:var(--f-mono);font-size:10px;color:var(--ink-3)}
+.lean{
+  font-family:var(--f-mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:1px 5px;border-radius:2px;border:1px solid var(--rule);color:var(--ink-3);
+}
+.lean[data-l="institucional"]{border-color:var(--accent);color:var(--accent)}
+.lean[data-l="centro-esquerda"],.lean[data-l="centro-direita"],.lean[data-l="centro"]{border-color:var(--rule)}
+
+.spread{display:flex;gap:5px;flex-wrap:wrap;margin:-3px 0 14px}
+.spread .lean{background:var(--panel-2)}
+
+.note{
+  font-family:var(--f-mono);font-size:10.5px;line-height:1.6;color:var(--ink-3);
+  background:var(--panel-2);border-left:2px solid var(--rule);padding:9px 11px;margin:14px 0;
+}
+.note b{color:var(--ink-2);font-weight:500}
+
+.method h4{font-family:var(--f-display);font-size:14px;margin:18px 0 6px;font-weight:600;letter-spacing:-.01em}
+.method p{font-size:13.5px;line-height:1.58;color:var(--ink-2);margin:0 0 10px}
+.method ul{margin:0 0 12px;padding-left:18px;font-size:13.5px;line-height:1.55;color:var(--ink-2)}
+.method li{margin-bottom:5px}
+.method code{font-family:var(--f-mono);font-size:11.5px;background:var(--panel-2);padding:1px 4px;border-radius:2px}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header>
+  <div class="brand">
+    <h1>Teia de Casos <span class="yr">2026</span></h1>
+    <span class="kicker">Eleições gerais · 4 de outubro</span>
+  </div>
+  <p class="deck">Candidatos a presidente e a governador de <b>SP</b>, <b>MG</b> e <b>GO</b> ligados a casos de corrupção &mdash; diretamente ou através de parentes e pessoas próximas. A cor de cada ligação é a <b>situação jurídica</b>, não a acusação.</p>
+  <div class="masthead-actions">
+    <button class="btn" id="btn-method">Metodologia</button>
+    <button class="btn" id="btn-fit">Enquadrar</button>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="ctl-group">
+    <span class="ctl-label">Disputa</span>
+    <button class="chip" data-race="all" aria-pressed="true">Todas</button>
+    <button class="chip" data-race="PR" aria-pressed="false">Presidência</button>
+    <button class="chip" data-race="SP" aria-pressed="false">São Paulo</button>
+    <button class="chip" data-race="MG" aria-pressed="false">Minas Gerais</button>
+    <button class="chip" data-race="GO" aria-pressed="false">Goiás</button>
+    <button class="chip" data-race="STF" aria-pressed="false">Supremo</button>
+  </div>
+  <div class="ctl-group">
+    <span class="ctl-label">Situação</span>
+    <button class="chip" data-st="all" aria-pressed="true">Todas</button>
+    <button class="chip" data-st="condenado" aria-pressed="false">Condenado</button>
+    <button class="chip" data-st="reu" aria-pressed="false">Réu</button>
+    <button class="chip" data-st="investigado" aria-pressed="false">Investigado</button>
+    <button class="chip" data-st="citado" aria-pressed="false">Citado</button>
+    <button class="chip" data-st="encerrado" aria-pressed="false">Encerrado</button>
+    <button class="chip" data-st="controversia" aria-pressed="false">Controvérsia</button>
+    <button class="chip" data-st="judicial" aria-pressed="false">Judicial</button>
+  </div>
+  <label class="toggle"><input type="checkbox" id="only-direct"> só vínculos diretos</label>
+  <div class="ctl-group" style="margin-left:auto">
+    <input type="search" id="search" placeholder="buscar nome ou caso…" aria-label="Buscar pessoa ou caso">
+  </div>
+</div>
+
+<div class="stage">
+  <svg id="canvas" role="img" aria-label="Grafo de vínculos entre candidatos, pessoas próximas e casos de corrupção"></svg>
+
+  <div class="legend">
+    <div class="legend-col">
+      <h3>Situação jurídica do vínculo</h3>
+      <div class="legend-rows" id="legend-status"></div>
+    </div>
+    <hr class="v">
+    <div class="legend-col">
+    <h3>Nós</h3>
+    <div class="legend-rows">
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="5.5" fill="var(--panel-2)" stroke="var(--ink)" stroke-width="2"/></svg>Candidato 2026</div>
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><circle cx="11" cy="7" r="3.6" fill="var(--panel)" stroke="var(--ink-3)" stroke-width="1.4"/></svg>Parente / pessoa próxima</div>
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="5" y="1.5" width="11" height="11" rx="2" fill="var(--st-investigado)" fill-opacity=".22" stroke="var(--st-investigado)" stroke-width="1.6"/></svg>Caso / operação</div>
+      <div class="legend-row"><svg width="22" height="14" aria-hidden="true"><rect x="6.5" y="3" width="9" height="9" rx="1" transform="rotate(45 11 7.5)" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"/></svg>Ministro do STF</div>
+    </div>
+    </div>
+  </div>
+
+  <aside id="drawer" aria-live="polite"></aside>
+</div>
+
+<script>
+/* ============================================================
+   DADOS
+   Situação do vínculo: condenado | reu | investigado | citado | encerrado
+   Cada caso traz fontes de veículos com orientações editoriais distintas.
+   ============================================================ */
+
+const LEAN = {
+  institucional: "institucional",
+  centro: "centro",
+  "centro-direita": "centro-direita",
+  "centro-esquerda": "centro-esquerda"
+};
+
+const STATUS = {
+  condenado:   { rot:"Condenado",   cor:"var(--st-condenado)",   peso:3.2, ordem:1, desc:"Há decisão condenatória, ainda que sujeita a recurso." },
+  reu:         { rot:"Réu / denunciado", cor:"var(--st-reu)",    peso:2.5, ordem:2, desc:"Denúncia ou ação aceita pela Justiça; não há condenação." },
+  investigado: { rot:"Investigado", cor:"var(--st-investigado)", peso:1.9, ordem:3, desc:"Inquérito, indiciamento ou apuração em curso. Não é acusação formal." },
+  citado:      { rot:"Citado",      cor:"var(--st-citado)",      peso:1.3, ordem:4, desc:"Nome aparece nos autos ou em depoimento, sem ser alvo do caso." },
+  encerrado:   { rot:"Encerrado",   cor:"var(--st-encerrado)",   peso:1.6, ordem:5, desc:"Absolvido, arquivado, anulado ou prescrito. Sem efeito jurídico." },
+  controversia:{ rot:"Controvérsia", cor:"var(--st-controversia)", peso:1.5, ordem:6, desc:"Episódio de forte repercussão pública que não configura acusação criminal: decisão de governo contestada, conflito de interesse aparente ou uso questionado da máquina pública." },
+  judicial:    { rot:"Atuação judicial", cor:"var(--accent)",     peso:1.4, ordem:9, desc:"Atuou no caso como relator, julgador ou autoridade que o instaurou. Não é parte do processo." }
+};
+
+const RACES = {
+  PR:{ rot:"Presidência", sub:"13 chapas registradas", dy:-330 },
+  SP:{ rot:"São Paulo",   sub:"7 candidatos",          dy:-330 },
+  MG:{ rot:"Minas Gerais",sub:"11 candidatos",         dy:-330 },
+  GO:{ rot:"Goiás",       sub:"6 candidatos",          dy:-330 },
+  STF:{ rot:"Supremo Tribunal Federal", sub:"10 ministros em atividade · 1 vaga aberta", dy:-235 }
+};
+
+const NODES = [
+  /* ---------- PRESIDÊNCIA ---------- */
+  { id:"lula", tipo:"candidato", corrida:"PR", nome:"Lula", sub:"PT · presidente",
+    bio:"Luiz Inácio Lula da Silva, presidente desde 2023, concorre à reeleição com Geraldo Alckmin (PSB) como vice." },
+  { id:"alckmin", tipo:"candidato", corrida:"PR", nome:"Geraldo Alckmin", sub:"PSB · vice de Lula",
+    bio:"Vice-presidente e ex-governador de São Paulo (1994–2006, 2011–2018)." },
+  { id:"flavio", tipo:"candidato", corrida:"PR", nome:"Flávio Bolsonaro", sub:"PL · senador",
+    bio:"Senador pelo Rio de Janeiro, filho mais velho de Jair Bolsonaro. Vice na chapa: Alfredo Gaspar (PL)." },
+  { id:"gaspar", tipo:"candidato", corrida:"PR", nome:"Alfredo Gaspar", sub:"PL · vice de Flávio",
+    bio:"Deputado federal por Alagoas e ex-procurador. Foi o relator da CPMI do INSS." },
+  { id:"zema", tipo:"candidato", corrida:"PR", nome:"Romeu Zema", sub:"NOVO · ex-gov. MG",
+    bio:"Governou Minas Gerais de 2019 a março de 2026, quando renunciou para disputar a Presidência." },
+  { id:"caiado", tipo:"candidato", corrida:"PR", nome:"Ronaldo Caiado", sub:"PSD · ex-gov. GO",
+    bio:"Governou Goiás de 2019 a 2026, quando renunciou para disputar a Presidência. Vice: Gilberto Kassab." },
+  { id:"kassab", tipo:"candidato", corrida:"PR", nome:"Gilberto Kassab", sub:"PSD · vice de Caiado",
+    bio:"Presidente do PSD, ex-prefeito de São Paulo e ex-secretário de Governo de Tarcísio de Freitas." },
+  { id:"marcal", tipo:"candidato", corrida:"PR", nome:"Pablo Marçal", sub:"PRTB · empresário",
+    bio:"Empresário e influenciador digital, terceiro colocado na eleição para a prefeitura de São Paulo em 2024." },
+  { id:"renan", tipo:"candidato", corrida:"PR", nome:"Renan Santos", sub:"Missão · MBL",
+    bio:"Fundador do Movimento Brasil Livre (MBL) e do partido Missão." },
+  { id:"cury", tipo:"candidato", corrida:"PR", nome:"Augusto Cury", sub:"Avante · escritor",
+    bio:"Psiquiatra e escritor. Não foram localizados casos de corrupção associados ao candidato." },
+
+  /* ---------- SÃO PAULO ---------- */
+  { id:"tarcisio", tipo:"candidato", corrida:"SP", nome:"Tarcísio de Freitas", sub:"Republicanos · governador",
+    bio:"Governador de São Paulo desde 2023, candidato à reeleição. Foi ministro da Infraestrutura (2019–2022) e diretor do DNIT (2012–2014)." },
+  { id:"ramuth", tipo:"candidato", corrida:"SP", nome:"Felício Ramuth", sub:"MDB · vice de Tarcísio",
+    bio:"Vice-governador de São Paulo e ex-prefeito de São José dos Campos. Sem casos de corrupção localizados." },
+  { id:"haddad", tipo:"candidato", corrida:"SP", nome:"Fernando Haddad", sub:"PT · ministro",
+    bio:"Ministro da Fazenda, ex-prefeito de São Paulo (2013–2016) e ex-ministro da Educação." },
+  { id:"franca", tipo:"candidato", corrida:"SP", nome:"Márcio França", sub:"PSB · vice de Haddad",
+    bio:"Ex-governador de São Paulo, ex-prefeito de São Vicente e ex-ministro." },
+
+  /* ---------- MINAS GERAIS ---------- */
+  { id:"simoes", tipo:"candidato", corrida:"MG", nome:"Mateus Simões", sub:"PSD · governador",
+    bio:"Assumiu o governo de Minas em março de 2026, após a renúncia de Romeu Zema, de quem era vice." },
+  { id:"cleitinho", tipo:"candidato", corrida:"MG", nome:"Cleitinho Azevedo", sub:"Republicanos · senador",
+    bio:"Senador por Minas Gerais desde 2023. Responde a queixas-crime por ofensas — não a casos de corrupção." },
+  { id:"kalil", tipo:"candidato", corrida:"MG", nome:"Alexandre Kalil", sub:"PDT · ex-prefeito BH",
+    bio:"Prefeito de Belo Horizonte de 2017 a 2022 e ex-presidente do Atlético Mineiro." },
+  { id:"patrus", tipo:"candidato", corrida:"MG", nome:"Patrus Ananias", sub:"PT · deputado federal",
+    bio:"Deputado federal, ex-prefeito de BH e ex-ministro do Desenvolvimento Social. Sem casos localizados." },
+  { id:"roscoe", tipo:"candidato", corrida:"MG", nome:"Flávio Roscoe", sub:"PL · ex-pres. Fiemg",
+    bio:"Empresário, presidente licenciado da Federação das Indústrias de Minas Gerais. Sem casos localizados." },
+  { id:"gabrielaz", tipo:"candidato", corrida:"MG", nome:"Gabriel Azevedo", sub:"MDB · ex-vereador BH",
+    bio:"Ex-vereador de Belo Horizonte. Sem casos de corrupção localizados." },
+
+  /* ---------- GOIÁS ---------- */
+  { id:"vilela", tipo:"candidato", corrida:"GO", nome:"Daniel Vilela", sub:"MDB · governador",
+    bio:"Assumiu o governo de Goiás com a renúncia de Ronaldo Caiado, de quem era vice. Filho do ex-governador Maguito Vilela." },
+  { id:"perillo", tipo:"candidato", corrida:"GO", nome:"Marconi Perillo", sub:"PSDB · ex-governador",
+    bio:"Governou Goiás por quatro mandatos e foi senador. É o candidato com o histórico judicial mais extenso da disputa." },
+  { id:"wilder", tipo:"candidato", corrida:"GO", nome:"Wilder Morais", sub:"PL · senador",
+    bio:"Senador por Goiás e empresário do setor de construção." },
+  { id:"bueno", tipo:"candidato", corrida:"GO", nome:"Luis Cesar Bueno", sub:"PT · ex-deputado",
+    bio:"Ex-deputado estadual por Goiás. Sem casos de corrupção localizados." },
+
+  /* ---------- PESSOAS ---------- */
+  { id:"jair", tipo:"pessoa", corrida:"PR", nome:"Jair Bolsonaro", sub:"pai de Flávio",
+    bio:"Presidente da República de 2019 a 2022. Condenado pelo STF em 2025 pela trama golpista." },
+  { id:"carlosb", tipo:"pessoa", corrida:"PR", nome:"Carlos Bolsonaro", sub:"irmão de Flávio",
+    bio:"Ex-vereador do Rio de Janeiro." },
+  { id:"eduardob", tipo:"pessoa", corrida:"PR", nome:"Eduardo Bolsonaro", sub:"irmão de Flávio",
+    bio:"Deputado federal licenciado, residente nos Estados Unidos desde 2025." },
+  { id:"queiroz", tipo:"pessoa", corrida:"PR", nome:"Fabrício Queiroz", sub:"ex-chefe de gabinete de Flávio",
+    bio:"PM aposentado, foi chefe de gabinete de Flávio Bolsonaro na Alerj." },
+  { id:"cid", tipo:"pessoa", corrida:"PR", nome:"Mauro Cid", sub:"ex-ajudante de ordens de Jair",
+    bio:"Tenente-coronel, delator nos casos das joias e da trama golpista." },
+  { id:"freichico", tipo:"pessoa", corrida:"PR", nome:"Frei Chico", sub:"irmão de Lula",
+    bio:"José Ferreira da Silva, dirigente do Sindnapi, sindicato de aposentados." },
+  { id:"lulinha", tipo:"pessoa", corrida:"PR", nome:"Fábio Luís (Lulinha)", sub:"filho de Lula",
+    bio:"Empresário, filho do presidente Lula." },
+  { id:"carla", tipo:"pessoa", corrida:"PR", nome:"Carla Ariane Trindade", sub:"ex-nora de Lula",
+    bio:"Ex-mulher de Marcos Cláudio Lula da Silva, enteado do presidente." },
+  { id:"bitar", tipo:"pessoa", corrida:"PR", nome:"Kalil Bitar", sub:"ex-sócio de Lulinha",
+    bio:"Ex-sócio de Fábio Luís Lula da Silva na Gamecorp." },
+  { id:"lupi", tipo:"pessoa", corrida:"PR", nome:"Carlos Lupi", sub:"ex-ministro de Lula",
+    bio:"Ministro da Previdência de janeiro de 2023 a maio de 2025." },
+  { id:"dirceu", tipo:"pessoa", corrida:"PR", nome:"José Dirceu", sub:"ex-ministro de Lula",
+    bio:"Ministro-chefe da Casa Civil de Lula entre 2003 e 2005 e ex-presidente do PT. Renunciou ao cargo e teve o mandato de deputado cassado em 2005, no auge do mensalão. Recuperou a elegibilidade após a anulação das condenações da Lava Jato em 2024 e disputa uma vaga de deputado federal por São Paulo em 2026." },
+  { id:"jefferson", tipo:"pessoa", corrida:"PR", nome:"Roberto Jefferson", sub:"ex-presidente do PTB",
+    bio:"Ex-deputado federal e ex-presidente do PTB. Foi quem detonou o mensalão, em entrevista de 2005 — e, na mesma ação penal, terminou condenado por corrupção passiva e lavagem. Filiado ao PTB entre 2003 e 2005, Jair Bolsonaro foi seu colega de partido; em 2018 o PTB apoiou Bolsonaro no segundo turno e, em 2021, os dois negociaram a filiação do então presidente à legenda. Cumpre prisão domiciliar.",
+    fontes:[
+      {t:"Em 30 anos, Jefferson já foi colega de partido e aliado de Bolsonaro", u:"https://www.poder360.com.br/governo/em-30-anos-jefferson-ja-foi-colega-de-partido-e-aliado-de-bolsonaro/", v:"Poder360", l:"centro"},
+      {t:"O que Roberto Jefferson quer ao aproximar o PTB do bolsonarismo", u:"https://www.gazetadopovo.com.br/republica/roberto-jefferson-ptb-bolsonarismo-bolsonaro/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"Roberto Jefferson e Jair Bolsonaro são amigos há décadas", u:"https://www.intercept.com.br/2022/10/25/roberto-jefferson-e-jair-bolsonaro-sao-amigos-para-sabotar-eleicao/", v:"Intercept Brasil", l:"centro-esquerda"}
+    ] },
+  { id:"careca", tipo:"pessoa", corrida:"PR", nome:"“Careca do INSS”", sub:"lobista",
+    bio:"Antônio Carlos Camilo Antunes, apontado como operador central do esquema de descontos." },
+  { id:"vorcaro", tipo:"pessoa", corrida:"PR", nome:"Daniel Vorcaro", sub:"ex-dono do Banco Master",
+    bio:"Banqueiro cujas propostas de delação foram rejeitadas pela PF e pela PGR." },
+  { id:"gracinha", tipo:"pessoa", corrida:"PR", nome:"Gracinha Caiado", sub:"esposa de Caiado",
+    bio:"Ex-primeira-dama de Goiás e candidata ao Senado." },
+  { id:"ismael", tipo:"pessoa", corrida:"GO", nome:"Ismael Alexandrino", sub:"ex-secretário de Caiado",
+    bio:"Secretário de Saúde de Goiás no governo Caiado entre 2019 e 2022; hoje deputado." },
+  { id:"danielalex", tipo:"pessoa", corrida:"GO", nome:"Daniel Alexandrino", sub:"irmão de Ismael",
+    bio:"Preso em operação sobre contratos da Saúde de Goiás." },
+  { id:"telles", tipo:"pessoa", corrida:"GO", nome:"Thiago Telles", sub:"fornecedor via Imed",
+    bio:"Empresário apontado pela Polícia Civil de São Paulo como “beneficiário final” de um esquema de lavagem do PCC. Empresas controladas por ele foram fornecedoras da organização social Imed, que administra unidades de saúde em Goiás." },
+  { id:"cachoeira", tipo:"pessoa", corrida:"GO", nome:"Carlinhos Cachoeira", sub:"empresário",
+    bio:"Contraventor preso na Operação Monte Carlo (2012), estopim da CPMI do Cachoeira." },
+  { id:"mariliac", tipo:"pessoa", corrida:"MG", nome:"Marília Carvalho", sub:"secretária de Zema",
+    bio:"Secretária de Meio Ambiente de Minas Gerais no governo Zema." },
+  { id:"lages", tipo:"pessoa", corrida:"MG", nome:"João Alberto Lages", sub:"ex-deputado MG",
+    bio:"Ex-deputado estadual apontado como articulador político do grupo investigado." },
+  { id:"salim", tipo:"pessoa", corrida:"MG", nome:"Salim Mattar", sub:"fundador da Localiza",
+    bio:"Fundador e um dos maiores acionistas individuais da Localiza, maior locadora de veículos do país, sediada em Belo Horizonte. Foi secretário de Desestatização de Jair Bolsonaro e, depois, consultor do governo Zema — cargo que deixou em agosto de 2023." },
+  { id:"rossieli", tipo:"pessoa", corrida:"MG", nome:"Rossieli Soares", sub:"ex-secretário de Zema/Simões",
+    bio:"Secretário de Educação de Minas Gerais e ex-ministro da Educação." },
+  { id:"botion", tipo:"pessoa", corrida:"SP", nome:"Mário Botion", sub:"ex-diretor no governo Tarcísio",
+    bio:"Ex-prefeito de Limeira, era diretor de Convênios do Escritório Regional de Campinas da Secretaria de Governo de SP." },
+  { id:"weiss", tipo:"pessoa", corrida:"SP", nome:"André Weiss", sub:"ex-diretor da Sefaz-SP",
+    bio:"Ex-diretor-geral da administração tributária da Secretaria da Fazenda de São Paulo." },
+  { id:"pessoa", tipo:"pessoa", corrida:"SP", nome:"Ricardo Pessoa", sub:"ex-dono da UTC",
+    bio:"Empreiteiro delator da Lava Jato, cuja delação embasou a acusação contra Haddad." },
+
+
+  /* ---------- MINISTROS DO STF ---------- */
+  { id:"gilmar", tipo:"ministro", corrida:"STF", nome:"Gilmar Mendes", sub:"indicado por FHC · 2002",
+    cargo:"Decano do STF", indicadoPor:"Fernando Henrique Cardoso (PSDB)", ano:2002,
+    bio:"Ministro há mais tempo na Corte. Integrou a Segunda Turma que, em março de 2021, reconheceu a suspeição de Sergio Moro; foi o ministro que anulou as condenações de José Dirceu na Lava Jato e a operação contra Marconi Perillo." },
+  { id:"carmen", tipo:"ministro", corrida:"STF", nome:"Cármen Lúcia", sub:"indicada por Lula · 2006",
+    cargo:"Ministra", indicadoPor:"Luiz Inácio Lula da Silva (PT)", ano:2006,
+    bio:"Integra a Primeira Turma. No julgamento da trama golpista votou pela condenação de Jair Bolsonaro em todos os crimes imputados." },
+  { id:"toffoli", tipo:"ministro", corrida:"STF", nome:"Dias Toffoli", sub:"indicado por Lula · 2009",
+    cargo:"Ministro", indicadoPor:"Luiz Inácio Lula da Silva (PT)", ano:2009,
+    bio:"Como presidente do STF, instaurou o inquérito das fake news por portaria em 2019 e designou Moraes como relator sem sorteio. Anulou as provas da leniência da Odebrecht em 2023, decisão que encerrou os casos de Alckmin, Kassab e Daniel Vilela. Relator da Operação Rejeito. Deixou a relatoria do caso Banco Master em fevereiro de 2026." },
+  { id:"fux", tipo:"ministro", corrida:"STF", nome:"Luiz Fux", sub:"indicado por Dilma · 2011",
+    cargo:"Ministro", indicadoPor:"Dilma Rousseff (PT)", ano:2011,
+    bio:"No julgamento da trama golpista foi o único voto pela absolvição de Jair Bolsonaro — o “1” no placar de 4 a 1." },
+  { id:"fachin", tipo:"ministro", corrida:"STF", nome:"Edson Fachin", sub:"indicado por Dilma · 2015",
+    cargo:"Presidente do STF", indicadoPor:"Dilma Rousseff (PT)", ano:2015,
+    bio:"Presidente da Corte. Foi o relator que anulou as condenações de Lula na Lava Jato por incompetência do juízo de Curitiba. Em setembro de 2026, retirou Moraes da relatoria do inquérito das fake news e assumiu a condução do caso; também determinou o levantamento dos sigilos no caso Banco Master." },
+  { id:"moraes", tipo:"ministro", corrida:"STF", nome:"Alexandre de Moraes", sub:"indicado por Temer · 2017",
+    cargo:"Vice-presidente do STF", indicadoPor:"Michel Temer (MDB)", ano:2017,
+    bio:"O ministro com mais casos desta rede sob relatoria: trama golpista, joias sauditas, ação contra Eduardo Bolsonaro, caso Roberto Jefferson e o inquérito das fake news, que relatou de 2019 até setembro de 2026. É também o ministro alcançado pelo caso Banco Master, através do contrato do escritório da esposa." },
+  { id:"nunesmarques", tipo:"ministro", corrida:"STF", nome:"Nunes Marques", sub:"indicado por Bolsonaro · 2020",
+    cargo:"Ministro", indicadoPor:"Jair Bolsonaro (PSL/PL)", ano:2020,
+    bio:"Primeira indicação de Jair Bolsonaro ao STF. Nenhum dos casos representados nesta rede está sob sua relatoria." },
+  { id:"mendonca", tipo:"ministro", corrida:"STF", nome:"André Mendonça", sub:"indicado por Bolsonaro · 2021",
+    cargo:"Ministro", indicadoPor:"Jair Bolsonaro (PL)", ano:2021,
+    bio:"Segunda indicação de Bolsonaro, apresentada como a de um ministro “terrivelmente evangélico”. Relator do caso Banco Master desde fevereiro de 2026: abriu em julho o inquérito que investiga Flávio Bolsonaro e, em setembro, levantou o sigilo dos relatórios da PF — inclusive o que expôs as mensagens de Vorcaro a Moraes." },
+  { id:"zanin", tipo:"ministro", corrida:"STF", nome:"Cristiano Zanin", sub:"indicado por Lula · 2023",
+    cargo:"Ministro", indicadoPor:"Luiz Inácio Lula da Silva (PT)", ano:2023,
+    bio:"Foi advogado de Lula nos processos da Lava Jato — inclusive na defesa que levou à anulação das condenações — antes de ser indicado ao STF. Integrou a Primeira Turma no julgamento da trama golpista." },
+  { id:"dino", tipo:"ministro", corrida:"STF", nome:"Flávio Dino", sub:"indicado por Lula · 2023",
+    cargo:"Ministro", indicadoPor:"Luiz Inácio Lula da Silva (PT)", ano:2023,
+    bio:"Ex-governador do Maranhão e ex-ministro da Justiça de Lula; tomou posse em fevereiro de 2024. Relator das ações sobre emendas parlamentares — foi ele quem determinou a investigação sobre Wilder Morais. Integrou a Primeira Turma que condenou Bolsonaro." },
+  { id:"vaga", tipo:"ministro", corrida:"STF", nome:"Vaga aberta", sub:"desde outubro de 2025", vaga:true,
+    cargo:"Cadeira vaga", indicadoPor:"—", ano:null,
+    bio:"Cadeira deixada por Luís Roberto Barroso, que se aposentou antecipadamente em outubro de 2025. Lula indicou o então advogado-geral da União Jorge Messias, aprovado na CCJ por 16 a 11 — mas rejeitado pelo plenário do Senado em abril de 2026, a primeira rejeição de uma indicação ao STF em 132 anos.",
+    fontes:[
+      {t:"Indicação de Jorge Messias ao STF é rejeitada pelo Senado", u:"https://www12.senado.leg.br/noticias/materias/2026/04/29/indicacao-de-jorge-messias-ao-stf-e-rejeitada-pelo-senado", v:"Senado Notícias", l:"institucional"},
+      {t:"Quem indicou e quando se aposenta cada ministro do STF", u:"https://www.em.com.br/politica/2026/09/7499899-quem-indicou-e-quando-se-aposenta-cada-ministro-do-stf.html", v:"Estado de Minas", l:"centro"},
+      {t:"Composição Atual do STF", u:"https://portal.stf.jus.br/textos/verTexto.asp?servico=bibliotecaConsultaProdutoBibliotecaPastaMinistro&pagina=ComposicaoAtual", v:"STF", l:"institucional"}
+    ] },
+  { id:"wagner", tipo:"pessoa", corrida:"PR", nome:"Jaques Wagner", sub:"líder do governo Lula no Senado",
+    bio:"Senador pela Bahia e líder do governo Lula no Senado no período apurado." },
+
+  /* ---------- CASOS ---------- */
+  { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
+    orgao:"STF — Primeira Turma", periodo:"2022–2025",
+    resumo:"O STF condenou Jair Bolsonaro e outros sete réus por tentativa de abolição do Estado Democrático de Direito e golpe de Estado. Pena: 27 anos e 3 meses em regime fechado. Recursos foram rejeitados por unanimidade em novembro de 2025; a pena só começa a correr após o trânsito em julgado.",
+    nota:"Não é um caso de corrupção patrimonial, mas é o processo criminal de maior peso na rede — e a razão pela qual Jair Bolsonaro não é candidato.",
+    fontes:[
+      {t:"STF concluiu julgamento de ações contra réus que planejaram golpe de Estado", u:"https://noticias.stf.jus.br/postsnoticias/stf-concluiu-julgamento-de-acoes-contra-reus-que-planejaram-golpe-de-estado/", v:"STF", l:"institucional"},
+      {t:"Por 4 a 1, STF condena Bolsonaro e mais sete pela trama golpista", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2025-09/por-4-1-stf-condena-bolsonaro-e-mais-sete-pela-trama-golpista", v:"Agência Brasil", l:"institucional"},
+      {t:"STF rejeita recurso e mantém condenação de Bolsonaro na trama golpista", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2025-11/stf-rejeita-recurso-e-mantem-condenacao-de-bolsonaro-na-trama-golpista", v:"Agência Brasil", l:"institucional"},
+      {t:"De candidato a prisão: os detalhes da trajetória de Jair Bolsonaro", u:"https://apublica.org/2025/09/retrospectiva-jair-bolsonaro-completa-de-candidato-a-condenado/", v:"Agência Pública", l:"centro-esquerda"}
+    ]},
+  { id:"joias", tipo:"caso", corrida:"PR", nome:"Joias sauditas", sub:"PF · STF", status:"encerrado",
+    orgao:"PF / PGR / STF", periodo:"2023–2026",
+    resumo:"A Polícia Federal indiciou Jair Bolsonaro, Mauro Cid e mais dez pessoas por peculato, associação criminosa e lavagem, por desviar e vender no exterior presentes recebidos do governo saudita. Em março de 2026 a PGR pediu o arquivamento: segundo o parecer, não há regra clara na legislação sobre a destinação de presentes recebidos por presidentes, o que impede o enquadramento em peculato.",
+    nota:"Moraes pediu novo parecer à PGR especificamente sobre as acusações contra o advogado Frederick Wassef. O caso não terminou em absolvição — terminou sem denúncia.",
+    fontes:[
+      {t:"PGR pede arquivamento de inquérito sobre desvio de joias por Bolsonaro", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2026-03/pgr-pede-arquivamento-de-inquerito-sobre-desvio-de-joias-por-bolsonaro", v:"Agência Brasil", l:"institucional"},
+      {t:"PGR pede arquivamento do caso das joias de Bolsonaro", u:"https://www.gazetadopovo.com.br/republica/pgr-pede-arquivamento-investigacao-joias-sauditas-bolsonaro-denuncia-peculato/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"STF pede novo parecer da PGR sobre caso das joias sauditas", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2026-03/stf-pede-novo-parecer-da-pgr-sobre-caso-das-joias-saudita", v:"Agência Brasil", l:"institucional"}
+    ]},
+  { id:"rachaflavio", tipo:"caso", corrida:"PR", nome:"Rachadinhas na Alerj", sub:"MPRJ · STJ · STF", status:"encerrado",
+    orgao:"MPRJ / TJ-RJ / STJ / STF", periodo:"2018–2025",
+    resumo:"Investigação sobre desvio de salários de assessores do gabinete de Flávio Bolsonaro na Assembleia do Rio, com movimentação atípica de R$ 1,2 milhão atribuída a Fabrício Queiroz. Em 2021 o STJ anulou as decisões de primeira instância por incompetência do juízo; ainda em 2021 o STF anulou os relatórios do Coaf que sustentavam a acusação. O próprio MP pediu a anulação da denúncia e, em 2025, o STF negou a tentativa de reabertura.",
+    nota:"Encerrado por nulidades processuais e da prova, não por exame do mérito das acusações.",
+    fontes:[
+      {t:"O que aconteceu com o caso da ‘rachadinha’ de Flávio Bolsonaro", u:"https://www.cartacapital.com.br/politica/o-que-aconteceu-com-o-caso-da-rachadinha-de-flavio-bolsonaro-suposto-candidato-em-2026/", v:"CartaCapital", l:"centro-esquerda"},
+      {t:"Decisões do STJ e do STF livraram Flávio Bolsonaro do caso das rachadinhas", u:"https://blogdomagno.com.br/decisoes-do-stj-e-stf-livraram-flavio-bolsonaro-do-caso-das-rachadinhas/", v:"Blog do Magno", l:"centro"},
+      {t:"Bolsonaro's eldest son says he'll run for Brazil presidency in 2026", u:"https://www.nbcnews.com/world/rcna247686", v:"NBC News", l:"centro"}
+    ]},
+  { id:"rachacarlos", tipo:"caso", corrida:"PR", nome:"Rachadinha na Câmara do Rio", sub:"MPRJ", status:"investigado",
+    orgao:"Ministério Público do Rio de Janeiro", periodo:"2019–2026",
+    resumo:"Apuração sobre desvio de ao menos R$ 1,7 milhão em salários de assessores no gabinete de Carlos Bolsonaro na Câmara Municipal do Rio. Sete servidores e ex-servidores foram denunciados. O caso havia sido arquivado em 2024 por falta de provas que ligassem Carlos ao esquema, mas a Procuradoria-Geral de Justiça entendeu que a análise desconsiderou indícios e reabriu as investigações em fevereiro de 2026.",
+    fontes:[
+      {t:"Carlos Bolsonaro volta a ser investigado por suspeita de rachadinha", u:"https://agenciabrasil.ebc.com.br/radioagencia-nacional/politica/audio/2026-02/carlos-bolsonaro-volta-ser-investigado-por-suspeita-de-rachadinha", v:"Agência Brasil", l:"institucional"},
+      {t:"MP reabre investigação contra Carlos Bolsonaro por suposta rachadinha", u:"https://www.metropoles.com/brasil/mp-investigacao-carlos-bolsonaro-rachadinha", v:"Metrópoles", l:"centro"},
+      {t:"MP reabre investigações contra Carlos Bolsonaro por rachadinha", u:"https://diariodorio.com/mp-reabre-investigacoes-contra-carlos-bolsonaro-por-rachadinha", v:"Diário do Rio", l:"centro"}
+    ]},
+  { id:"coacao", tipo:"caso", corrida:"PR", nome:"Coação no curso do processo", sub:"STF", status:"reu",
+    orgao:"STF — Primeira Turma", periodo:"2025–2026",
+    resumo:"Eduardo Bolsonaro é réu por coação no curso do processo. A PGR sustenta que ele atuou nos Estados Unidos para pressionar o julgamento do pai, mobilizando a suspensão de vistos de oito ministros do STF e a aplicação da Lei Magnitsky contra Alexandre de Moraes. A denúncia foi aceita por unanimidade em novembro de 2025 e, em maio de 2026, a PGR pediu sua condenação.",
+    fontes:[
+      {t:"PGR pede condenação de Eduardo Bolsonaro ao STF por coação", u:"https://www.otempo.com.br/politica/judiciario/2026/5/11/pgr-pede-condenacao-de-eduardo-bolsonaro-ao-stf-por-coacao", v:"O Tempo", l:"centro"},
+      {t:"PGR pede condenação de Eduardo Bolsonaro por coação; o que se sabe", u:"https://www.correiobraziliense.com.br/mundo/2026/05/7417409-pgr-pede-condenacao-de-eduardo-bolsonaro-por-coacao-o-que-se-sabe.html", v:"Correio Braziliense", l:"centro"}
+    ]},
+  { id:"lavajato", tipo:"caso", corrida:"PR", nome:"Lava Jato — tríplex e sítio", sub:"STF", status:"encerrado",
+    orgao:"STF — Plenário", periodo:"2016–2021",
+    resumo:"Lula foi condenado em Curitiba nos casos do tríplex do Guarujá e do sítio de Atibaia. Em 2021 o STF declarou, por 8 a 3, a incompetência da 13ª Vara Federal de Curitiba e anulou quatro processos (tríplex, sítio, sede do Instituto Lula e doações ao Instituto). O tribunal também reconheceu a suspeição do então juiz Sergio Moro. As condenações deixaram de produzir efeitos e os direitos políticos foram restabelecidos.",
+    nota:"Anulação por incompetência do juízo e suspeição do julgador. Não equivale a absolvição de mérito — e tampouco permite descrever Lula como condenado nesses processos.",
+    fontes:[
+      {t:"STF confirma anulação de condenações do ex-presidente Lula na Lava Jato", u:"https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=464261&ori=1", v:"STF", l:"institucional"},
+      {t:"Fachin anula condenações de Lula e manda ações para a Justiça Federal do DF", u:"https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=461870&ori=1", v:"STF", l:"institucional"},
+      {t:"STF derruba condenações de Lula na Lava Jato", u:"https://www.migalhas.com.br/quentes/343754/stf-derruba-condenacoes-de-lula-na-lava-jato", v:"Migalhas", l:"centro"},
+      {t:"Delação da Odebrecht livrou corruptores e entrega só uma condenação a cada 40 processos", u:"https://www.intercept.com.br/2021/05/25/delacao-odebrecht-lava-jato-falta-provas/", v:"Intercept Brasil", l:"centro-esquerda"}
+    ]},
+  { id:"inss", tipo:"caso", corrida:"PR", nome:"Descontos do INSS", sub:"Op. Sem Desconto · CPMI", status:"investigado",
+    orgao:"PF / CGU / CPMI do INSS", periodo:"2019–2026",
+    resumo:"A Operação Sem Desconto apura R$ 6,3 bilhões em descontos não autorizados em benefícios de aposentados entre 2019 e 2024, cobrados por associações e sindicatos conveniados ao INSS. A CPMI funcionou por 180 dias; o relatório final de Alfredo Gaspar, com 4,4 mil páginas, pediu o indiciamento de 216 pessoas — entre elas Fábio Luís Lula da Silva, o ex-ministro Carlos Lupi e o banqueiro Daniel Vorcaro. O relatório foi rejeitado em plenário por 19 votos a 12 e a comissão encerrou sem relatório aprovado; cópias foram enviadas ao MPF e ao STF.",
+    nota:"Pedido de indiciamento de CPI não é denúncia nem acusação formal — e este relatório sequer foi aprovado. As apurações da PF seguem em curso.",
+    fontes:[
+      {t:"Relatório da CPMI do INSS pede indiciamento de 216 pessoas", u:"https://agenciabrasil.ebc.com.br/politica/noticia/2026-03/relatorio-da-cpmi-do-inss-pede-indiciamento-de-216-pessoas", v:"Agência Brasil", l:"institucional"},
+      {t:"CPMI do INSS termina sem relatório final", u:"https://www12.senado.leg.br/noticias/materias/2026/03/28/cpmi-do-inss-termina-sem-relatorio-final", v:"Senado Notícias", l:"institucional"},
+      {t:"CPMI do INSS derruba relatório de Alfredo Gaspar por 19 a 12", u:"https://www.congressoemfoco.com.br/noticia/117666/cpmi-do-inss-derruba-relatorio-de-alfredo-gaspar-por-19-a-12", v:"Congresso em Foco", l:"centro"},
+      {t:"Relator da CPMI do INSS pede indiciamento de 216 pessoas e inclui ex-ministros", u:"https://www.brasildefato.com.br/2026/03/27/relator-da-cpmi-do-inss-pede-indiciamento-de-216-pessoas-e-inclui-ex-ministros/", v:"Brasil de Fato", l:"centro-esquerda"},
+      {t:"Lulinha, Vorcaro, Careca: relator da CPMI pede indiciamento de 216 pessoas", u:"https://www.cnnbrasil.com.br/politica/relatorio-da-cpmi-do-inss-pede-indicamento-de-lulinha-e-outras-218-pessoas/", v:"CNN Brasil", l:"centro"}
+    ]},
+  { id:"sindnapi", tipo:"caso", corrida:"PR", nome:"Sindnapi", sub:"CPMI do INSS", status:"citado",
+    orgao:"CPMI do INSS", periodo:"2015–2026",
+    resumo:"O Sindnapi, sindicato de aposentados dirigido por Frei Chico, irmão de Lula, foi a terceira entidade que mais descontou de beneficiários: R$ 599,5 milhões em dez anos. A CPMI pediu o indiciamento do presidente da entidade, Milton Baptista de Souza, e da ex-coordenadora jurídica — mas não de Frei Chico, que não é alvo de investigação da PF. A comissão rejeitou, por 19 a 11, o requerimento para convocá-lo a depor.",
+    nota:"Frei Chico não foi indiciado nem é investigado. O vínculo aqui é institucional e familiar, não uma imputação.",
+    fontes:[
+      {t:"CPMI do INSS rejeita convocação de Frei Chico, irmão de Lula", u:"https://www.camara.leg.br/noticias/1212823-cpmi-do-inss-rejeita-convocacao-de-frei-chico-irmao-de-lula/", v:"Câmara dos Deputados", l:"institucional"},
+      {t:"Sindnapi de irmão de Lula descontou R$ 599 milhões do INSS, diz CPMI", u:"https://www.metropoles.com/colunas/andreza-matais/sindnapi-de-irmao-de-lula-descontou-r-599-milhoes-do-inss", v:"Metrópoles", l:"centro"},
+      {t:"Relatório da CPMI inclui Sindnapi, indicia dirigentes e cita irmão de Lula", u:"https://www.jornalopcao.com.br/politica/relatorio-da-cpmi-do-inss-inclui-sindnapi-indicia-liderancas-da-instituicao-e-cita-irmao-de-lula-809307/", v:"Jornal Opção", l:"centro-direita"}
+    ]},
+  { id:"mensalao", tipo:"caso", corrida:"PR", nome:"Mensalão", sub:"STF · AP 470", status:"condenado",
+    orgao:"STF — Plenário", periodo:"2005–2016",
+    resumo:"O escândalo veio a público em junho de 2005, quando o então presidente do PTB, Roberto Jefferson, denunciou o pagamento mensal a parlamentares em troca de apoio ao governo. Sete anos depois, o próprio Jefferson foi condenado na ação a 7 anos e 14 dias por corrupção passiva e lavagem, com multa de R$ 720,8 mil — pena reduzida em um terço porque seus depoimentos ajudaram a esclarecer o esquema. O STF condenou José Dirceu em 2012 a 10 anos e 10 meses de reclusão pela compra de apoio parlamentar: 7 anos e 11 meses por corrupção ativa em relação a nove deputados federais, mais 2 anos e 11 meses por formação de quadrilha e 260 dias-multa. Os embargos de declaração da defesa foram rejeitados. Dirceu começou a cumprir pena em regime fechado em 15 de novembro de 2013, progrediu de regime e, em 17 de outubro de 2016, o ministro Luís Roberto Barroso extinguiu o restante da pena.",
+    nota:"É a condenação mais consolidada desta rede: julgada pelo próprio Supremo em instância única, cumprida e extinta. Lula nunca foi réu na AP 470 — o vínculo dele com este caso passa inteiramente por Dirceu.",
+    fontes:[
+      {t:"AP 470: Plenário fixa penas de José Dirceu", u:"https://noticias.stf.jus.br/postsnoticias/ap-470-plenario-fixa-penas-de-jose-dirceu/", v:"STF", l:"institucional"},
+      {t:"Direto do Plenário: STF rejeita recurso de José Dirceu contra decisão na AP 470", u:"https://noticias.stf.jus.br/postsnoticias/direto-do-plenario-stf-rejeita-recurso-de-jose-dirceu-contra-decisao-na-ap-470/", v:"STF", l:"institucional"},
+      {t:"Supremo condena José Dirceu a dez anos e dez meses de prisão", u:"https://conjur.com.br/2012-nov-12/supremo-condena-jose-dirceu-dez-anos-dez-meses-prisao/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Ministro Barroso extingue pena de José Dirceu no mensalão", u:"https://www.conjur.com.br/2016-out-17/ministro-barroso-extingue-pena-jose-dirceu-mensalao/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Dirceu recebe perdão de pena no processo do mensalão", u:"https://agenciabrasil.ebc.com.br/politica/noticia/2016-10/dirceu-recebe-perdao-de-pena-no-processo-do-mensalao", v:"Agência Brasil", l:"institucional"},
+      {t:"Sete anos após “mensalão”, nenhum réu está em regime fechado", u:"https://www.gazetadopovo.com.br/republica/mensalao-reu-prisao-regime-fechado/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"AP 470: Supremo condena Jefferson a 7 anos de prisão", u:"https://www.mpma.mp.br/ap-470-supremo-condena-jefferson-a-7-anos-de-prisao/", v:"MP do Maranhão", l:"institucional"},
+      {t:"STF condena Roberto Jefferson a 7 anos de prisão e multa de R$ 720 mil", u:"https://www.conjur.com.br/2012-nov-28/stf-condena-roberto-jefferson-anos-prisao-multa-720-mil/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Por maioria, STF condena Roberto Jefferson por corrupção passiva", u:"https://www.migalhas.com.br/quentes/164820/por-maioria--stf-condena-roberto-jefferson-por-corrupcao-passiva", v:"Migalhas", l:"centro"}
+    ]},
+  { id:"dirceu_lj", tipo:"caso", corrida:"PR", nome:"Lava Jato — Dirceu", sub:"STF · anulado", status:"encerrado",
+    orgao:"13ª Vara Federal de Curitiba / TRF-4 / STF", periodo:"2015–2024",
+    resumo:"Sergio Moro condenou Dirceu em maio de 2016 a 23 anos e 3 meses por corrupção, lavagem de dinheiro e organização criminosa no esquema de desvios em contratos da Petrobras; outras três condenações vieram em 2017 e o TRF-4 autorizou a execução da pena. Em outubro de 2024, Gilmar Mendes anulou todas as condenações da Lava Jato contra Dirceu, estendendo a ele o entendimento da Segunda Turma que, em março de 2021, declarou a suspeição de Moro nas ações contra Lula. Para o ministro, há indícios de que o então juiz agiu com “motivação política e interesse pessoal”. A decisão devolveu a Dirceu a ficha limpa e a elegibilidade.",
+    nota:"Mesmo fundamento que encerrou os processos de Lula: suspeição do julgador e incompetência do juízo de Curitiba, não exame do mérito das acusações.",
+    fontes:[
+      {t:"STF anula atos processuais de duas ações penais contra José Dirceu", u:"https://noticias.stf.jus.br/postsnoticias/stf-anula-atos-processuais-de-duas-acoes-penais-contra-jose-dirceu/", v:"STF", l:"institucional"},
+      {t:"Gilmar Mendes anula condenações de Dirceu na Lava Jato", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2024-10/gilmar-mendes-anula-condenacoes-de-dirceu-na-lava-jato", v:"Agência Brasil", l:"institucional"},
+      {t:"José Dirceu é condenado a 23 anos na Lava Jato", u:"https://www.migalhas.com.br/quentes/239430/jose-dirceu-e-condenado-a-23-anos-na-lava-jato", v:"Migalhas", l:"centro"},
+      {t:"Gilmar Mendes anula as condenações de Zé Dirceu na Lava Jato", u:"https://www.poder360.com.br/poder-justica/gilmar-mendes-anula-as-condenacoes-de-ze-dirceu-na-lava-jato/", v:"Poder360", l:"centro"},
+      {t:"STF anula todas as condenações de José Dirceu na Lava Jato", u:"https://www.cartacapital.com.br/justica/stf-anula-todas-as-condenacoes-de-jose-dirceu-na-lava-jato/", v:"CartaCapital", l:"centro-esquerda"},
+      {t:"Com anulação de condenações, Dirceu pode se candidatar de novo? Entenda", u:"https://revistaoeste.com/politica/com-anulacao-de-condenacoes-dirceu-pode-voltar-se-candidatar/", v:"Revista Oeste", l:"centro-direita"}
+    ]},
+  { id:"rj_ataque", tipo:"caso", corrida:"PR", nome:"Ataque aos Poderes e à PF", sub:"STF · Justiça do RJ", status:"condenado",
+    orgao:"STF / Justiça do Rio de Janeiro", periodo:"2021–2024",
+    resumo:"Segundo a PGR, Jefferson usou entrevistas e vídeos em 2021 para instigar a população a invadir o Senado, agredir senadores da CPI da Pandemia e explodir a sede do TSE. Preso preventivamente naquele ano no inquérito das milícias digitais, obteve prisão domiciliar em janeiro de 2022 — revogada em outubro, quando recebeu a PF a tiros de fuzil e com três granadas adulteradas com pregos, ferindo uma agente. O STF o condenou a 9 anos, 1 mês e 5 dias por calúnia, homofobia, incitação ao crime e tentativa de impedir o livre exercício dos Poderes; relator Alexandre de Moraes, seguido por seis ministros. Na esfera cível, a Justiça do Rio o condenou em 2024 a indenizar em R$ 200 mil a policial ferida.",
+    nota:"Não é caso de corrupção. Está no grafo porque é o que define a situação atual de Jefferson e o contexto em que sua aliança com o bolsonarismo se rompeu.",
+    fontes:[
+      {t:"STF condena Roberto Jefferson a nove anos de prisão por atentado aos Poderes", u:"https://exame.com/brasil/stf-condena-roberto-jefferson-a-nove-anos-de-prisao-por-atentado-aos-poderes/", v:"Exame", l:"centro"},
+      {t:"STF condena Roberto Jefferson a mais de 9 anos de prisão", u:"https://www.cartacapital.com.br/cartaexpressa/stf-inicia-julgamento-de-roberto-jefferson-por-suposto-envolvimento-no-8-de-janeiro/", v:"CartaCapital", l:"centro-esquerda"},
+      {t:"Roberto Jefferson é preso após trocar tiros e usar granada contra agentes da PF", u:"https://www.diariodepernambuco.com.br/noticia/politica/2022/10/roberto-jefferson-e-preso-apos-trocar-tiros-e-usar-granada-contra-agen.html", v:"Diário de Pernambuco", l:"centro"},
+      {t:"Roberto Jefferson é condenado a pagar R$ 200 mil por atirar contra agente da PF", u:"https://revistaoeste.com/politica/roberto-jefferson-e-condenado-a-pagar-r-200-mil-por-atirar-contra-agente-da-pf/", v:"Revista Oeste", l:"centro-direita"},
+      {t:"Roberto Jefferson pagará agente da PF ferida em ação para prendê-lo", u:"https://www.migalhas.com.br/quentes/453299/roberto-jefferson-pagara-agente-da-pf-ferida-em-acao-para-prende-lo", v:"Migalhas", l:"centro"}
+    ]},
+  { id:"fakenews", tipo:"caso", corrida:"STF", nome:"Inquérito das Fake News", sub:"STF · INQ 4781", status:"investigado",
+    orgao:"STF", periodo:"2019–2026",
+    resumo:"Instaurado por portaria do então presidente Dias Toffoli em 14 de março de 2019, com relatoria atribuída diretamente a Alexandre de Moraes, sem sorteio. Alcançou dezenas de alvos — parlamentares, empresários, jornalistas, influenciadores e ex-integrantes do Executivo — com bloqueio de perfis, quebras de sigilo, retenção de passaportes, tornozeleiras e prisões preventivas. A PF identificou Carlos e Eduardo Bolsonaro como mentores do grupo que ficou conhecido como “gabinete do ódio”. Em 9 de setembro de 2026, em meio à crise entre Moraes, André Mendonça e a PF, o presidente Edson Fachin revogou a designação de Moraes e assumiu a condução do inquérito, preservando os atos já praticados.",
+    nota:"É o caso mais contestado desta rede. Críticos — incluindo editoriais da grande imprensa — sustentam que um inquérito sem prazo, sem sorteio de relator e de objeto aberto virou instrumento de poder pessoal; a Corte sempre sustentou sua validade. Constam aqui o inquérito e seus alvos, não um juízo sobre a disputa.",
+    fontes:[
+      {t:"Ministro Alexandre de Moraes designa equipe de delegados em inquérito para apurar ameaças e fake news", u:"https://noticias.stf.jus.br/postsnoticias/ministro-alexandre-de-moraes-designa-equipe-de-delegados-em-inquerito-para-apurar-ameacas-e-fake-news/", v:"STF", l:"institucional"},
+      {t:"Entenda o inquérito das fake news, agora sob relatoria de Fachin", u:"https://www.gazetadopovo.com.br/republica/o-que-e-o-inquerito-das-fake-news-que-agora-tem-relatoria-de-fachin/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"O começo do fim do inquérito das “fake news”", u:"https://www.gazetadopovo.com.br/opiniao/editoriais/inquerito-fake-news-edson-fachin-relatoria-alexandre-de-moraes/", v:"Gazeta do Povo (editorial)", l:"centro-direita"},
+      {t:"Polícia identifica filho de Bolsonaro como líder de esquema de fake news", u:"https://www.dn.pt/arquivo/diario-de-noticias/policia-identifica-filho-de-bolsonaro-como-lider-de-esquema-de-fake-news-12117873.html", v:"Diário de Notícias", l:"centro"},
+      {t:"Investigados por desinformação e tentativa de golpe seguem ativos nas redes em 2026", u:"https://www.aosfatos.org/noticias/investigados-desinformacao-golpe-redes-2026/", v:"Aos Fatos", l:"centro"},
+      {t:"Inquérito das Fake News — verbete", u:"https://pt.wikipedia.org/wiki/Inqu%C3%A9rito_das_Fake_News", v:"Wikipédia", l:"centro"}
+    ]},
+  { id:"banco_master", tipo:"caso", corrida:"PR", nome:"Escândalo do Banco Master", sub:"PF · Op. Compliance Zero", status:"investigado",
+    orgao:"Polícia Federal / Banco Central / STF", periodo:"2024–2026",
+    resumo:"Em 18 de novembro de 2025 o Banco Central decretou a liquidação extrajudicial do Master e a PF deflagrou a Operação Compliance Zero, prendendo Daniel Vorcaro quando ele tentava deixar o país. A apuração aponta fabricação de carteiras de crédito inexistentes para esconder um rombo estimado em R$ 52 bilhões — o maior acionado no Fundo Garantidor de Créditos desde o Bamerindus. A quebra de sigilos revelou uma rede de pagamentos e contatos que atravessa todos os campos: o escritório da mulher de Alexandre de Moraes firmou contrato de R$ 131 milhões com o banco; a PF aponta vantagens indevidas ao senador Jaques Wagner (PT), então líder do governo no Senado; há pagamentos declarados a Michel Temer, Guido Mantega, Ricardo Lewandowski e ACM Neto, emenda de Ciro Nogueira (PP) que elevaria a cobertura do FGC, e o financiamento do filme “Dark Horse”, pelo qual Flávio Bolsonaro é investigado. Todos os citados negam irregularidades.",
+    nota:"É o caso mais transversal da rede — atinge PT, PL, PP, MDB, União Brasil e o próprio Supremo. Estão desenhados aqui apenas os vínculos com atores já presentes no grafo; os demais nomes ficam no texto. A delação rejeitada de Vorcaro, que atinge Kassab e Tarcísio, é um episódio à parte e tem nó próprio.",
+    fontes:[
+      {t:"Toffoli deixa relatoria de investigação sobre o Banco Master", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2026-02/toffoli-deixa-relatoria-de-investigacao-sobre-o-banco-master", v:"Agência Brasil", l:"institucional"},
+      {t:"STF divulga contrato de R$ 131 milhões entre mulher de Moraes e Master", u:"https://www.metropoles.com/brasil/stf-divulga-contrato-de-r-131-milhoes-entre-mulher-de-moraes-e-master", v:"Metrópoles", l:"centro"},
+      {t:"Análise: as revelações sobre Master, Vorcaro, Moraes e Mendonça", u:"https://apublica.org/2026/09/analise-as-revelacoes-sobre-master-vorcaro-moraes-e-mendonca/", v:"Agência Pública", l:"centro-esquerda"},
+      {t:"Dark Horse, Ciro Nogueira, Cláudio Castro e Jaques Wagner: o que a PF investiga no caso Master", u:"https://ndmais.com.br/politica/master-vorcaro-pt-pl-pp-quebra-sigilo/", v:"ND Mais", l:"centro"},
+      {t:"Master declarou pagamentos a Temer, Lewandowski, Mantega, Wagner e ACM Neto", u:"https://www.cnnbrasil.com.br/politica/master-declarou-pagamentos-a-temer-lewandowski-mantega-wagner-e-acm-neto/", v:"CNN Brasil", l:"centro"},
+      {t:"Apartamento, aviões e Taylor Swift: as trocas entre Jaques Wagner e a cúpula do Master", u:"https://www.gazetadopovo.com.br/republica/apartamento-avioes-e-taylor-swift-o-esquema-e-as-trocas-entre-jaques-wagner-e-cupula-do-master/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"Sem explicar dinheiro de Vorcaro, Flávio Bolsonaro diz que Dark Horse é “página virada”", u:"https://www.brasildefato.com.br/2026/08/20/sem-explicar-dinheiro-de-vorcaro-e-do-banco-master-flavio-bolsonaro-diz-que-dark-horse-e-pagina-virada/", v:"Brasil de Fato", l:"centro-esquerda"},
+      {t:"Leia a íntegra do contrato de R$ 131 mi entre o Master e a mulher de Moraes", u:"https://revistaoeste.com/politica/leia-a-integra-do-contrato-de-r-131-mi-entre-o-master-e-a-mulher-de-moraes/", v:"Revista Oeste", l:"centro-direita"},
+      {t:"Dias Toffoli decide deixar relatoria do caso do Banco Master", u:"https://conjur.com.br/2026-fev-12/dias-toffoli-decide-deixar-relatoria-do-caso-do-banco-master/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Escândalo do Banco Master — verbete", u:"https://pt.wikipedia.org/wiki/Esc%C3%A2ndalo_do_Banco_Master", v:"Wikipédia", l:"centro"}
+    ]},
+  { id:"coffee", tipo:"caso", corrida:"SP", nome:"Operação Coffee Break", sub:"PF · CGU", status:"investigado",
+    orgao:"Polícia Federal / CGU", periodo:"2025–2026",
+    resumo:"Apura fraude em licitações de livros e material didático em municípios de São Paulo e do Paraná, com contratos de cerca de R$ 111 milhões na região de Campinas. A PF aponta Carla Ariane Trindade, ex-nora de Lula, como peça central de um esquema de tráfico de influência em Brasília junto ao MEC e ao FNDE; também é citado Kalil Bitar, ex-sócio de Lulinha na Gamecorp. No lado estadual, Mário Botion, diretor de Convênios do Escritório Regional de Campinas da Secretaria de Governo de Tarcísio, teve R$ 2,1 milhões em espécie apreendidos em casa e pediu exoneração após a operação.",
+    nota:"É o caso que mais cruza campos políticos opostos na rede: alcança o entorno familiar do presidente e a estrutura do governo de São Paulo ao mesmo tempo.",
+    fontes:[
+      {t:"Assessor de Kassab pede demissão do governo Tarcísio após ser alvo de operação da PF", u:"https://www.infomoney.com.br/politica/assessor-de-kassab-pede-demissao-do-governo-tarcisio-apos-ser-alvo-de-operacao-da-pf/", v:"InfoMoney", l:"centro"},
+      {t:"PF investiga desvio de recursos do MEC e mira ex-nora de Lula e ex-sócio de Lulinha", u:"https://www.gazetadopovo.com.br/republica/pf-investiga-desvio-de-recursos-do-mec-e-mira-ex-nora-de-lula-e-ex-socio-de-lulinha/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"PF cita ex-nora de Lula e ex-sócio de Lulinha em operação contra corrupção", u:"https://www.metropoles.com/sao-paulo/pf-cita-ex-nora-de-lula-e-ex-socio-de-lulinha-em-operacao-contra-corrupcao", v:"Metrópoles", l:"centro"},
+      {t:"Quem é Carla Ariane Trindade, ex-nora de Lula investigada por fraudes no MEC", u:"https://ndmais.com.br/politica/quem-e-carla-ariane-trindade-ex-nora-de-lula-investigada/", v:"ND Mais", l:"centro"},
+      {t:"PF investiga fraudes na Educação e secretário do governo Tarcísio cai após operação", u:"https://sinprocampinas.org.br/2025/11/13/pf-investiga-fraudes-na-educacao-e-secretario-do-governo-tarcisio-cai-apos-operacao/", v:"Sinpro Campinas", l:"centro-esquerda"}
+    ]},
+  { id:"master", tipo:"caso", corrida:"PR", nome:"Delação rejeitada do Banco Master", sub:"PF · PGR", status:"citado",
+    orgao:"Polícia Federal / PGR", periodo:"2025–2026",
+    resumo:"Daniel Vorcaro, ex-dono do Banco Master, afirmou à PF que doações de R$ 3 milhões à campanha de Jair Bolsonaro e de R$ 2 milhões à de Tarcísio de Freitas em 2022 eram, na verdade, contrapartidas de propina acertada com Gilberto Kassab para manter o programa Credcesta no governo de São Paulo — onde Kassab era secretário de Governo. Vorcaro também menciona R$ 10 milhões em espécie ao PSD. As três propostas de delação foram rejeitadas pela PF e pela PGR, que não consideraram os relatos inéditos. Kassab nega e diz que os relatos não têm “nenhum respaldo fático”.",
+    nota:"Delação rejeitada não é prova nem acusação formal. Está na rede porque atinge simultaneamente as chapas de Flávio Bolsonaro, Caiado/Kassab e Tarcísio — e porque o próprio Caiado defendeu que o caso fosse investigado.",
+    fontes:[
+      {t:"Doação a Bolsonaro e Tarcísio eram propina acertada por Kassab, diz Vorcaro", u:"https://www.cnnbrasil.com.br/blogs/matheus-teixeira/politica/doacao-a-bolsonaro-e-tarcisio-eram-propina-acertada-por-kassab-diz-vorcaro/", v:"CNN Brasil", l:"centro"},
+      {t:"Caiado defende investigação sobre suposta propina envolvendo Vorcaro e Kassab", u:"https://www.gazetadopovo.com.br/eleicoes/2026/caiado-defende-investigacao-sobre-suposta-propina-envolvendo-vorcaro-e-kassab/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"Master: Caiado defende investigação sobre suposta propina envolvendo Kassab", u:"https://www.metropoles.com/brasil/master-caiado-defende-investigacao-sobre-suposta-propina-envolvendo-kassab", v:"Metrópoles", l:"centro"},
+      {t:"R$ 5 milhões dados a Bolsonaro e Tarcísio por Vorcaro foram propina, diz portal", u:"https://revistaforum.com.br/politica/5-milhoes-bolsonaro-tarcisio-vorcaro-propina-kassab", v:"Revista Fórum", l:"centro-esquerda"}
+    ]},
+  { id:"kassab_odb", tipo:"caso", corrida:"PR", nome:"Inquéritos Odebrecht — Kassab", sub:"STF · INQ 4401/4463", status:"encerrado",
+    orgao:"STF", periodo:"2017–2024",
+    resumo:"Dois inquéritos apuravam corrupção passiva e lavagem: a suposta solicitação de vantagem para garantir à Odebrecht a obra do Túnel Roberto Marinho (2008) e repasses indevidos em obras viárias em São Paulo. Kassab era identificado nas planilhas da empreiteira pelos codinomes “kibe”, “projeto” e “café turco”. Em março de 2024 o STF determinou o arquivamento dos dois inquéritos: para a maioria, os relatos dos colaboradores não foram confirmados por outros elementos de prova.",
+    fontes:[
+      {t:"Por ausência de provas, STF arquiva inquéritos contra Gilberto Kassab", u:"https://noticias.stf.jus.br/postsnoticias/por-ausencia-de-provas-stf-arquiva-inqueritos-contra-gilberto-kassab/", v:"STF", l:"institucional"},
+      {t:"STF arquiva inquéritos contra Kassab por suposta propina da Odebrecht", u:"https://www.cnnbrasil.com.br/politica/stf-arquiva-inqueritos-contra-kassab-por-suposta-propina-da-odebrecht/", v:"CNN Brasil", l:"centro"},
+      {t:"Maioria do STF decide arquivar dois processos contra Kassab envolvendo Odebrecht", u:"https://www.gazetadopovo.com.br/republica/stf-processos-kassab-odebrecht/", v:"Gazeta do Povo", l:"centro-direita"}
+    ]},
+  { id:"alckmin_odb", tipo:"caso", corrida:"PR", nome:"Caixa 2 Odebrecht — Alckmin", sub:"STF · Justiça Eleitoral", status:"encerrado",
+    orgao:"STF / Justiça Eleitoral de SP", periodo:"2016–2025",
+    resumo:"Executivos da Odebrecht relataram repasses de caixa 2 às campanhas de Alckmin ao governo de São Paulo em 2010 e 2014. Ele se tornou réu em julho de 2020 por falsidade ideológica eleitoral, corrupção passiva e lavagem. Com a anulação das provas do acordo de leniência da Odebrecht em setembro de 2023, Toffoli determinou a retirada dos elementos probatórios e, em outubro de 2024, arquivou a ação de improbidade. Em 2025 a Segunda Turma do STF negou recurso da PGR, encerrando também a ação eleitoral.",
+    fontes:[
+      {t:"Ministro Lewandowski encerra ação contra Geraldo Alckmin na Justiça Eleitoral", u:"https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=499340&ori=1", v:"STF", l:"institucional"},
+      {t:"STF nega recurso e mantém arquivamento de ação de improbidade contra Alckmin", u:"https://www.conjur.com.br/2025-ago-10/stf-nega-recurso-e-mantem-arquivamento-de-acao-de-improbidade-contra-alckmin/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Decisão de Toffoli que arquivou ação contra Alckmin por caixa 2 contraria juíza e PGR", u:"https://www.folhavitoria.com.br/politica/noticia/10/2024/decisao-de-toffoli-que-arquivou-acao-contra-alckmin-por-caixa-2", v:"Folha Vitória", l:"centro"},
+      {t:"Alckmin vira réu em processo que investiga caixa 2", u:"https://www.cartacapital.com.br/politica/alckmin-vira-reu-em-processo-que-investiga-caixa-2", v:"CartaCapital", l:"centro-esquerda"}
+    ]},
+  { id:"marcal_laudo", tipo:"caso", corrida:"PR", nome:"Laudo falso contra Boulos", sub:"PF · Justiça de SP", status:"investigado",
+    orgao:"Polícia Federal / TJ-SP", periodo:"2024–2026",
+    resumo:"Na reta final da eleição municipal de 2024, Pablo Marçal divulgou um laudo médico atribuindo uso de cocaína a Guilherme Boulos. A PF concluiu que a assinatura atribuída ao médico era falsa e indiciou Marçal em novembro de 2024 por uso de documento falso. Na esfera cível, a Justiça de São Paulo o condenou em fevereiro de 2026 a indenizar Boulos em R$ 100 mil por desinformação. A ação penal enfrenta entraves processuais.",
+    nota:"Há condenação cível (indenização) e indiciamento criminal — mas ainda não há condenação criminal.",
+    fontes:[
+      {t:"PF indicia Pablo Marçal por laudo falso contra Guilherme Boulos", u:"https://agenciabrasil.ebc.com.br/politica/noticia/2024-11/pf-indicia-pablo-marcal-por-laudo-falso-contra-guilherme-boulos", v:"Agência Brasil", l:"institucional"},
+      {t:"Justiça condena Marçal a pagar indenização a Boulos por desinformação", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2026-02/justica-condena-marcal-pagar-indenizacao-boulos-por-desinformacao", v:"Agência Brasil", l:"institucional"},
+      {t:"Marçal é condenado a pagar R$ 100 mil a Boulos por laudo falso", u:"https://www.gazetadopovo.com.br/brasil/marcal-e-condenado-a-pagar-r-100-mil-a-boulos-por-laudo-falso-do-uso-de-cocaina/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"Processo sobre laudo falso de Marçal contra Boulos tem entrave na Justiça", u:"https://www.cnnbrasil.com.br/politica/processo-sobre-laudo-falso-de-marcal-contra-boulos-tem-entrave-na-justica/", v:"CNN Brasil", l:"centro"}
+    ]},
+  { id:"marcal_furto", tipo:"caso", corrida:"PR", nome:"Fraudes bancárias (2005)", sub:"Justiça Federal de GO", status:"encerrado",
+    orgao:"Justiça Federal de Goiás", periodo:"2005–2018",
+    resumo:"Marçal foi condenado em maio de 2010 a 4 anos e 5 meses de prisão por furto qualificado, em esquema de invasão de contas bancárias. Em 2018, ainda na fase recursal, a Justiça declarou a prescrição da pretensão punitiva: o prazo para aplicação da pena havia expirado.",
+    nota:"Prescrição extingue a punibilidade sem revisar o mérito da condenação.",
+    fontes:[
+      {t:"Afinal, Pablo Marçal foi condenado por esquema de fraudes bancárias? Entenda o caso", u:"https://www.infomoney.com.br/politica/afinal-pablo-marcal-foi-condenado-por-esquema-de-fraudes-bancarias-entenda-o-caso/", v:"InfoMoney", l:"centro"}
+    ]},
+  { id:"mbl", tipo:"caso", corrida:"PR", nome:"Patrimônio e doações do MBL", sub:"MP-SP · Receita", status:"investigado",
+    orgao:"Ministério Público de SP / Receita Federal", periodo:"2024–2026",
+    resumo:"O Ministério Público apura se Renan Santos usou doações, contas de passagem e uma rede de empresas familiares para ocultar patrimônio de possível origem criminosa. Reportagens apontam dívida com a União superior a R$ 6 milhões e empresas inativas com R$ 396 milhões em débitos. Em frente separada, o MPF pede responsabilização civil do MBL e de Renan, com R$ 500 mil de indenização por dano moral coletivo, por publicações consideradas discurso de ódio contra 14 etnias indígenas.",
+    fontes:[
+      {t:"MP investiga se líder do MBL usou empresa de fachada", u:"https://www.diariodocentrodomundo.com.br/mp-amplia-investigacao-mbl-renan-santos/", v:"DCM", l:"centro-esquerda"},
+      {t:"Entenda por que promotoria investiga lavagem de dinheiro no MBL", u:"https://www.metropoles.com/brasil/entenda-por-que-promotoria-investiga-lavagem-de-dinheiro-no-mbl", v:"Metrópoles", l:"centro"},
+      {t:"MPF acusa Renan Santos e MBL de discurso de ódio contra indígenas", u:"https://apublica.org/nota/mpf-acusa-renan-santos-e-mbl-de-discurso-de-odio-contra-indigenas/", v:"Agência Pública", l:"centro-esquerda"},
+      {t:"Quem é Renan Santos, do MBL, que vai concorrer a presidente", u:"https://www.gazetadopovo.com.br/ideias/quem-e-renan-santos-o-fundador-do-mbl-que-vai-concorrer-a-presidencia-da-republica/", v:"Gazeta do Povo", l:"centro-direita"}
+    ]},
+
+  /* ---------- CASOS · MG ---------- */
+  { id:"rejeito", tipo:"caso", corrida:"MG", nome:"Operação Rejeito", sub:"PF · mineração", status:"investigado",
+    orgao:"Polícia Federal", periodo:"2025–2026",
+    resumo:"Deflagrada em 17 de setembro de 2025, é apontada como o maior desmonte de organização criminosa ambiental da história recente de Minas: 22 presos e 79 mandados de busca contra um grupo especializado em fraudar licenciamento ambiental para mineração irregular. O conglomerado, com mais de 40 empresas, já movimentara R$ 1,5 bilhão, com projetos de potencial superior a R$ 18 bilhões. A PF indiciou 34 pessoas e investiga o primeiro escalão do governo Zema; a Controladoria estadual apura seis processos de licenciamento. O grupo chegou a monitorar um juiz federal.",
+    nota:"Romeu Zema não foi preso nem indiciado. A ligação passa por integrantes do seu governo e por um articulador político. Sob relatoria de Toffoli, o caso corre em sigilo.",
+    fontes:[
+      {t:"Operação Rejeito revela esquema bilionário de corrupção da mineração em Minas Gerais", u:"https://sindrede.org.br/operacao-rejeito-revela-esquema-bilionario-de-corrupcao-da-mineracao-em-minas-gerais/", v:"Sind-REDE/BH", l:"centro-esquerda"},
+      {t:"Operação que mira mineração em Minas atinge governo Zema", u:"https://www.gazetadopovo.com.br/brasil/operacao-contra-fraude-bilionaria-mineracao-fragiliza-projeto-presidencial-de-zema/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"‘Tentáculos da corrupção’: Operação Rejeito mostra prática sistemática no setor minerário", u:"https://www.brasildefato.com.br/2025/10/01/tentaculos-da-corrupcao-operacao-rejeito-mostra-pratica-sistematica-no-setor-minerario/", v:"Brasil de Fato", l:"centro-esquerda"},
+      {t:"Sob sigilo, Operação Rejeito tem futuro incerto", u:"https://apublica.org/2026/03/sigilo-supremo-sob-toffoli-acao-contra-mineracao-ilegal-em-minas-tem-futuro-incerto/", v:"Agência Pública", l:"centro-esquerda"},
+      {t:"Diretor da ANM, ex-chefe da PF e ex-deputado mineiro entre os alvos da megaoperação", u:"https://observatoriodamineracao.com.br/diretor-da-anm-ex-chefe-da-pf-e-ex-deputado-mineiro-estao-entre-os-alvos-de-megaoperacao-que-desmantela-fraudes-bilionarias-no-setor-mineral-em-mg/", v:"Observatório da Mineração", l:"centro"},
+      {t:"Zema comenta Operação Rejeito e defende secretária", u:"https://www.itatiaia.com.br/politica/zema-defende-secretaria-de-meio-ambiente-sofreu-uma-ameaca-de-morte", v:"Rádio Itatiaia", l:"centro"}
+    ]},
+  { id:"lula_estrutura", tipo:"caso", corrida:"PR", nome:"Estrutura presidencial em campanha", sub:"TSE · conduta vedada", status:"controversia",
+    orgao:"TSE", periodo:"2024–2026",
+    resumo:"O uso do avião presidencial e da estrutura oficial em deslocamentos de campanha é lícito, mas a resolução do TSE obriga partidos e coligações a ressarcir os cofres da União — com prazo de dez dias úteis após o pleito. Em agosto de 2026, Flávio Bolsonaro acionou o TSE contra Lula questionando o uso do Palácio da Alvorada em período eleitoral, pedindo o reconhecimento de conduta vedada, multa no grau máximo e ressarcimento do que exceder as prerrogativas do cargo. Reportagem anterior apontou R$ 1,4 milhão em voos da FAB em deslocamentos de Lula nas eleições de 2024.",
+    nota:"Representação eleitoral movida por um candidato contra outro, ainda sem julgamento de mérito. O uso em si é permitido; a disputa é sobre o limite e o ressarcimento.",
+    fontes:[
+      {t:"Uso de avião presidencial por Lula em campanha eleitoral gera dúvidas; entenda as regras", u:"https://www.otempo.com.br/eleicoes/2026/presidentes/2026/9/8/uso-de-aviao-presidencial-por-lula-em-campanha-eleitoral-gera-duvidas-entenda-regras", v:"O Tempo", l:"centro"},
+      {t:"Flávio aciona TSE contra Lula por uso do Alvorada em período eleitoral", u:"https://www.cnnbrasil.com.br/blogs/jussara-soares/eleicoes/flavio-aciona-tse-contra-lula-por-uso-do-alvorada-em-periodo-eleitoral/", v:"CNN Brasil", l:"centro"},
+      {t:"Lula gastou R$ 1,4 milhão em voos da FAB nas eleições de 2024", u:"https://www.metropoles.com/colunas/tacio-lorran/lula-voos-fab-eleicoes-2024", v:"Metrópoles", l:"centro"},
+      {t:"Resolução TSE nº 23.760, de 2 de março de 2026", u:"https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-760-de-2-de-marco-de-2026", v:"TSE", l:"institucional"}
+    ]},
+  { id:"sabesp", tipo:"caso", corrida:"SP", nome:"Privatização da Sabesp", sub:"TCE-SP · representação", status:"controversia",
+    orgao:"Governo de SP / TCE-SP", periodo:"2024",
+    resumo:"Em 28 de junho de 2024 o governo paulista privatizou a Sabesp, levantando R$ 14,8 bilhões e reduzindo a participação do estado de 50,3% para 18% — a maior oferta de saneamento da história. A Equatorial foi a única a apresentar proposta pela fatia de 15% reservada ao investidor de referência, a R$ 67 por ação, cerca de 10% abaixo da cotação em Bolsa. A demanda institucional foi recorde: R$ 187 bilhões, 12,7 vezes a oferta. O Sintaema e o Observatório Ondas representaram no TCE-SP, sustentando que o preço justo seria R$ 103,90 por ação e que a venda saiu 44% abaixo do valor real.",
+    nota:"Os dois lados estão nos números: proposta única pela fatia de referência e preço abaixo do mercado de um lado; demanda recorde e maior operação do setor de outro. Não há acusação criminal — a contestação corre no Tribunal de Contas.",
+    fontes:[
+      {t:"Privatização da Sabesp: ação será vendida a R$ 67; demanda é recorde de R$ 187 bi", u:"https://www.infomoney.com.br/mercados/privatizacao-da-sabesp-acao-vendida-a-r-67-demanda-recorde-de-r-187-bilhoes-movimentacao-148-bi/", v:"InfoMoney", l:"centro"},
+      {t:"Equatorial oferece R$ 67 por ação da Sabesp, 10% abaixo do valor em Bolsa", u:"https://exame.com/insight/breaking-equatorial-oferece-r-67-por-acao-da-sabesp-10-abaixo-do-valor-em-bolsa/p", v:"Exame", l:"centro"},
+      {t:"Sabesp é privatizada: governo de SP levanta R$ 14,8 bi com oferta de ações", u:"https://istoedinheiro.com.br/privatizacao-da-sabesp-governo-de-sp-levanta-r-148-bilhoes-com-oferta-de-acoes", v:"IstoÉ Dinheiro", l:"centro"},
+      {t:"Trabalhadores acionam TCE contra privatização da Sabesp “a preço de banana”", u:"https://www.cut.org.br/noticias/trabalhadores-acionam-tce-contra-privatizacao-da-sabesp-a-preco-de-banana-351d", v:"CUT", l:"centro-esquerda"},
+      {t:"Privatização da Sabesp: governo Tarcísio vende ações 44% abaixo do valor real", u:"https://www.brasildefato.com.br/2024/06/27/privatizacao-da-sabesp-governo-tarcisio-vende-acoes-44-abaixo-do-valor-real-da-empresa/", v:"Brasil de Fato", l:"centro-esquerda"},
+      {t:"A privatização da Sabesp é um escândalo", u:"https://www.intercept.com.br/2024/07/27/privatizacao-da-sabesp/", v:"Intercept Brasil", l:"centro-esquerda"}
+    ]},
+  { id:"caiado_imed", tipo:"caso", corrida:"GO", nome:"Repasses via Imed", sub:"saúde · elo com o PCC", status:"controversia",
+    orgao:"Governo de Goiás / Polícia Civil de SP", periodo:"2020–2025",
+    resumo:"Entre 2020 e 2025 a gestão Caiado destinou ao menos R$ 209 milhões, por meio da organização social Imed, que administra unidades de saúde no estado, a empresas controladas por Thiago Telles Batista de Souza. A Polícia Civil de São Paulo o aponta como “beneficiário final” de um esquema de lavagem do PCC alimentado por tráfico, jogo ilegal e fraudes — ele comprava grandes somas em espécie de intermediários da facção em períodos que coincidiam com os pagamentos da Imed, o que impedia o rastreamento pelo Banco Central e pelo Coaf. Caiado respondeu que caberia ao Coaf alertar o governo goiano sobre a ligação entre a Imed e as empresas.",
+    nota:"Não há acusação contra Caiado nem investigação sobre ele neste episódio. O que está documentado é o destino do dinheiro público e a resposta do então governador.",
+    fontes:[
+      {t:"Governo de Goiás pagou R$ 200 milhões a grupo investigado por ligação com PCC", u:"https://www.metropoles.com/colunas/andreza-matais/gestao-de-caiado-pagou-r-340-milhoes-a-grupo-ligado-ao-pcc", v:"Metrópoles", l:"centro"},
+      {t:"Empresas ligadas ao PCC receberam R$ 209 milhões do governo de Goiás", u:"https://www.correiodamanha.com.br/politica/2026/05/289861-empresas-ligadas-ao-pcc-receberam-rs-209-milhoes-do-governo-de-goias.html", v:"Correio da Manhã", l:"centro"},
+      {t:"Gestão Caiado destinou R$ 209 milhões a grupo ligado a investigado por elo com PCC", u:"https://claudiodantas.com.br/caiado-209-milhoes-a-grupoelo-com-pcc/", v:"Cláudio Dantas", l:"centro-direita"},
+      {t:"Sob Caiado, governo de Goiás pagou R$ 209 milhões a grupo ligado ao PCC", u:"https://www.brasil247.com/brasil/sob-caiado-governo-de-goias-pagou-r-209-milhoes-a-grupo-ligado-ao-pcc", v:"Brasil 247", l:"centro-esquerda"}
+    ]},
+  { id:"vilela_maquina", tipo:"caso", corrida:"GO", nome:"Máquina pública em campanha", sub:"TRE-GO", status:"controversia",
+    orgao:"Tribunal Regional Eleitoral de Goiás", periodo:"2026",
+    resumo:"O TRE-GO determinou a suspensão imediata do uso da estrutura do governo de Goiás em publicações de caráter eleitoral em benefício do governador e candidato à reeleição Daniel Vilela. Em outra frente, a Justiça Eleitoral proibiu o uso da máquina pública para disseminar conteúdo contra os adversários Marconi Perillo e Wilder Morais. A mesma Justiça Eleitoral proferiu sete decisões contra peças e impulsionamentos das campanhas de Perillo e Wilder dirigidos a Vilela, com multas por irregularidade em propaganda.",
+    nota:"Decisões de propaganda eleitoral, não de corrupção — e a disputa é recíproca: os três principais candidatos goianos coletaram decisões contrárias.",
+    fontes:[
+      {t:"Justiça proíbe Daniel Vilela de usar máquina pública para disseminar fake news contra Wilder e Marconi", u:"https://www.goias246.com.br/noticia/28624/politica/justica-proibe-daniel-vilela-de-usar-maquina-publica-para-disseminar-fake-news-contra-wilder-e-marconi.html", v:"Goiás 246", l:"centro"},
+      {t:"Justiça Eleitoral barra impulsionamentos e determina retirada de conteúdos contra Daniel Vilela", u:"https://www.jornalopcao.com.br/ultimas-noticias/justica-eleitoral-barra-impulsionamentos-e-determina-retirada-de-conteudos-contra-daniel-vilela-865368/", v:"Jornal Opção", l:"centro-direita"}
+    ]},
+  { id:"zema_locadoras", tipo:"caso", corrida:"MG", nome:"Locadoras e o ICMS da cerveja", sub:"ALMG · política tributária", status:"controversia",
+    orgao:"Governo de MG / Assembleia Legislativa", periodo:"2023",
+    resumo:"No primeiro semestre de 2023, Zema aprovou na Assembleia um projeto que reduziu o IPVA das locadoras de veículos. A renúncia estimada chega a R$ 4,7 bilhões entre 2023 e 2025, e a maior beneficiária é a Localiza, sediada em Belo Horizonte. Dois meses depois, em setembro, o governo propôs um adicional de 2 pontos de ICMS sobre itens como cerveja, smartphones e ração — com arrecadação esperada de R$ 800 milhões a R$ 1,2 bilhão por ano, ordem de grandeza equivalente ao que havia sido renunciado. Sócios fundadores da Localiza, entre eles Salim Mattar, doaram R$ 5 milhões à campanha de reeleição de Zema em 2022: 28,2% dos R$ 17,6 milhões gastos. Em 2018 já haviam doado R$ 1,2 milhão, 20% daquela campanha. Mattar também doou R$ 2,1 milhões ao Novo, partido de Zema.",
+    nota:"Não há processo, inquérito ou acusação formal — é uma controvérsia de política tributária com aparência de conflito de interesse, e por isso está numa cor fora da escala penal. Note também a distribuição das fontes abaixo: a apuração partiu da imprensa nacional, mas a repercussão veio quase toda de veículos à esquerda. É uma assimetria de cobertura que o leitor deve pesar.",
+    fontes:[
+      {t:"Dois meses após benefícios bilionários a locadoras, Zema propõe aumento de imposto para cerveja e smartphone", u:"https://oglobo.globo.com/politica/noticia/2023/09/14/dois-meses-apos-beneficios-bilionarios-a-locadoras-zema-propoe-aumento-de-imposto-para-cerveja-e-smartphone.ghtml", v:"O Globo", l:"centro"},
+      {t:"PL de Zema que eleva imposto de cerveja, ração e celular já pode ser votado", u:"https://www.em.com.br/app/noticia/politica/2023/09/12/interna_politica,1560751/pl-de-zema-que-eleva-imposto-de-cerveja-racao-e-celular-ja-pode-ser-votado.shtml", v:"Estado de Minas", l:"centro"},
+      {t:"Salim Mattar deixa cargo de consultor no governo Zema", u:"https://www.em.com.br/app/noticia/politica/2023/08/31/interna_politica,1554901/salim-mattar-deixa-cargo-de-consultor-no-governo-zema.shtml", v:"Estado de Minas", l:"centro"},
+      {t:"Zema propõe aumento de imposto para cerveja e smartphone", u:"https://www.folhape.com.br/economia/zema-propoe-aumento-de-imposto-para-cerveja-e-smartphone/291838/", v:"Folha PE", l:"centro"},
+      {t:"A última lorota de Zema para dar bilhões a locadoras", u:"https://www.brasildefato.com.br/2023/05/16/a-ultima-lorota-de-zema-para-dar-bilhoes-a-locadoras/", v:"Brasil de Fato", l:"centro-esquerda"},
+      {t:"Sócios da Localiza bancaram 28% dos gastos eleitorais de Zema em MG", u:"https://www.brasil247.com/regionais/sudeste/socios-da-localiza-bancaram-28-dos-gastos-eleitorais-de-zema-em-mg", v:"Brasil 247", l:"centro-esquerda"},
+      {t:"Dono da Localiza doa R$ 2,1 milhões ao Novo", u:"https://revistaforum.com.br/politica/exclusivo-dono-da-localiza-doa-21-milhoes-ao-novo/", v:"Revista Fórum", l:"centro-esquerda"}
+    ]},
+  { id:"zema_fundo", tipo:"caso", corrida:"MG", nome:"Fundo de Erradicação da Pobreza", sub:"MPMG · TCE-MG", status:"investigado",
+    orgao:"MPMG / TCE-MG / ALMG", periodo:"2024–2026",
+    resumo:"Deputados de oposição representaram contra Romeu Zema por improbidade administrativa, alegando uso irregular de recursos do Fundo de Erradicação da Pobreza — com abertura de créditos suplementares para despesas alheias a ações sociais, o que a representação classifica como desvio de finalidade. O caso tramita no Ministério Público estadual, no Tribunal de Contas e na Assembleia.",
+    nota:"Representação de parlamentares de oposição. Não há denúncia formal nem decisão judicial.",
+    fontes:[
+      {t:"Oposição denuncia Zema por improbidade administrativa", u:"https://www.em.com.br/politica/2024/04/6844448-oposicao-denuncia-zema-por-improbidade-administrativa.html", v:"Estado de Minas", l:"centro"}
+    ]},
+  { id:"mg_educacao", tipo:"caso", corrida:"MG", nome:"Contratos da Educação em MG", sub:"MPMG · TCE-MG", status:"investigado",
+    orgao:"MPMG / Tribunal de Contas de MG", periodo:"2025–2026",
+    resumo:"O Ministério Público e o Tribunal de Contas apuram contratos firmados quando Rossieli Soares comandava a Secretaria de Educação, com destaque para um contrato de R$ 348,4 milhões com a Fazer Educação para compra de material didático. Mateus Simões afirma que as investigações não identificaram ilegalidade e que o trabalho da Polícia Civil continua.",
+    fontes:[
+      {t:"Simões diz que investigações sobre Rossieli não identificaram ilegalidade", u:"https://www.otempo.com.br/eleicoes/2026/governadores/2026/8/13/simoes-diz-que-investigacoes-sobre-rossieli-nao-identificaram-ilegalidade-trabalho-de-pcmg-continua", v:"O Tempo", l:"centro"},
+      {t:"Gabriel critica Zema e Simões: ‘legado de corrupção na educação’", u:"https://www.otempo.com.br/eleicoes/2026/governadores/2026/6/11/gabriel-critica-zema-e-simoes-legado-de-corrupcao-na-educacao", v:"O Tempo", l:"centro"}
+    ]},
+  { id:"agencia_minas", tipo:"caso", corrida:"MG", nome:"Promoção pessoal na Agência Minas", sub:"MPMG", status:"investigado",
+    orgao:"MPMG — 17ª Promotoria do Patrimônio Público", periodo:"2026",
+    resumo:"O Ministério Público de Minas abriu procedimento para apurar suposta promoção pessoal do governador Mateus Simões em publicações do perfil oficial da Agência Minas no Instagram. O governo nega irregularidades. Em frente separada, o MP Eleitoral arquivou denúncia semelhante apresentada pelo presidente estadual do PT.",
+    fontes:[
+      {t:"MP apura suposto uso da Agência Minas para promoção do governador; governo nega", u:"https://www.acessa.com/noticias/2026/06/328217-mp-apura-suposto-uso-da-agencia-minas-para-promocao-do-governador-matheus-simoes-governo-nega-irregularidades.html", v:"Acessa.com", l:"centro"},
+      {t:"MP Eleitoral arquiva denúncia do presidente do PT contra Mateus Simões", u:"https://ofator.com.br/informacao/mp-eleitoral-arquiva-denuncia-de-presidente-do-pt-contra-mateus-simoes-por-posts-da-agencia-minas/", v:"O Fator", l:"centro"}
+    ]},
+  { id:"kalil_pub", tipo:"caso", corrida:"MG", nome:"Publicidade da prefeitura de BH", sub:"MPMG", status:"reu",
+    orgao:"MPMG / Justiça de Minas Gerais", periodo:"2021–2026",
+    resumo:"Alexandre Kalil é réu em ação de improbidade administrativa. Segundo o MP, ele condicionou a renovação de um contrato de publicidade de R$ 46 milhões com a agência Perfil 252 ao financiamento, pela empresa, de uma pesquisa eleitoral em 2021 para medir a viabilidade de sua candidatura ao governo estadual. A acusação apresenta áudios e mensagens de secretários pressionando o empresário. O MP pede 14 anos de inelegibilidade e o ressarcimento de R$ 103,5 milhões. Kalil recusou acordo de não persecução cível.",
+    fontes:[
+      {t:"Ex-prefeito de BH, Alexandre Kalil se torna réu em ação por improbidade administrativa", u:"https://www.cartacapital.com.br/justica/ex-prefeito-de-bh-alexandre-kalil-se-torna-reu-em-acao-por-improbidade-administrativa/", v:"CartaCapital", l:"centro-esquerda"},
+      {t:"Justiça de MG aceita denúncia, e Kalil, ex-prefeito de BH, vira réu por improbidade", u:"https://www.infomoney.com.br/politica/justica-de-mg-aceita-denuncia-e-kalil-ex-prefeito-de-bh-vira-reu-por-improbidade/", v:"InfoMoney", l:"centro"},
+      {t:"Ministério Público de Minas cobra R$ 103 milhões e pede condenação de Kalil", u:"https://revistaoeste.com/politica/ministerio-publico-de-minas-cobra-r-103-milhoes-e-pede-condenacao-de-kalil/", v:"Revista Oeste", l:"centro-direita"}
+    ]},
+
+  /* ---------- CASOS · SP ---------- */
+  { id:"icaro", tipo:"caso", corrida:"SP", nome:"Operação Ícaro", sub:"MP-SP · Sefaz-SP", status:"investigado",
+    orgao:"Ministério Público de São Paulo — Gaeco", periodo:"2025–2026",
+    resumo:"Investiga um esquema de propina para acelerar a liberação de créditos de ICMS e ressarcimentos de ICMS-ST dentro da Secretaria da Fazenda de São Paulo. Empresas pagariam de 1% a 10% do valor a recuperar. Em setembro de 2026 foram presos o advogado tributarista João André Buttini de Moraes e André Weiss, ex-diretor-geral da administração tributária, suspeito de receber R$ 4,5 milhões. Grandes varejistas aparecem como beneficiárias; a Sefaz informou que as apurações geraram mais de R$ 3 bilhões em créditos tributários, multas e juros. Tarcísio classificou os casos na Fazenda como “fatos isolados”.",
+    fontes:[
+      {t:"Ministério Público mira esquema de propina em créditos de ICMS na Fazenda de SP", u:"https://revistaoeste.com/brasil/ministerio-publico-mira-esquema-de-propina-em-creditos-de-icms-na-fazenda-de-sao-paulo/", v:"Revista Oeste", l:"centro-direita"},
+      {t:"Advogado e ex-diretor da Sefaz são presos em operação do MP contra esquema de propina", u:"https://jurinews.com.br/sp/advogado-e-ex-diretor-da-sefaz-sao-presos-em-operacao-do-mp-contra-esquema-de-propina", v:"JuriNews", l:"centro"},
+      {t:"Tarcísio chama casos de corrupção na Fazenda de “fatos isolados”", u:"https://www.cnnbrasil.com.br/nacional/sudeste/sp/tarcisio-chama-casos-de-corrupcao-na-fazenda-de-fatos-isolados/", v:"CNN Brasil", l:"centro"},
+      {t:"MPSP aponta varejistas como beneficiárias de esquema de créditos fiscais em SP", u:"https://diarioesp.com.br/sao-paulo/2026/09/03/mpsp-aponta-varejistas-como-beneficiarias-de-esquema-de-creditos-fiscais-em-sp.html", v:"Diário do Estado de SP", l:"centro"}
+    ]},
+  { id:"dnit", tipo:"caso", corrida:"SP", nome:"Contratos do DNIT", sub:"PF · Op. Circuito Fechado", status:"citado",
+    orgao:"Polícia Federal", periodo:"2012–2020",
+    resumo:"A Operação Circuito Fechado apurou desvio de cerca de R$ 40 milhões em contratos do DNIT com a empresa Business To Technology (B2T). Tarcísio de Freitas, diretor do órgão entre 2012 e 2014, assinou parte dos contratos investigados e teve o nome citado 17 vezes no relatório de 59 páginas — mas não foi formalmente investigado. Ouvido pela PF, ela registrou que, até então, não havia “elementos suficientes” para qualquer conclusão sobre envolvimento dele.",
+    nota:"Citação em relatório não é indiciamento nem denúncia. É o grau mais fraco de vínculo representado neste grafo.",
+    fontes:[
+      {t:"Tarcísio de Freitas: ministro da Infraestrutura citado em investigação no DNIT", u:"https://www.gazetadopovo.com.br/republica/tarcisio-de-freitas-ministro-da-infraestrutura-investigacao-corrupcao-dnit/", v:"Gazeta do Povo", l:"centro-direita"},
+      {t:"PF investiga contratos do DNIT assinados por Tarcísio de Freitas", u:"https://istoedinheiro.com.br/pf-investiga-contratos-do-dnit-assinados-por-tarcisio-de-freitas", v:"IstoÉ Dinheiro", l:"centro"},
+      {t:"Contratos assinados por Tarcísio no DNIT durante gestão Dilma entram na mira da PF", u:"https://www.folhavitoria.com.br/politica/contratos-assinados-por-tarcisio-no-dnit-durante-gestao-dilma-entram-na-mira-da-pf/", v:"Folha Vitória", l:"centro"}
+    ]},
+  { id:"haddad_utc", tipo:"caso", corrida:"SP", nome:"Caixa 2 da UTC (2012)", sub:"TRE-SP", status:"encerrado",
+    orgao:"Justiça Eleitoral de SP / TRE-SP", periodo:"2016–2021",
+    resumo:"A acusação sustentava que R$ 2,6 milhões da UTC Engenharia, de Ricardo Pessoa, teriam financiado material da campanha de Haddad à prefeitura de São Paulo em 2012, com 258 declarações falsas de despesa. Em agosto de 2019 Haddad foi condenado em primeira instância a 4 anos e 6 meses por falsidade ideológica eleitoral — e absolvido, na mesma sentença, de associação criminosa e lavagem. Em julho de 2021 o TRE-SP reformou a decisão e o absolveu por unanimidade, por insuficiência de provas.",
+    fontes:[
+      {t:"TRE-SP absolve Haddad de acusação de caixa dois da UTC nas eleições 2012", u:"https://www.opovo.com.br/noticias/politica/2021/07/27/tre-sp-absolve-haddad-de-acusacao-de-caixa-dois-da-utc-nas-eleicoes-2012.html", v:"O POVO", l:"centro"},
+      {t:"TRE de São Paulo absolve Fernando Haddad de acusação de caixa 2 eleitoral", u:"https://www.poder360.com.br/justica/tre-de-sao-paulo-absolve-fernando-haddad-de-acusacao-de-caixa-2-eleitoral/", v:"Poder360", l:"centro"},
+      {t:"Juiz condena Fernando Haddad por caixa dois na eleição de 2012", u:"https://www.conjur.com.br/2019-ago-20/tre-sp-condena-fernando-haddad-caixa-dois-eleicao-2012/", v:"Consultor Jurídico", l:"centro"}
+    ]},
+  { id:"franca_sv", tipo:"caso", corrida:"SP", nome:"Contratações em São Vicente", sub:"STJ", status:"condenado",
+    orgao:"STJ", periodo:"1997–2018",
+    resumo:"Márcio França foi condenado em primeira e segunda instâncias por improbidade administrativa pela contratação de 154 funcionários sem concurso para a Secretaria de Saúde de São Vicente, em seu primeiro mandato como prefeito (1997–2000). O STJ acolheu parcialmente o recurso: afastou multa e a suspensão dos direitos políticos por três anos, mas manteve a pena de perda da função pública.",
+    fontes:[
+      {t:"STJ mantém condenação por improbidade de Márcio França", u:"https://jornaldebeltrao.com.br/politica/stj-mantem-condenacao-por-improbidade-de-marcio-franca/", v:"Jornal de Beltrão", l:"centro"}
+    ]},
+  { id:"franca_codesp", tipo:"caso", corrida:"SP", nome:"Contratos da Codesp", sub:"MP-SP", status:"investigado",
+    orgao:"Ministério Público Estadual de SP", periodo:"2007–2015",
+    resumo:"O Ministério Público apurou suspeita de fraude em licitações e superfaturamento na Companhia Docas do Estado de São Paulo, que administra o Porto de Santos. Ao menos 16 contratos assinados entre 2007 e 2015 com empresas doadoras de campanhas, somando R$ 468 milhões, foram objeto de suspeita.",
+    fontes:[
+      {t:"Márcio França é investigado por suposto esquema na Codesp", u:"https://www.diariodolitoral.com.br/cotidiano/marcio-franca-e-investigado-por-suposto-esquema-na-codesp/95268/", v:"Diário do Litoral", l:"centro"}
+    ]},
+
+  /* ---------- CASOS · GO ---------- */
+  { id:"perillo_delta", tipo:"caso", corrida:"GO", nome:"Caso Delta / Cachoeira", sub:"STJ · AP 855/DF", status:"reu",
+    orgao:"STJ", periodo:"2012–2026",
+    resumo:"Marconi Perillo é réu em ação penal por corrupção passiva que envolve também Carlinhos Cachoeira e os empresários Fernando Cavendish e Cláudio Abreu. A investigação nasceu da Operação Monte Carlo (2012), que prendeu Cachoeira e deu origem à CPMI do Cachoeira, onde se discutiu a venda de uma casa de Perillo no Alphaville de Goiânia ao contraventor e um suposto acerto com a construtora Delta. Em maio de 2022 Gilmar Mendes anulou uma operação contra Perillo por incompetência do juízo federal de Goiás. Em junho de 2025 o STJ rejeitou recurso da defesa e, em decisão publicada em 25 de agosto de 2026, definiu que a ação penal 855/DF tramitará no próprio STJ.",
+    fontes:[
+      {t:"Marconi Perillo é réu em ação por corrupção passiva e teve recurso rejeitado pelo STJ", u:"https://www.jornalopcao.com.br/ultimas-noticias/marconi-perillo-e-reu-em-acao-por-corrupcao-passiva-e-teve-recurso-rejeitado-pelo-stj-863647/", v:"Jornal Opção", l:"centro-direita"},
+      {t:"Justiça de Goiás torna Marconi Perillo réu por corrupção passiva", u:"https://www.conjur.com.br/2018-set-03/justica-goias-torna-marco-perillo-reu-corrupcao-passiva/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Gilmar anula operação contra ex-governador de Goiás Marconi Perillo", u:"https://conjur.com.br/2022-mai-03/gilmar-anula-operacao-ex-governador-goias-marconi-perillo/", v:"Consultor Jurídico", l:"centro"},
+      {t:"Versões sobre compra de casa de Perillo dividem opiniões na CPMI do Cachoeira", u:"https://www.camara.leg.br/noticias/376037-versoes-sobre-compra-de-casa-de-perillo-dividem-opinioes-na-cpmi-do-cachoeira/", v:"Câmara dos Deputados", l:"institucional"}
+    ]},
+  { id:"perillo_caixa2", tipo:"caso", corrida:"GO", nome:"Caixa 2 na campanha de 2006", sub:"Justiça Eleitoral", status:"condenado",
+    orgao:"Justiça Eleitoral de Goiás", periodo:"2006–2019",
+    resumo:"Perillo foi condenado por caixa 2 referente à campanha de 2006, com pena de prestação de serviços à comunidade, multa de R$ 18 mil e possível perda dos direitos políticos por 1 ano e 8 meses após o trânsito em julgado. Na mesma ação foi absolvido de peculato, associação criminosa e fraude processual.",
+    fontes:[
+      {t:"Ex-governador Marconi Perillo é condenado por caixa 2", u:"https://www.poder360.com.br/justica/ex-governador-marconi-perillo-e-condenado-por-caixa-2/", v:"Poder360", l:"centro"},
+      {t:"Justiça Eleitoral: ex-governador Marconi Perillo é condenado por caixa 2", u:"https://www.jornalopcao.com.br/ultimas-noticias/justica-eleitoral-ex-governador-marconi-perillo-e-condenado-por-caixa-2-292651/", v:"Jornal Opção", l:"centro-direita"}
+    ]},
+  { id:"caiado_escolta", tipo:"caso", corrida:"GO", nome:"Escolta com 51 policiais", sub:"MP-GO", status:"reu",
+    orgao:"Ministério Público de Goiás", periodo:"2026",
+    resumo:"O MP-GO ajuizou ação de improbidade administrativa contra Ronaldo Caiado, a ex-primeira-dama Gracinha Caiado e o coronel chefe da Casa Militar pelo uso de 51 policiais militares na segurança pessoal do governador e de familiares — custo de R$ 797,5 mil mensais só em salários. Para a promotoria houve enriquecimento ilícito e dano ao erário, sem previsão legal para estender a escolta a parentes. Em 6 de julho de 2026, decisão liminar limitou a escolta a quatro policiais.",
+    nota:"A promotoria registrou que os fatos coincidem com período de intensa atividade político-eleitoral.",
+    fontes:[
+      {t:"MP aciona Caiado e Gracinha por improbidade em caso de segurança com 51 PMs", u:"https://www.goias246.com.br/noticia/33469/politica/mp-aciona-caiado-e-gracinha-por-improbidade-administrativa-em-caso-de-seguranca-pessoal-com-51-pms.html", v:"Goiás 246", l:"centro"},
+      {t:"Ronaldo Caiado entra na mira do MP de Goiás por uso de policiais como seguranças particulares", u:"https://www.brasildefato.com.br/2026/06/27/ronaldo-caiado-entra-na-mira-do-mp-de-goias-por-uso-de-policiais-como-segurancas-particulares/", v:"Brasil de Fato", l:"centro-esquerda"},
+      {t:"Justiça determina que Caiado reduza segurança pessoal de 51 para 4 PMs", u:"https://www.metropoles.com/brasil/justica-determina-que-caiado-reduza-seguranca-pessoal-de-51-para-4-pms", v:"Metrópoles", l:"centro"}
+    ]},
+  { id:"go_saude", tipo:"caso", corrida:"GO", nome:"Contratos da Saúde de Goiás", sub:"MP-GO · Amme/IBGC", status:"investigado",
+    orgao:"Ministério Público de Goiás", periodo:"2020–2026",
+    resumo:"Daniel Alexandrino, irmão do então secretário de Saúde Ismael Alexandrino, foi preso sob suspeita de ser o dono oculto da Amme Saúde, registrada em nome de laranjas, que prestava serviços à organização social IBGC. Os contratos entre a Secretaria de Saúde, o IBGC e a Amme superaram R$ 10 milhões. Apuram-se organização criminosa, falsidade ideológica, uso de documento falso, advocacia administrativa e lavagem. A defesa de Ismael afirma que ele colabora com a investigação e que houve transparência total na pasta.",
+    fontes:[
+      {t:"Irmão de Ismael Alexandrino, ex-secretário da Saúde de Goiás, é preso por suspeita de corrupção", u:"https://diariodonordeste.verdesmares.com.br/ultima-hora/pais/irmao-de-ismael-alexandrino-ex-secretario-da-saude-de-goias-e-preso-por-suspeita-de-corrupcao-1.3328213", v:"Diário do Nordeste", l:"centro"},
+      {t:"Operação prende irmão de ex-secretário de Saúde por suspeita de fraude na pandemia", u:"https://www.jornalopcao.com.br/goias/operacao-prende-irmao-de-ex-secretario-de-saude-por-suspeita-de-fraude-na-pandemia-460966/", v:"Jornal Opção", l:"centro-direita"},
+      {t:"Irmão de deputado é preso em operação contra fraude na Saúde em Goiás", u:"https://www.metropoles.com/brasil/irmao-de-deputado-e-preso-em-operacao-contra-fraude-na-saude-em-goias", v:"Metrópoles", l:"centro"}
+    ]},
+  { id:"wilder_emendas", tipo:"caso", corrida:"GO", nome:"Emendas parlamentares", sub:"PF · STF", status:"investigado",
+    orgao:"Polícia Federal (por determinação do STF)", periodo:"2026",
+    resumo:"Wilder Morais é alvo de investigação da PF por suposto desvio de R$ 1 milhão em emendas parlamentares. A apuração, determinada pelo ministro Flávio Dino, foi motivada pela ausência de planos de trabalho que comprovassem a execução dos recursos. A investigação corre no contexto de um esforço maior: em 10 de setembro de 2026 a PF deflagrou a Operação Make Up contra desvio de emendas para uma empresa privada, com desvios estimados em centenas de milhões.",
+    fontes:[
+      {t:"PF faz operação contra desvios de dinheiro de emendas parlamentares", u:"https://agenciabrasil.ebc.com.br/geral/noticia/2026-09/pf-faz-operacao-contra-desvios-de-dinheiro-de-emendas-parlamentares", v:"Agência Brasil", l:"institucional"},
+      {t:"Polícia Federal investiga senador goiano Wilder Morais por suposto desvio de dinheiro público", u:"https://www.jornalda2cnews.com/noticia/policia-federal-investiga-senador-goiano-wilder-morais-por-suposto-desvio-de-dinheiro-publico", v:"Jornal da 2CNews", l:"centro"},
+      {t:"Desvio de emendas: senador Wilder Morais de Goiás entra na mira da PF", u:"https://radardf.com.br/radar-goias/desvio-de-emendas-senador-wilder-moraes-de-goias-entra-na-mira-da-pf/", v:"Radar DF", l:"centro"}
+    ]},
+  { id:"vilela_odb", tipo:"caso", corrida:"GO", nome:"Inquérito Odebrecht — Vilela", sub:"STF", status:"encerrado",
+    orgao:"STF", periodo:"2017–2023",
+    resumo:"Documentos da delação da Odebrecht citaram um repasse de R$ 1 milhão à campanha de Daniel Vilela a deputado federal em 2014 e R$ 500 mil não declarados ao grupo político em Aparecida de Goiânia em 2012, com o apelido “o padre” em planilhas. Vilela sempre negou irregularidade. Como ocorreu com dezenas de inquéritos derivados da mesma delação, o procedimento foi arquivado no STF após a anulação das provas do acordo de leniência.",
+    nota:"Arquivado pela invalidação das provas que sustentavam a apuração — o mesmo motivo que encerrou os casos de Kassab e Alckmin.",
+    fontes:[
+      {t:"Delações da Odebrecht na Operação Lava Jato", u:"https://pt.wikipedia.org/wiki/Dela%C3%A7%C3%B5es_da_Odebrecht_na_Opera%C3%A7%C3%A3o_Lava_Jato", v:"Wikipédia", l:"centro"},
+      {t:"Delação da Odebrecht livrou corruptores e entrega só uma condenação a cada 40 processos", u:"https://www.intercept.com.br/2021/05/25/delacao-odebrecht-lava-jato-falta-provas/", v:"Intercept Brasil", l:"centro-esquerda"},
+      {t:"Saiba quem é Daniel Vilela, candidato ao governo de Goiás", u:"https://obrasilianista.com.br/2026/09/09/politica/daniel-vilela-candidato-governo-goias", v:"O Brasilianista", l:"centro"}
+    ]}
+];
+
+/* ---------- LIGAÇÕES ----------
+   rel: direto | familiar | equipe | politico | negocio          */
+const LINKS = [
+
+  /* --- Banco Master e inquérito das fake news --- */
+  { s:"vorcaro", t:"banco_master", st:"investigado", rel:"direto", rot:"Controlador do banco; preso desde novembro de 2025" },
+  { s:"flavio", t:"banco_master", st:"investigado", rel:"direto", rot:"Investigado por lavagem, evasão de divisas e corrupção no financiamento de “Dark Horse”" },
+  { s:"eduardob", t:"banco_master", st:"investigado", rel:"direto", rot:"Produtor executivo do filme; alvo das mesmas apurações" },
+  { s:"jair", t:"banco_master", st:"citado", rel:"direto", rot:"Filme inspirado nele; doação de 2022 apontada na delação rejeitada" },
+  { s:"wagner", t:"banco_master", st:"investigado", rel:"direto", rot:"PF aponta vantagens indevidas em troca de atuação no Congresso; ele nega" },
+  { s:"lula", t:"wagner", st:"citado", rel:"politico", rot:"Líder do governo no Senado no período apurado" },
+  { s:"carlosb", t:"fakenews", st:"investigado", rel:"direto", rot:"Apontado pela PF como um dos líderes das milícias digitais" },
+  { s:"eduardob", t:"fakenews", st:"investigado", rel:"direto", rot:"Apontado como mentor do “gabinete do ódio”" },
+  { s:"jefferson", t:"fakenews", st:"investigado", rel:"direto", rot:"Preso preventivamente em 2021 no desdobramento das milícias digitais" },
+
+  /* --- ministros: atuação judicial --- */
+  { s:"fachin", t:"lavajato", st:"judicial", rel:"judicial", rot:"Relator; anulou as condenações por incompetência do juízo de Curitiba" },
+  { s:"fachin", t:"fakenews", st:"judicial", rel:"judicial", rot:"Assumiu a relatoria em 9 de setembro de 2026" },
+  { s:"fachin", t:"banco_master", st:"judicial", rel:"judicial", rot:"Como presidente, determinou o levantamento dos sigilos" },
+  { s:"moraes", t:"golpe", st:"judicial", rel:"judicial", rot:"Relator da ação penal" },
+  { s:"moraes", t:"joias", st:"judicial", rel:"judicial", rot:"Relator; pediu novo parecer à PGR" },
+  { s:"moraes", t:"coacao", st:"judicial", rel:"judicial", rot:"Relator; PGR pediu condenação" },
+  { s:"moraes", t:"rj_ataque", st:"judicial", rel:"judicial", rot:"Relator; seguido por seis ministros" },
+  { s:"moraes", t:"fakenews", st:"judicial", rel:"judicial", rot:"Relator de 2019 até setembro de 2026" },
+  { s:"moraes", t:"banco_master", st:"citado", rel:"direto", rot:"Contrato de R$ 131 mi do escritório da esposa com o banco; ele nega irregularidade" },
+  { s:"gilmar", t:"dirceu_lj", st:"judicial", rel:"judicial", rot:"Anulou todas as condenações da Lava Jato" },
+  { s:"gilmar", t:"perillo_delta", st:"judicial", rel:"judicial", rot:"Anulou operação por incompetência do juízo federal de Goiás" },
+  { s:"gilmar", t:"lavajato", st:"judicial", rel:"judicial", rot:"Integrou a Segunda Turma que reconheceu a suspeição de Moro" },
+  { s:"toffoli", t:"alckmin_odb", st:"judicial", rel:"judicial", rot:"Anulou as provas da Odebrecht e arquivou a ação" },
+  { s:"toffoli", t:"rejeito", st:"judicial", rel:"judicial", rot:"Relator; o caso corre sob sigilo" },
+  { s:"toffoli", t:"fakenews", st:"judicial", rel:"judicial", rot:"Instaurou o inquérito por portaria em 2019 e designou o relator" },
+  { s:"toffoli", t:"vilela_odb", st:"judicial", rel:"judicial", rot:"Anulação das provas da leniência encerrou também este inquérito" },
+  { s:"toffoli", t:"banco_master", st:"citado", rel:"direto", rot:"Deixou a relatoria após relatório da PF citá-lo em mensagens de Vorcaro" },
+  { s:"mendonca", t:"banco_master", st:"judicial", rel:"judicial", rot:"Relator desde fevereiro de 2026; abriu o inquérito sobre Flávio e levantou os sigilos" },
+  { s:"dino", t:"wilder_emendas", st:"judicial", rel:"judicial", rot:"Determinou a investigação" },
+  { s:"dino", t:"golpe", st:"judicial", rel:"judicial", rot:"Integrou a Primeira Turma; votou pela condenação" },
+  { s:"carmen", t:"golpe", st:"judicial", rel:"judicial", rot:"Votou pela condenação em todos os crimes" },
+  { s:"fux", t:"golpe", st:"judicial", rel:"judicial", rot:"Único voto pela absolvição de Bolsonaro" },
+  { s:"zanin", t:"golpe", st:"judicial", rel:"judicial", rot:"Integrou a Primeira Turma" },
+  { s:"zanin", t:"lula", st:"citado", rel:"politico", rot:"Foi advogado de Lula na Lava Jato antes da indicação ao STF" },
+
+  /* Lula */
+  { s:"lula", t:"lavajato", st:"encerrado", rel:"direto", rot:"Condenações anuladas pelo STF em 2021" },
+  { s:"lula", t:"freichico", st:"citado", rel:"familiar", rot:"Irmão" },
+  { s:"freichico", t:"sindnapi", st:"citado", rel:"direto", rot:"Dirigente do sindicato; não foi indiciado" },
+  { s:"sindnapi", t:"inss", st:"investigado", rel:"direto", rot:"Terceira entidade que mais descontou" },
+  { s:"lula", t:"lulinha", st:"citado", rel:"familiar", rot:"Filho" },
+  { s:"lulinha", t:"inss", st:"investigado", rel:"direto", rot:"Indiciamento pedido no relatório rejeitado da CPMI" },
+  { s:"lulinha", t:"careca", st:"citado", rel:"negocio", rot:"Viagem a Portugal paga pelo lobista, confirmada pela defesa" },
+  { s:"careca", t:"inss", st:"investigado", rel:"direto", rot:"Apontado como operador central" },
+  { s:"lula", t:"carla", st:"citado", rel:"familiar", rot:"Ex-nora" },
+  { s:"carla", t:"coffee", st:"investigado", rel:"direto", rot:"Apontada como peça central do tráfico de influência" },
+  { s:"lulinha", t:"bitar", st:"citado", rel:"negocio", rot:"Ex-sócio na Gamecorp" },
+  { s:"bitar", t:"coffee", st:"investigado", rel:"direto", rot:"Recebia mesada para intermediar contatos políticos" },
+  { s:"jair", t:"jefferson", st:"citado", rel:"politico", rot:"Colegas de PTB; apoio em 2018 e negociação de filiação em 2021" },
+  { s:"jefferson", t:"mensalao", st:"condenado", rel:"direto", rot:"Delator do esquema e réu condenado a 7 anos e 14 dias" },
+  { s:"jefferson", t:"rj_ataque", st:"condenado", rel:"direto", rot:"9 anos, 1 mês e 5 dias; cumpre prisão domiciliar" },
+  { s:"lula", t:"dirceu", st:"citado", rel:"equipe", rot:"Ministro-chefe da Casa Civil (2003–2005) e ex-presidente do PT" },
+  { s:"dirceu", t:"mensalao", st:"condenado", rel:"direto", rot:"10 anos e 10 meses; pena cumprida e extinta em 2016" },
+  { s:"dirceu", t:"dirceu_lj", st:"encerrado", rel:"direto", rot:"23 anos e 3 meses anulados por suspeição de Moro" },
+  { s:"lula", t:"lupi", st:"citado", rel:"equipe", rot:"Ministro da Previdência (2023–2025)" },
+  { s:"lupi", t:"inss", st:"investigado", rel:"direto", rot:"Indiciamento pedido no relatório rejeitado da CPMI" },
+
+  /* Alckmin */
+  { s:"alckmin", t:"alckmin_odb", st:"encerrado", rel:"direto", rot:"Ação arquivada após anulação das provas" },
+  { s:"alckmin", t:"lula", st:"citado", rel:"politico", rot:"Vice na chapa" },
+
+  /* Flávio Bolsonaro */
+  { s:"flavio", t:"rachaflavio", st:"encerrado", rel:"direto", rot:"Caso encerrado por nulidades" },
+  { s:"queiroz", t:"rachaflavio", st:"encerrado", rel:"direto", rot:"Movimentação atípica de R$ 1,2 milhão" },
+  { s:"flavio", t:"queiroz", st:"citado", rel:"equipe", rot:"Chefe de gabinete na Alerj" },
+  { s:"flavio", t:"jair", st:"citado", rel:"familiar", rot:"Pai" },
+  { s:"jair", t:"golpe", st:"condenado", rel:"direto", rot:"27 anos e 3 meses; recursos rejeitados" },
+  { s:"jair", t:"joias", st:"encerrado", rel:"direto", rot:"Indiciado pela PF; PGR pediu arquivamento" },
+  { s:"cid", t:"joias", st:"citado", rel:"direto", rot:"Delator; indiciado pela PF" },
+  { s:"cid", t:"golpe", st:"citado", rel:"direto", rot:"Delator no processo" },
+  { s:"jair", t:"cid", st:"citado", rel:"equipe", rot:"Ajudante de ordens" },
+  { s:"flavio", t:"carlosb", st:"citado", rel:"familiar", rot:"Irmão" },
+  { s:"carlosb", t:"rachacarlos", st:"investigado", rel:"direto", rot:"Investigação reaberta em fevereiro de 2026" },
+  { s:"flavio", t:"eduardob", st:"citado", rel:"familiar", rot:"Irmão" },
+  { s:"eduardob", t:"coacao", st:"reu", rel:"direto", rot:"Réu; PGR pediu condenação" },
+  { s:"jair", t:"master", st:"citado", rel:"direto", rot:"Doação de R$ 3 mi apontada como propina na delação rejeitada" },
+  { s:"gaspar", t:"inss", st:"citado", rel:"politico", rot:"Relator da CPMI; relatório rejeitado por 19 a 12" },
+  { s:"flavio", t:"gaspar", st:"citado", rel:"politico", rot:"Vice na chapa" },
+
+  /* Zema */
+  { s:"zema", t:"rejeito", st:"investigado", rel:"politico", rot:"Primeiro escalão do governo investigado; PF cita decreto estadual" },
+  { s:"zema", t:"mariliac", st:"citado", rel:"equipe", rot:"Secretária de Meio Ambiente" },
+  { s:"mariliac", t:"rejeito", st:"citado", rel:"direto", rot:"Citada como elo do grupo com o poder público" },
+  { s:"lages", t:"rejeito", st:"investigado", rel:"direto", rot:"Preso; apontado como articulador político do grupo" },
+  { s:"mariliac", t:"lages", st:"citado", rel:"politico", rot:"Vínculo apontado pela PF" },
+  { s:"zema", t:"zema_fundo", st:"investigado", rel:"direto", rot:"Representação por improbidade" },
+  { s:"lula", t:"lula_estrutura", st:"controversia", rel:"direto", rot:"Alvo da representação; o uso é lícito com ressarcimento" },
+  { s:"flavio", t:"lula_estrutura", st:"citado", rel:"politico", rot:"Autor da representação no TSE" },
+  { s:"tarcisio", t:"sabesp", st:"controversia", rel:"direto", rot:"Conduziu a venda; contestada no TCE-SP por sindicatos" },
+  { s:"caiado", t:"caiado_imed", st:"controversia", rel:"direto", rot:"R$ 209 mi da saúde estadual via Imed; ele não é investigado" },
+  { s:"telles", t:"caiado_imed", st:"investigado", rel:"direto", rot:"Apontado como beneficiário final de lavagem do PCC" },
+  { s:"vilela", t:"vilela_maquina", st:"controversia", rel:"direto", rot:"TRE-GO mandou suspender o uso da estrutura do governo" },
+  { s:"perillo", t:"vilela_maquina", st:"citado", rel:"politico", rot:"Também alvo de decisões por propaganda irregular" },
+  { s:"wilder", t:"vilela_maquina", st:"citado", rel:"politico", rot:"Também alvo de decisões por propaganda irregular" },
+  { s:"zema", t:"zema_locadoras", st:"controversia", rel:"direto", rot:"Propôs os dois projetos: a renúncia e, dois meses depois, o aumento" },
+  { s:"salim", t:"zema_locadoras", st:"controversia", rel:"direto", rot:"Fundador da maior beneficiária da renúncia de IPVA" },
+  { s:"zema", t:"salim", st:"citado", rel:"negocio", rot:"Sócios da Localiza bancaram 28,2% da campanha de reeleição de 2022" },
+  { s:"zema", t:"simoes", st:"citado", rel:"politico", rot:"Vice que o sucedeu no governo" },
+  { s:"zema", t:"rossieli", st:"citado", rel:"equipe", rot:"Secretário de Educação nomeado na gestão" },
+
+  /* Caiado / Kassab */
+  { s:"caiado", t:"caiado_escolta", st:"reu", rel:"direto", rot:"Ação de improbidade do MP-GO" },
+  { s:"gracinha", t:"caiado_escolta", st:"reu", rel:"direto", rot:"Também acionada na ação" },
+  { s:"caiado", t:"gracinha", st:"citado", rel:"familiar", rot:"Esposa" },
+  { s:"caiado", t:"ismael", st:"citado", rel:"equipe", rot:"Secretário de Saúde (2019–2022)" },
+  { s:"ismael", t:"go_saude", st:"citado", rel:"direto", rot:"Diz colaborar com a investigação" },
+  { s:"ismael", t:"danielalex", st:"citado", rel:"familiar", rot:"Irmão" },
+  { s:"danielalex", t:"go_saude", st:"investigado", rel:"direto", rot:"Preso; apontado como dono oculto da empresa" },
+  { s:"caiado", t:"kassab", st:"citado", rel:"politico", rot:"Vice na chapa" },
+  { s:"kassab", t:"kassab_odb", st:"encerrado", rel:"direto", rot:"Inquéritos arquivados por ausência de provas" },
+  { s:"kassab", t:"master", st:"citado", rel:"direto", rot:"Acusado por Vorcaro; nega e delação foi rejeitada" },
+  { s:"vorcaro", t:"master", st:"investigado", rel:"direto", rot:"Autor das propostas de delação rejeitadas" },
+  { s:"vorcaro", t:"inss", st:"investigado", rel:"direto", rot:"Indiciamento pedido no relatório rejeitado da CPMI" },
+
+  /* Marçal / Renan */
+  { s:"marcal", t:"marcal_laudo", st:"investigado", rel:"direto", rot:"Indiciado pela PF; condenado na esfera cível" },
+  { s:"marcal", t:"marcal_furto", st:"encerrado", rel:"direto", rot:"Condenado em 2010; prescrito em 2018" },
+  { s:"renan", t:"mbl", st:"investigado", rel:"direto", rot:"Apuração de lavagem e ocultação patrimonial" },
+
+  /* Tarcísio */
+  { s:"tarcisio", t:"dnit", st:"citado", rel:"direto", rot:"Nome citado 17 vezes; não foi investigado formalmente" },
+  { s:"tarcisio", t:"master", st:"citado", rel:"direto", rot:"Doação de R$ 2 mi apontada como propina na delação rejeitada" },
+  { s:"tarcisio", t:"icaro", st:"citado", rel:"politico", rot:"Esquema na Sefaz do seu governo; chamou de “fatos isolados”" },
+  { s:"weiss", t:"icaro", st:"investigado", rel:"direto", rot:"Preso; suspeito de receber R$ 4,5 milhões" },
+  { s:"tarcisio", t:"weiss", st:"citado", rel:"equipe", rot:"Ex-diretor-geral da Fazenda estadual" },
+  { s:"tarcisio", t:"botion", st:"citado", rel:"equipe", rot:"Diretor de Convênios em Campinas; pediu exoneração" },
+  { s:"botion", t:"coffee", st:"investigado", rel:"direto", rot:"R$ 2,1 milhões em espécie apreendidos em casa" },
+  { s:"kassab", t:"botion", st:"citado", rel:"politico", rot:"Nomeado sob a Secretaria de Governo comandada por Kassab" },
+  { s:"tarcisio", t:"kassab", st:"citado", rel:"politico", rot:"Ex-secretário de Governo de São Paulo" },
+
+  /* Haddad / França */
+  { s:"haddad", t:"haddad_utc", st:"encerrado", rel:"direto", rot:"Absolvido por unanimidade no TRE-SP" },
+  { s:"pessoa", t:"haddad_utc", st:"citado", rel:"direto", rot:"Delator cuja versão embasou a acusação" },
+  { s:"franca", t:"franca_sv", st:"condenado", rel:"direto", rot:"Perda da função pública mantida pelo STJ" },
+  { s:"franca", t:"franca_codesp", st:"investigado", rel:"direto", rot:"Apuração sobre 16 contratos" },
+  { s:"haddad", t:"franca", st:"citado", rel:"politico", rot:"Vice na chapa" },
+
+  /* Minas */
+  { s:"simoes", t:"agencia_minas", st:"investigado", rel:"direto", rot:"Procedimento do MPMG sobre promoção pessoal" },
+  { s:"simoes", t:"rossieli", st:"citado", rel:"equipe", rot:"Secretário de Educação" },
+  { s:"rossieli", t:"mg_educacao", st:"investigado", rel:"direto", rot:"Contrato de R$ 348,4 milhões sob apuração" },
+  { s:"simoes", t:"rejeito", st:"citado", rel:"politico", rot:"Herdou o governo alcançado pela operação" },
+  { s:"kalil", t:"kalil_pub", st:"reu", rel:"direto", rot:"Réu; MP pede 14 anos de inelegibilidade" },
+
+  /* Goiás */
+  { s:"perillo", t:"perillo_delta", st:"reu", rel:"direto", rot:"Réu por corrupção passiva; ação tramita no STJ" },
+  { s:"cachoeira", t:"perillo_delta", st:"reu", rel:"direto", rot:"Corréu na ação penal" },
+  { s:"perillo", t:"cachoeira", st:"citado", rel:"negocio", rot:"Venda de casa discutida na CPMI do Cachoeira" },
+  { s:"perillo", t:"perillo_caixa2", st:"condenado", rel:"direto", rot:"Condenado; absolvido dos demais crimes" },
+  { s:"wilder", t:"wilder_emendas", st:"investigado", rel:"direto", rot:"Apuração determinada por Flávio Dino" },
+  { s:"vilela", t:"vilela_odb", st:"encerrado", rel:"direto", rot:"Inquérito arquivado no STF" },
+  { s:"vilela", t:"caiado", st:"citado", rel:"politico", rot:"Vice que o sucedeu no governo de Goiás" }
+];
+
+/* ============================================================
+   CONSTRUÇÃO DO GRAFO
+   ============================================================ */
+
+const byId = new Map(NODES.map(n => [n.id, n]));
+const W = 2280, H = 1620;
+const CENTERS = {
+  PR:{x:W*0.22, y:H*0.21}, SP:{x:W*0.78, y:H*0.19},
+  MG:{x:W*0.19, y:H*0.82}, GO:{x:W*0.81, y:H*0.83},
+  STF:{x:W*0.50, y:H*0.51}
+};
+
+/* grau: quantas ligações cada nó tem (usado no tamanho dos nós de caso) */
+const grau = new Map(NODES.map(n => [n.id, 0]));
+LINKS.forEach(l => { grau.set(l.s, grau.get(l.s)+1); grau.set(l.t, grau.get(l.t)+1); });
+
+const nodes = NODES.map(n => ({...n}));
+const links = LINKS.map(l => ({...l, source:l.s, target:l.t}));
+
+const raio = n => n.tipo === "candidato" ? 13 : n.tipo === "pessoa" ? 6.5
+  : n.tipo === "ministro" ? 9.5
+  : Math.min(15, 8 + grau.get(n.id) * 1.1);
+
+/* posições iniciais em torno do cluster, para uma convergência estável */
+nodes.forEach((n, i) => {
+  const c = CENTERS[n.corrida] || CENTERS.PR;
+  const a = (i * 2.399963);
+  n.x = c.x + Math.cos(a) * (90 + (i % 11) * 26);
+  n.y = c.y + Math.sin(a) * (90 + (i % 9) * 26);
+});
+
+const sim = d3.forceSimulation(nodes)
+  .force("link", d3.forceLink(links).id(d => d.id)
+    .distance(l => l.rel === "familiar" ? 74 : l.rel === "direto" ? 132 : 112)
+    .strength(l => l.rel === "familiar" ? .9 : 0.45))
+  .force("charge", d3.forceManyBody().strength(d => d.tipo === "candidato" ? -820 : -430))
+  .force("collide", d3.forceCollide().radius(d => raio(d) + 34).strength(.95))
+  .force("x", d3.forceX(d => (CENTERS[d.corrida] || CENTERS.PR).x).strength(.13))
+  .force("y", d3.forceY(d => (CENTERS[d.corrida] || CENTERS.PR).y).strength(.13))
+  .stop();
+
+/* converge antes do primeiro quadro: a página abre com o grafo já assentado */
+for (let i = 0; i < 650; i++) sim.tick();
+
+/* ---------- render ---------- */
+const svg = d3.select("#canvas");
+const root = svg.append("g");
+const gClusters = root.append("g");
+const gLinks = root.append("g");
+const gNodes = root.append("g");
+
+Object.entries(RACES).forEach(([k, r]) => {
+  const c = CENTERS[k];
+  const g = gClusters.append("g").attr("transform", `translate(${c.x},${c.y + (r.dy || -250)})`);
+  g.append("text").attr("class","cluster-label").attr("text-anchor","middle").text(r.rot);
+  g.append("text").attr("class","cluster-sub").attr("text-anchor","middle").attr("dy",22).text(r.sub);
+});
+
+const linkSel = gLinks.selectAll("path").data(links).join("path")
+  .attr("class","link")
+  .attr("stroke", d => STATUS[d.st].cor)
+  .attr("stroke-width", d => STATUS[d.st].peso)
+  .attr("stroke-opacity", d => d.rel === "direto" ? .74 : .5)
+  .attr("stroke-dasharray", d => d.rel === "direto" ? null : d.rel === "familiar" ? "1 5" : "6 5")
+  .attr("d", d => {
+    const dx = d.target.x - d.source.x, dy = d.target.y - d.source.y;
+    const dr = Math.hypot(dx, dy) * 2.4;
+    return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+  });
+
+const nodeSel = gNodes.selectAll("g").data(nodes).join("g")
+  .attr("class","node")
+  .attr("transform", d => `translate(${d.x},${d.y})`)
+  .attr("tabindex", 0)
+  .attr("role","button")
+  .attr("aria-label", d => `${d.nome}. ${d.tipo === "caso" ? "Caso, situação " + STATUS[d.status].rot : d.tipo === "ministro" ? "Ministro do STF, " + d.sub : d.sub}`);
+
+nodeSel.each(function(d){
+  const g = d3.select(this);
+  if (d.tipo === "caso") {
+    const r = raio(d);
+    g.append("rect").attr("x",-r).attr("y",-r).attr("width",r*2).attr("height",r*2).attr("rx",3)
+      .attr("fill", STATUS[d.status].cor).attr("fill-opacity",.2)
+      .attr("stroke", STATUS[d.status].cor).attr("stroke-width",2);
+  } else if (d.tipo === "candidato") {
+    g.append("circle").attr("r",13).attr("fill","var(--panel-2)")
+      .attr("stroke","var(--ink)").attr("stroke-width",2.2);
+  } else if (d.tipo === "ministro") {
+    const r = 9.5;
+    g.append("rect").attr("x",-r).attr("y",-r).attr("width",r*2).attr("height",r*2)
+      .attr("transform","rotate(45)").attr("rx",1.5)
+      .attr("fill", d.vaga ? "none" : "var(--accent-soft)")
+      .attr("stroke","var(--accent)").attr("stroke-width",2)
+      .attr("stroke-dasharray", d.vaga ? "3 3" : null);
+  } else {
+    g.append("circle").attr("r",6.5).attr("fill","var(--panel)")
+      .attr("stroke","var(--ink-3)").attr("stroke-width",1.6);
+  }
+  g.append("circle").attr("class","sel-ring").attr("r", raio(d) + 7).attr("display","none");
+  const off = d.tipo === "caso" ? raio(d) + 13 : d.tipo === "candidato" ? 27 : d.tipo === "ministro" ? 24 : 18;
+  g.append("text").attr("class", `node-label ${d.tipo}`)
+    .attr("y", off).attr("font-size", d.tipo === "candidato" ? 13 : null)
+    .text(d.nome);
+  if (d.tipo !== "pessoa") {
+    g.append("text").attr("class","node-sub").attr("y", off + (d.tipo==="candidato" ? 13 : 11)).text(d.sub);
+  }
+});
+
+/* ---------- zoom ---------- */
+const zoom = d3.zoom().scaleExtent([.28, 3.2]).on("zoom", e => root.attr("transform", e.transform));
+svg.call(zoom)
+   .on("mousedown.cursor", () => svg.node().classList.add("grabbing"))
+   .on("mouseup.cursor mouseleave.cursor", () => svg.node().classList.remove("grabbing"));
+
+function fit(){
+  const b = root.node().getBBox();
+  const w = svg.node().clientWidth, h = svg.node().clientHeight;
+  const k = Math.min(w / (b.width + 70), h / (b.height + 70), 1.6);
+  svg.transition().duration(520).call(zoom.transform, d3.zoomIdentity
+    .translate(w/2, h/2).scale(k).translate(-(b.x + b.width/2), -(b.y + b.height/2)));
+}
+function fitNow(){
+  const b = root.node().getBBox();
+  const w = svg.node().clientWidth || 1200, h = svg.node().clientHeight || 700;
+  const k = Math.min(w / (b.width + 70), h / (b.height + 70), 1.6);
+  svg.call(zoom.transform, d3.zoomIdentity
+    .translate(w/2, h/2).scale(k).translate(-(b.x + b.width/2), -(b.y + b.height/2)));
+}
+
+/* ---------- filtros e realce ---------- */
+const neighbours = new Map(nodes.map(n => [n.id, new Set([n.id])]));
+links.forEach(l => { neighbours.get(l.source.id).add(l.target.id); neighbours.get(l.target.id).add(l.source.id); });
+
+/* Conjunto visível por disputa.
+   Um candidato não carrega só o que tem a mesma UF: Zema e Caiado disputam a
+   Presidência, mas seus casos e auxiliares são de MG e GO. Então a disputa é
+   definida pelo alcance a partir de seus candidatos — pessoas próximas em até
+   três saltos, os casos que esses nós tocam e os ministros que atuaram neles. */
+const nodeById = new Map(nodes.map(n => [n.id, n]));
+const adj = new Map(nodes.map(n => [n.id, []]));
+links.forEach(l => { adj.get(l.source.id).push(l.target); adj.get(l.target.id).push(l.source); });
+
+const RACE_SETS = {};
+Object.keys(RACES).forEach(r => {
+  const vis = new Set();
+  const add = n => vis.add(n.id);
+
+  /* semente: os candidatos da disputa e os casos situados naquele recorte.
+     Assim "Minas Gerais" mostra a Rejeito mesmo com Zema disputando a
+     Presidência, e "Presidência" mostra a Rejeito por causa de Zema. */
+  const seeds = r === "STF"
+    ? nodes.filter(n => n.tipo === "ministro")
+    : nodes.filter(n => (n.tipo === "candidato" || n.tipo === "caso") && n.corrida === r);
+  seeds.forEach(add);
+
+  /* pessoas próximas alcançadas a partir das sementes, até três saltos */
+  let fronteira = seeds.slice();
+  for (let h = 0; h < 3; h++){
+    const prox = [];
+    fronteira.forEach(n => adj.get(n.id).forEach(o => {
+      if (o.tipo === "pessoa" && !vis.has(o.id)) { vis.add(o.id); prox.push(o); }
+    }));
+    fronteira = prox;
+    if (!prox.length) break;
+  }
+
+  /* casos tocados por qualquer nó já visível */
+  [...vis].forEach(id => adj.get(id).forEach(o => { if (o.tipo === "caso") vis.add(o.id); }));
+
+  /* quem figura nos casos deste recorte, e os ministros que atuaram neles */
+  [...vis].forEach(id => {
+    const n = nodeById.get(id);
+    if (n.tipo !== "caso") return;
+    adj.get(id).forEach(o => {
+      if (o.tipo === "ministro") vis.add(o.id);
+      else if (n.corrida === r || r === "STF") vis.add(o.id);
+    });
+  });
+
+  RACE_SETS[r] = vis;
+});
+
+let fRace = "all", fStatus = "all", fDirect = false, fQuery = "", selected = null;
+
+function linkVisible(l){
+  if (fDirect && l.rel !== "direto" && l.rel !== "judicial") return false;
+  if (fStatus !== "all" && l.st !== fStatus) return false;
+  if (fRace !== "all"){
+    const set = RACE_SETS[fRace];
+    if (!set.has(l.source.id) || !set.has(l.target.id)) return false;
+  }
+  return true;
+}
+function nodeVisible(n){
+  if (fRace !== "all" && !RACE_SETS[fRace].has(n.id)) return false;
+  if (fStatus !== "all" || fDirect){
+    return links.some(l => linkVisible(l) && (l.source.id === n.id || l.target.id === n.id));
+  }
+  return true;
+}
+function matches(n){
+  if (!fQuery) return false;
+  return (n.nome + " " + (n.sub||"") + " " + (n.resumo||"")).toLowerCase().includes(fQuery);
+}
+
+function apply(){
+  const focus = selected ? neighbours.get(selected) : null;
+  nodeSel
+    .style("display", d => nodeVisible(d) ? null : "none")
+    .classed("dim", d => (focus && !focus.has(d.id)) || (fQuery && !matches(d)));
+  nodeSel.selectAll(".sel-ring").attr("display", d => d.id === selected ? null : "none");
+  linkSel
+    .style("display", d => (linkVisible(d) && nodeVisible(d.source) && nodeVisible(d.target)) ? null : "none")
+    .classed("dim", d => focus ? !(focus.has(d.source.id) && focus.has(d.target.id)) : (fQuery ? true : false));
+}
+
+document.querySelectorAll("[data-race]").forEach(b => b.addEventListener("click", () => {
+  fRace = b.dataset.race;
+  document.querySelectorAll("[data-race]").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+  apply(); fit();
+}));
+document.querySelectorAll("[data-st]").forEach(b => b.addEventListener("click", () => {
+  fStatus = b.dataset.st;
+  document.querySelectorAll("[data-st]").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+  apply();
+}));
+document.getElementById("only-direct").addEventListener("change", e => { fDirect = e.target.checked; apply(); });
+document.getElementById("search").addEventListener("input", e => { fQuery = e.target.value.trim().toLowerCase(); apply(); });
+document.getElementById("btn-fit").addEventListener("click", () => { selected = null; apply(); fit(); });
+document.getElementById("btn-method").addEventListener("click", () => { selected = null; apply(); renderMethod(); });
+
+nodeSel.on("click", (e, d) => { select(d.id); })
+  .on("keydown", (e, d) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(d.id); } });
+
+function select(id){ selected = id; apply(); renderNode(byId.get(id)); }
+
+/* ---------- painel ---------- */
+const drawer = document.getElementById("drawer");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function chip(st){
+  return `<span class="status-chip" style="color:${STATUS[st].cor}">${STATUS[st].rot}</span>`;
+}
+function sourcesHTML(fontes){
+  if (!fontes || !fontes.length) return "";
+  const leans = [...new Set(fontes.map(f => f.l))];
+  return `
+    <div class="d-section">Fontes — ${fontes.length} veículo${fontes.length>1?"s":""}, ${leans.length} orientaç${leans.length>1?"ões":"ão"} editorial${leans.length>1?"is":""}</div>
+    <div class="spread">${leans.map(l => `<span class="lean" data-l="${l}">${l}</span>`).join("")}</div>
+    ${fontes.map(f => `
+      <div class="src">
+        <a href="${esc(f.u)}" target="_blank" rel="noopener noreferrer">${esc(f.t)}</a>
+        <div class="src-meta"><span class="outlet">${esc(f.v)}</span><span class="lean" data-l="${f.l}">${f.l}</span></div>
+      </div>`).join("")}`;
+}
+function xrefHTML(titulo, items){
+  if (!items.length) return "";
+  return `<div class="d-section">${titulo}</div><ul class="xrefs">${items.map(i => `
+    <li><button class="xref" data-go="${i.id}">
+      <span class="who">${esc(i.nome)}<span class="via">${esc(i.via)}</span></span>
+      ${chip(i.st)}
+    </button></li>`).join("")}</ul>`;
+}
+function wireXrefs(){
+  drawer.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => select(b.dataset.go)));
+  drawer.scrollTop = 0;
+}
+
+function renderNode(n){
+  if (n.tipo === "caso") return renderCaso(n);
+  return renderPessoa(n);
+}
+
+function renderCaso(n){
+  const todos = links.filter(l => l.source.id === n.id || l.target.id === n.id)
+    .map(l => { const o = l.source.id === n.id ? l.target : l.source;
+      return { id:o.id, tipo:o.tipo, nome:o.nome + (o.tipo === "candidato" ? "  ·  candidato" : ""), via:l.rot, st:l.st }; })
+    .sort((a,b) => STATUS[a.st].ordem - STATUS[b.st].ordem);
+  const envolvidos = todos.filter(i => i.st !== "judicial");
+  const tribunal   = todos.filter(i => i.st === "judicial");
+
+  drawer.innerHTML = `
+    <div class="d-eyebrow">Caso · ${esc(RACES[n.corrida].rot)}</div>
+    <h2 class="d-title">${esc(n.nome)}</h2>
+    <div style="margin-bottom:12px">${chip(n.status)}</div>
+    <p class="d-meta"><b>Órgão</b> ${esc(n.orgao)}<br><b>Período</b> ${esc(n.periodo)}</p>
+    <p class="d-body">${esc(n.resumo)}</p>
+    ${n.nota ? `<div class="note"><b>Leitura:</b> ${esc(n.nota)}</div>` : ""}
+    ${xrefHTML("Quem aparece neste caso", envolvidos)}
+    ${xrefHTML("No tribunal", tribunal)}
+    ${sourcesHTML(n.fontes)}`;
+  wireXrefs();
+}
+
+function renderPessoa(n){
+  const meus = links.filter(l => l.source.id === n.id || l.target.id === n.id);
+  const casos = meus.filter(l => (l.source.id === n.id ? l.target : l.source).tipo === "caso")
+    .map(l => { const c = l.source.id === n.id ? l.target : l.source;
+      return { id:c.id, nome:c.nome, via:l.rot, st:l.st }; })
+    .sort((a,b) => STATUS[a.st].ordem - STATUS[b.st].ordem);
+
+  /* casos alcançados por uma pessoa intermediária */
+  const indiretos = [];
+  meus.forEach(l => {
+    const p = l.source.id === n.id ? l.target : l.source;
+    if (p.tipo === "caso") return;
+    links.filter(k => k.source.id === p.id || k.target.id === p.id).forEach(k => {
+      const c = k.source.id === p.id ? k.target : k.source;
+      if (c.tipo !== "caso" || c.id === n.id) return;
+      if (casos.some(x => x.id === c.id)) return;
+      if (indiretos.some(x => x.id === c.id && x.p === p.id)) return;
+      indiretos.push({ id:c.id, p:p.id, nome:c.nome, via:`via ${p.nome} — ${l.rot.toLowerCase()}`, st:k.st });
+    });
+  });
+  indiretos.sort((a,b) => STATUS[a.st].ordem - STATUS[b.st].ordem);
+
+  const vazio = !casos.length && !indiretos.length;
+  const min = n.tipo === "ministro";
+  const tipoRot = n.tipo === "candidato" ? `Candidato · ${RACES[n.corrida].rot}`
+    : min ? "Supremo Tribunal Federal" : "Pessoa próxima";
+  const meta = min
+    ? `<b>Cargo</b> ${esc(n.cargo)}<br><b>Indicado por</b> ${esc(n.indicadoPor)}${n.ano ? `<br><b>No STF desde</b> ${n.ano}` : ""}`
+    : `<b>${esc(n.sub)}</b>`;
+
+  drawer.innerHTML = `
+    <div class="d-eyebrow">${esc(tipoRot)}</div>
+    <h2 class="d-title">${esc(n.nome)}</h2>
+    <p class="d-meta">${meta}</p>
+    <p class="d-body">${esc(n.bio)}</p>
+    ${vazio ? `<div class="note">${min
+        ? "Nenhum dos casos representados nesta rede está sob sua relatoria, e seu nome não aparece em nenhum deles."
+        : "Nenhum caso de corrupção associado a esta pessoa foi localizado nas fontes consultadas. A ausência de vínculo no grafo é uma informação tão relevante quanto a presença."}</div>` : ""}
+    ${xrefHTML(min ? "Casos em que atuou" : "Vínculos diretos", casos)}
+    ${xrefHTML("Vínculos através de terceiros", indiretos)}
+    ${sourcesHTML(n.fontes)}`;
+  wireXrefs();
+}
+
+function renderMethod(){
+  const n = nodes.filter(d => d.tipo === "caso").length;
+  const c = nodes.filter(d => d.tipo === "candidato").length;
+  const p = nodes.filter(d => d.tipo === "pessoa").length;
+  const m = nodes.filter(d => d.tipo === "ministro" && !d.vaga).length;
+  const todas = nodes.flatMap(d => d.fontes || []);
+  const veiculos = new Set(todas.map(f => f.v)).size;
+
+  drawer.innerHTML = `
+    <div class="d-eyebrow">Como este grafo foi montado</div>
+    <h2 class="d-title">Metodologia</h2>
+    <div class="method">
+      <p class="d-body"><strong>${c}</strong> candidatos, <strong>${p}</strong> pessoas próximas, <strong>${m}</strong> ministros do STF e <strong>${n}</strong> casos, apoiados em <strong>${todas.length}</strong> reportagens e documentos de <strong>${veiculos}</strong> veículos distintos.</p>
+
+      <h4>Os ministros do STF</h4>
+      <p>Cada ministro traz, na própria etiqueta, <em>quem o indicou e em que ano</em>. O grafo mostra o dado e para por aí: não existe aresta ligando ministro a quem o nomeou, porque a indicação não é prova de alinhamento — quem quiser ler um padrão nas etiquetas lê por conta própria.</p>
+      <p>As linhas em <span style="color:var(--accent)">petróleo tracejado</span> marcam <b>atuação judicial</b> — relatar, julgar ou instaurar. Não entram na escala de gravidade, porque juiz não é parte. Quando um ministro aparece como <em>citado</em> num caso, a linha volta para a escala normal: é o que ocorre com Moraes e Toffoli no caso Master.</p>
+
+      <h4>O que é uma ligação</h4>
+      <p>Uma linha entre dois nós não afirma culpa. Ela afirma que existe um vínculo documentado e diz <em>qual é a força jurídica desse vínculo</em>. Um candidato pode estar ligado a um caso diretamente ou apenas por meio de um parente, assessor ou aliado — nesses casos o caminho é <code>candidato → pessoa → caso</code>, e o grafo mostra os dois trechos separadamente.</p>
+
+      <h4>A cor é a situação, não a acusação</h4>
+      <ul>
+        <li><b>Condenado</b> — há decisão condenatória, ainda que caiba recurso.</li>
+        <li><b>Réu / denunciado</b> — denúncia ou ação aceita pela Justiça.</li>
+        <li><b>Investigado</b> — inquérito, indiciamento policial ou pedido de indiciamento em CPI. Não é acusação formal.</li>
+        <li><b>Citado</b> — o nome aparece nos autos, em planilha ou em depoimento, sem ser alvo. É o vínculo mais fraco do grafo.</li>
+        <li><b>Controvérsia</b> — episódio de forte repercussão pública que <em>não</em> virou processo: uma decisão de governo contestada, um conflito de interesse aparente. Está numa cor fora da escala penal de propósito.</li>
+        <li><b>Atuação judicial</b> — relator, julgador ou autoridade que instaurou o caso. Não é imputação de nada.</li>
+        <li><b>Encerrado</b> — absolvido, arquivado, anulado ou prescrito. Permanece no grafo porque a memória pública dos casos costuma sobreviver ao seu desfecho jurídico.</li>
+      </ul>
+
+      <h4>O que entra como controvérsia</h4>
+      <p>A categoria não é um mural de polêmicas. Para virar nó, o episódio precisa ter uma dimensão de <em>recurso público ou interesse privado próximo</em>: dinheiro do estado indo para onde não deveria, decisão de governo que beneficia quem financiou a campanha, uso da máquina pública em proveito eleitoral. Divergência de política — uma alíquota, uma reforma, uma medida provisória — não entra, por mais contestada que seja.</p>
+      <p>Por isso alguns candidatos não têm controvérsia no grafo. As polêmicas de Haddad no Ministério da Fazenda, por exemplo, são disputas de política fiscal, e a declaração de Flávio Bolsonaro sobre ter um “preço” para desistir da candidatura é um episódio de barganha política: nenhuma das duas passa no critério. Ambos aparecem na rede por outros vínculos, esses sim judiciais.</p>
+
+      <h4>Como as fontes foram escolhidas</h4>
+      <p>Cada caso traz, sempre que disponível, fontes de orientações editoriais diferentes — e prioriza documentos institucionais (STF, STJ, Ministérios Públicos, Agência Brasil, Senado, Câmara) sobre a cobertura de opinião. Os selos <span class="lean" data-l="institucional">institucional</span> <span class="lean" data-l="centro">centro</span> <span class="lean" data-l="centro-direita">centro-direita</span> <span class="lean" data-l="centro-esquerda">centro-esquerda</span> descrevem o veículo, não o conteúdo da reportagem: servem para que você veja de onde vem cada afirmação e possa conferir se um fato só aparece em um lado do espectro.</p>
+
+      <h4>Limites conhecidos</h4>
+      <ul>
+        <li>A ausência de um vínculo significa que <em>nada foi localizado nas fontes consultadas</em> — não que nada exista.</li>
+        <li>Candidatos que governam ou governaram aparecem mais porque suas gestões são auditadas por órgãos de controle; visibilidade não é a mesma coisa que incidência.</li>
+        <li>Delações rejeitadas, representações de parlamentares e relatórios de CPI não aprovados estão sinalizados como tais e não têm valor probatório.</li>
+        <li>Processos mudam. Cada nó registra a situação conforme as fontes listadas; confira a data de cada reportagem antes de citar.</li>
+      </ul>
+
+      <h4>Escopo</h4>
+      <p>Chapas registradas para a Presidência e para os governos de São Paulo, Minas Gerais e Goiás na eleição de 4 de outubro de 2026, incluindo os candidatos a vice. Candidatos de partidos sem casos documentados constam do grafo apenas quando aparecem em alguma ligação.</p>
+    </div>`;
+}
+
+/* ---------- legenda ---------- */
+document.getElementById("legend-status").innerHTML = Object.entries(STATUS)
+  .filter(([k]) => k !== "judicial")
+  .sort((a,b) => a[1].ordem - b[1].ordem)
+  .map(([k,v]) => `<div class="legend-row"><span class="swatch" style="border-top-width:${v.peso}px;border-top-color:${v.cor}"></span>${v.rot}</div>`)
+  .join("") +
+  `<div class="legend-row" style="margin-top:3px"><span class="swatch" style="border-top:1.6px dashed var(--ink-3)"></span>vínculo por terceiro</div>
+   <div class="legend-row"><span class="swatch" style="border-top:1.6px dashed var(--accent)"></span>atuação judicial</div>`;
+
+/* ---------- estado inicial ---------- */
+fitNow();
+select("coffee");
+window.addEventListener("resize", () => fit());
+</script>
