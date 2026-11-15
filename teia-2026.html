@@ -672,6 +672,11 @@ const NODES = [
   { id:"adrianolima", tipo:"pessoa", corrida:"ALE", nome:"Adriano Lima", sub:"ex-prefeito de Serrinha",
     bio:"Ex-prefeito de Serrinha (BA), apontado pela PF como responsável, com servidores e empresas, por fraudar licitações de locação de veículos no município entre 2017 e 2024. As fontes divergem sobre seu partido." },
 
+  { id:"thjoias", tipo:"parlamentar", corrida:"ALE", nome:"TH Joias", sub:"ex-deputado estadual · RJ",
+    bio:"Ex-deputado estadual do Rio, alvo da Operação Zargun, deflagrada em setembro de 2025 contra investigados por envolvimento com o Comando Vermelho. Segundo a acusação, foi alertado da operação antes dela ocorrer. Permanece preso." },
+  { id:"macario", tipo:"pessoa", corrida:"ALE", nome:"Macário Júdice", sub:"desembargador do TRF-2",
+    bio:"Desembargador federal do TRF-2, preso em dezembro de 2025 na segunda fase da Operação Unha e Carne, sob a acusação de repassar informações sigilosas a Rodrigo Bacellar. Em outubro de 2026, com o início da ação penal no STF, Moraes substituiu a preventiva por tornozeleira eletrônica e apreensão do passaporte. A defesa nega." },
+
   /* ---------- CASOS ---------- */
   { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
     orgao:"STF — Primeira Turma", periodo:"2022–2026",
@@ -1400,6 +1405,16 @@ const NODES = [
     fontes:[
       {t:"MP investiga se deputado mineiro usou verba da ALMG para ajudar campanha do filho", u:"https://ofator.com.br/informacao/mp-investiga-se-deputado-mineiro-usou-verba-da-almg-para-ajudar-campanha-do-filho/", v:"O Fator", l:"centro"},
       {t:"MP investiga se deputado estadual usou dinheiro público em campanha", u:"https://www.otempo.com.br/politica/mp-investiga-se-deputado-estadual-usou-dinheiro-publico-em-campanha-1.2123002", v:"O Tempo", l:"centro"}
+    ]},
+  { id:"zargun", tipo:"caso", corrida:"ALE", nome:"Vazamento da Operação Zargun", sub:"PGR · STF", status:"reu",
+    orgao:"PGR / STF — relator Alexandre de Moraes", periodo:"2025–2026",
+    resumo:"A Operação Zargun foi deflagrada em setembro de 2025 contra investigados por envolvimento com o Comando Vermelho. O que a Unha e Carne apurou depois foi o vazamento dela: segundo a acusação, o desembargador federal Macário Júdice, do TRF-2, repassou informações sigilosas a Rodrigo Bacellar, que teria alertado o ex-deputado estadual TH Joias sobre a ação policial. Em 16 de março de 2026 a PGR denunciou Bacellar por vazar informações ao Comando Vermelho, e sustenta que o dado saiu de dentro do sistema de Justiça. Macário foi preso em dezembro de 2025 e solto em outubro de 2026, com cautelares, quando a ação penal começou no STF. TH Joias e Bacellar seguem presos. Todos negam.",
+    nota:"É o ponto em que a rede deixa de ser sobre dinheiro público: o que circula aqui é informação sigilosa, e o caminho vai de um tribunal federal à presidência de uma assembleia e desta a uma facção. Também é a única vez em que um magistrado aparece como acusado, e não como julgador.",
+    fontes:[
+      {t:"STF determina soltura de desembargador preso na Operação Unha e Carne", u:"https://agenciabrasil.ebc.com.br/justica/noticia/2026-10/stf-determina-soltura-de-desembargador-preso-na-operacao-unha-e-carne", v:"Agência Brasil", l:"institucional"},
+      {t:"Moraes manda soltar desembargador acusado de vazar operação da PF", u:"https://www.migalhas.com.br/quentes/467657/moraes-manda-soltar-desembargador-acusado-de-vazar-operacao-da-pf", v:"Migalhas", l:"institucional"},
+      {t:"Moraes solta desembargador acusado de vazar operação contra TH Joias", u:"https://www.diariodocentrodomundo.com.br/moraes-solta-desembargador-acusado-de-vazar-operacao-contra-th-joias/", v:"Diário do Centro do Mundo", l:"centro-esquerda"},
+      {t:"STF solta desembargador e autoriza transferência de Bacellar", u:"https://brasilemfolhas.com.br/2026/10/stf-solta-desembargador-e-autoriza-transferencia-de-bacellar/", v:"Brasil em Folhas", l:"centro"}
     ]}
 ];
 
@@ -1655,7 +1670,13 @@ const LINKS = [
   { s:"belota", t:"cota_parte", st:"investigado", rel:"direto", rot:"R$ 400 por voto segundo a apuração; busca autorizada, sem prisão" },
   { s:"caioroberto", t:"zona_influencia", st:"investigado", rel:"direto", rot:"Cautelares diversas da prisão; apura vazamento e destruição de provas" },
   { s:"luizinho", t:"portfolio", st:"reu", rel:"direto", rot:"Denunciado pelo MPMG com outras oito pessoas" },
-  { s:"bosco", t:"bosco_verba", st:"investigado", rel:"direto", rot:"Suspeita de uso da verba da ALMG na campanha do filho; nega" }
+  { s:"bosco", t:"bosco_verba", st:"investigado", rel:"direto", rot:"Suspeita de uso da verba da ALMG na campanha do filho; nega" },
+  { s:"macario", t:"zargun", st:"reu", rel:"direto", rot:"Acusado de repassar o sigilo; ação penal aberta no STF" },
+  { s:"bacellar", t:"zargun", st:"reu", rel:"direto", rot:"Denunciado pela PGR em março por vazar informações ao Comando Vermelho" },
+  { s:"thjoias", t:"zargun", st:"investigado", rel:"direto", rot:"Alvo da Zargun; teria sido alertado antes da operação" },
+  { s:"macario", t:"bacellar", st:"citado", rel:"direto", rot:"Destinatário apontado das informações sigilosas" },
+  { s:"moraes", t:"zargun", st:"judicial", rel:"judicial", rot:"Relator; converteu a preventiva do desembargador em cautelares" },
+  { s:"thjoias", t:"canella_cv", st:"citado", rel:"politico", rot:"Outro parlamentar fluminense apurado por elo com o Comando Vermelho" }
 ];
 
 /* ============================================================
@@ -2062,6 +2083,7 @@ function renderMethod(){
 
       <h4>Escopo</h4>
       <p>Chapas registradas para a Presidência e para os governos de São Paulo, Minas Gerais e Goiás na eleição de 4 de outubro de 2026, incluindo os candidatos a vice, e os deputados federais e estaduais eleitos em 2026 que aparecem em caso documentado. Candidatos de partidos sem casos documentados constam do grafo apenas quando aparecem em alguma ligação.</p>
+      <p>A camada estadual foi montada em duas passagens: primeiro os levantamentos nacionais publicados após a eleição, depois uma busca estado a estado. A segunda passagem localizou casos na Bahia, em Mato Grosso, Roraima, Paraíba e Minas Gerais, e <em>não</em> localizou nada em São Paulo, Rio Grande do Sul, Espírito Santo, Piauí, Rio Grande do Norte, Tocantins, Acre, Sergipe e no Distrito Federal. Ausência de resultado não é ausência de caso: significa que a imprensa local indexada não trouxe nada, e a densidade do grafo acompanha a densidade da cobertura jornalística de cada estado, não a incidência real.</p>
       <p>A cobertura do Legislativo é <em>deliberadamente incompleta</em>, e não por escolha editorial: não existe cadastro nacional que reúna a situação criminal dos 513 deputados federais, dos 81 senadores e das 1.059 cadeiras estaduais. O grafo parte dos levantamentos publicados após a eleição — 69 eleitos ao Congresso e ao menos 75 eleitos no total, segundo UOL e O Brasilianista — e dos casos noticiados individualmente. Há, com certeza, nomes de fora.</p>
       <p>Atualizado em 15 de novembro de 2026, com o resultado dos dois turnos já apurado.</p>
     </div>`;
