@@ -651,6 +651,27 @@ const NODES = [
   { id:"nenorazuk", tipo:"parlamentar", corrida:"ALE", nome:"Neno Razuk", sub:"ex-deputado · MS · condenado",
     bio:"Roberto Razuk Filho, ex-deputado estadual de Mato Grosso do Sul, condenado a 15 anos de prisão por explorar o jogo do bicho. O Gaeco recorreu pedindo aumento da pena, sob o argumento de que a atividade era financiada com salários pagos pela Assembleia." },
 
+  { id:"marcinhooliveira", tipo:"parlamentar", corrida:"ALE", nome:"Marcinho Oliveira", sub:"PRD · BA",
+    bio:"Deputado estadual da Bahia e presidente do PRD no estado, ex-vice-prefeito de Santaluz. Teve o gabinete na ALBA e a casa em Salvador alvos de busca da PF e da CGU em abril de 2026, na apuração sobre a locação de veículos em Serrinha — a segunda operação a alcançá-lo, depois da Santa Rota, em 2024. Chamou a ação de “perseguição política”. É aliado do deputado federal Elmar Nascimento." },
+  { id:"sobral", tipo:"parlamentar", corrida:"ALE", nome:"Carlinhos Sobral", sub:"MDB · BA · eleito",
+    bio:"Ex-prefeito de Coronel João Sá, eleito deputado estadual pela Bahia em outubro de 2026 e alvo de operação da PF por suspeita de desvio de verbas públicas na prefeitura, com mandados na Bahia e em Sergipe. Não há condenação." },
+  { id:"elizeu", tipo:"parlamentar", corrida:"ALE", nome:"Elizeu Nascimento", sub:"Novo · MT",
+    bio:"Deputado estadual de Mato Grosso, alvo da Operação Emenda Oculta. Teve bens bloqueados e R$ 150 mil em espécie apreendidos em casa — diz que são salário, verba indenizatória e aposentadoria da PM. Nega participação em qualquer esquema." },
+  { id:"cezinha", tipo:"pessoa", corrida:"ALE", nome:"Cezinha Nascimento", sub:"vereador, irmão de Elizeu",
+    bio:"Vereador em Cuiabá pelo União Brasil e irmão do deputado Elizeu Nascimento. Teve R$ 50 mil apreendidos em um imóvel e bens bloqueados na Operação Emenda Oculta." },
+  { id:"picanco", tipo:"parlamentar", corrida:"ALE", nome:"Gabriel Picanço", sub:"União Brasil · RR",
+    bio:"Deputado estadual de Roraima no quarto mandato consecutivo, candidato à reeleição. A PF apreendeu cerca de R$ 300 mil em espécie na casa dele em Boa Vista no próprio domingo de votação, 4 de outubro de 2026, na Operação Cota-Parte." },
+  { id:"belota", tipo:"parlamentar", corrida:"ALE", nome:"Marcinho Belota", sub:"PL · RR",
+    bio:"Deputado estadual de Roraima, citado na Operação Cota-Parte: segundo a apuração, eleitores receberam R$ 400 para votar em dois candidatos, metade do valor vinculada ao apoio a ele. A Justiça Eleitoral autorizou busca em sua casa, mas ele não foi preso; um comissionado ligado ao gabinete é apontado como transportador dos valores." },
+  { id:"caioroberto", tipo:"parlamentar", corrida:"ALE", nome:"Caio Roberto", sub:"PB · derrotado",
+    bio:"Deputado estadual da Paraíba, derrotado em 2026. Alvo da Operação Zona de Influência, da PF, em novembro de 2026, que apura possível vazamento de informações sigilosas e destruição de provas. A Justiça Eleitoral impôs cautelares diversas da prisão." },
+  { id:"luizinho", tipo:"parlamentar", corrida:"ALE", nome:"Luizinho", sub:"PT · MG",
+    bio:"Luiz Antônio da Silva, deputado estadual de Minas Gerais e ex-prefeito de Alfenas. Foi denunciado pelo MPMG, junto de outras oito pessoas, na Operação Portfólio, sobre um suposto esquema de corrupção na prefeitura." },
+  { id:"bosco", tipo:"parlamentar", corrida:"ALE", nome:"Bosco", sub:"Cidadania · MG",
+    bio:"Deputado estadual de Minas Gerais investigado pelo MPMG por suspeita de ter usado verba indenizatória da Assembleia na campanha do filho. Nega irregularidades." },
+  { id:"adrianolima", tipo:"pessoa", corrida:"ALE", nome:"Adriano Lima", sub:"ex-prefeito de Serrinha",
+    bio:"Ex-prefeito de Serrinha (BA), apontado pela PF como responsável, com servidores e empresas, por fraudar licitações de locação de veículos no município entre 2017 e 2024. As fontes divergem sobre seu partido." },
+
   /* ---------- CASOS ---------- */
   { id:"golpe", tipo:"caso", corrida:"PR", nome:"Trama golpista", sub:"STF · AP 2668", status:"condenado",
     orgao:"STF — Primeira Turma", periodo:"2022–2026",
@@ -1321,6 +1342,64 @@ const NODES = [
       {t:"Revisão de prisão é obrigatória só para parlamentares federais", u:"https://conjur.com.br/2026-mai-05/stf-questiona-revogacao-de-prisoes-de-deputados-por-assembleias-legislativas-2/", v:"Consultor Jurídico", l:"centro"},
       {t:"Moraes propõe limitar poder das assembleias legislativas para revogar prisões de deputados", u:"https://www.ocafezinho.com/2026/05/07/moraes-propoe-limitar-poder-das-assembleias-legislativas-para-revogar-prisoes-de-deputados/", v:"O Cafezinho", l:"centro-esquerda"},
       {t:"STF pode mudar regra sobre prisão de deputados e barrar interferência política", u:"http://www.blogdomano.com/2026/05/stf-pode-mudar-regra-sobre-prisao-de.html", v:"Blog do Mano", l:"centro"}
+    ]},
+  { id:"serrinha", tipo:"caso", corrida:"ALE", nome:"Locação de veículos em Serrinha", sub:"PF · CGU · ALBA", status:"investigado",
+    orgao:"Polícia Federal / CGU — autorização do TRF-1", periodo:"2017–2026",
+    resumo:"Em abril de 2026 a PF e a CGU cumpriram 16 mandados de busca em Salvador, Serrinha, Santaluz, Araci e Feira de Santana, inclusive no gabinete do deputado Marcinho Oliveira na Assembleia da Bahia e em sua casa. A apuração trata de fraude à licitação, lavagem e organização criminosa no contrato de locação de veículos de Serrinha entre 2017 e 2024: segundo a PF, uma empresa ligada ao deputado pagava em espécie a servidores e gestores, com dinheiro vindo de superfaturamento e de serviços não executados. O ex-prefeito Adriano Lima também é alvo. A ALBA disse que a diligência foi regular; o deputado fala em perseguição política.",
+    nota:"É a segunda operação a alcançá-lo: em outubro de 2024, a segunda fase da Santa Rota apurou fraude na licitação do transporte escolar de Santaluz, com recursos da Educação, e também buscou em seu gabinete.",
+    fontes:[
+      {t:"Saiba quem é Marcinho Oliveira, deputado estadual da Bahia alvo de operação da PF", u:"https://www.bahianoticias.com.br/noticia/315372-saiba-quem-e-marcinho-oliveira-deputado-estadual-da-bahia-alvo-de-operacao-da-pf", v:"Bahia Notícias", l:"centro"},
+      {t:"Marcinho Oliveira é alvo da PF em operação com buscas na ALBA", u:"https://bahia.ba/politica/marcinho-oliveira-e-alvo-da-pf-em-operacao-com-buscas-na-alba/", v:"bahia.ba", l:"centro"},
+      {t:"Marcinho Oliveira se pronuncia após ser alvo de operação da PF: “perseguição política”", u:"https://www.bnews.com.br/noticias/politica/marcinho-oliveira-se-pronuncia-apos-ser-alvo-de-operacao-da-pf-e-dispara-perseguicao-politica.html", v:"BNews", l:"centro"},
+      {t:"Deputado estadual é alvo de buscas na Bahia por suspeita de fraude em licitação", u:"https://www.acessa.com/noticias/2026/04/318106-deputado-estadual-e-alvo-de-buscas-na-bahia-por-suspeita-de-fraude-em-licitacao.html", v:"Acessa.com", l:"centro"}
+    ]},
+  { id:"sobral_cjs", tipo:"caso", corrida:"ALE", nome:"Verbas de Coronel João Sá", sub:"PF · BA e SE", status:"investigado",
+    orgao:"Polícia Federal", periodo:"2026",
+    resumo:"Operação da PF com mandados na Bahia e em Sergipe sobre suspeita de desvio de verbas públicas na prefeitura de Coronel João Sá (BA), no período em que era administrada por Carlinhos Sobral — eleito deputado estadual poucas semanas antes. As investigações seguem em curso e não há condenação.",
+    fontes:[
+      {t:"Ex-prefeito eleito deputado estadual é alvo de operação por suspeita de desvio de verbas públicas", u:"https://93noticias.com.br/ex-prefeito-eleito-deputado-estadual-e-alvo-de/", v:"93 Notícias", l:"centro"},
+      {t:"Deputado é alvo de operação por suspeita de desvio de recursos públicos", u:"https://avozdocampo.com/bahia/deputado-e-alvo-de-operacao-por-suspeita-de-desvio-de-recurso-publicos/", v:"A Voz do Campo", l:"centro"}
+    ]},
+  { id:"emenda_oculta", tipo:"caso", corrida:"ALE", nome:"Operação Emenda Oculta", sub:"MP-MT · Naco", status:"investigado",
+    orgao:"Ministério Público de Mato Grosso — Naco", periodo:"2026",
+    resumo:"Deflagrada em 30 de abril de 2026 como desdobramento da Operação Gorjeta, apura o direcionamento irregular de emendas a entidades específicas em Mato Grosso. Segundo o Naco, o deputado estadual Elizeu Nascimento destinou mais de R$ 5,9 milhões e seu irmão, o vereador Cezinha Nascimento, mais de R$ 1 milhão à Associação Sócio Cultural e Turística de Mato Grosso, ao Ismat e ao Ibrace; uma empresa de eventos recebia dos institutos e repassava valores aos parlamentares. Foram apreendidos R$ 150 mil na casa do deputado e R$ 50 mil em imóvel do vereador, com bloqueio de bens. Outra reportagem aponta que quatro deputados destinaram R$ 6,2 milhões a um dos institutos. Ambos negam.",
+    nota:"O mesmo desenho das apurações federais sobre emendas — entidade intermediária, empresa que devolve o dinheiro —, aqui em escala estadual.",
+    fontes:[
+      {t:"Alvos de operação por suposto esquema com emendas, Elizeu e Cezinha destinaram mais de R$ 7 milhões a institutos investigados", u:"https://olhardireto.com.br/noticias/alvos-de-operacao-por-suposto-esquema-com-emendas-elizeu-e-cezinha-destinaram-mais-de-r-7-milhoes-a-institutos-investigados", v:"Olhar Direto", l:"centro"},
+      {t:"Elizeu e Cezinha tiveram bens bloqueados durante operação por esquema de emendas", u:"https://www.estadaomatogrosso.com.br/judiciario/elizeu-e-cezinha-tiveram-bens-bloqueados-durante-operacao-por-esquema-de-emendas/137261", v:"Estadão Mato Grosso", l:"centro"},
+      {t:"Operação Emenda Oculta: 4 deputados destinaram R$ 6,2 milhões a instituto", u:"https://www.gcnoticias.com.br/politica/operacao-emenda-oculta-4-deputados-destinaram-r-6-2-milhoes-a-instituto/248274496", v:"GC Notícias", l:"centro"},
+      {t:"Elizeu diz que R$ 150 mil apreendidos em casa são de salário e aposentadoria", u:"https://mtplay.com.br/poderes/elizeu-nascimento-diz-que-r-150-mil-apreendidos-em-casa-sao-de-salario-e-aposentadoria-da-pm/", v:"MT Play", l:"centro"}
+    ]},
+  { id:"cota_parte", tipo:"caso", corrida:"ALE", nome:"Operação Cota-Parte", sub:"PF · Roraima · dia da eleição", status:"investigado",
+    orgao:"Polícia Federal / Justiça Eleitoral", periodo:"2026",
+    resumo:"No próprio domingo do primeiro turno, 4 de outubro de 2026, a PF deflagrou em Roraima uma operação sobre corrupção eleitoral e compra de votos. Foram apreendidos cerca de R$ 300 mil na casa do deputado Gabriel Picanço e mais de R$ 1,82 milhão em bens e valores ao todo, com 194 pessoas conduzidas e 22 presas em Boa Vista. Segundo a investigação, eleitores recebiam R$ 400 para votar em dois candidatos, metade atribuída ao apoio a Marcinho Belota, do PL; um comissionado ligado ao gabinete dele é apontado como transportador dos valores. Belota não foi preso.",
+    nota:"Compra de votos não é desvio de verba, mas é o uso de dinheiro para capturar o mandato — por isso entra na rede. Parte da imprensa associou o esquema ao partido que lançou Flávio Bolsonaro à Presidência; o vínculo apurado é com candidaturas do PL em Roraima, não com a campanha nacional.",
+    fontes:[
+      {t:"PF apreende R$ 300 mil na casa de deputado no dia das eleições e mira outros políticos em Roraima", u:"https://ndmais.com.br/politica/politicos-em-roraima-pf-apreende-r-300-mil-deputado/", v:"ND Mais", l:"centro"},
+      {t:"PF apreende R$ 300 mil na casa de deputado no dia da eleição", u:"https://www.metropoles.com/colunas/mirelle-pinheiro/pf-apreende-r-300-mil-na-casa-de-deputado-no-dia-da-eleicao", v:"Metrópoles", l:"centro"},
+      {t:"PF prende mais de 20 por compra de votos para partido de Flávio Bolsonaro", u:"https://revistaforum.com.br/politica/pf-prende-votos-partido-flavio/", v:"Revista Fórum", l:"centro-esquerda"}
+    ]},
+  { id:"zona_influencia", tipo:"caso", corrida:"ALE", nome:"Operação Zona de Influência", sub:"PF · Paraíba", status:"investigado",
+    orgao:"Polícia Federal / Justiça Eleitoral", periodo:"2026",
+    resumo:"Operação da PF deflagrada em novembro de 2026 com mandados em João Pessoa, Cabedelo e Bananeiras, tendo como alvo o deputado estadual Caio Roberto, derrotado na eleição. A apuração trata de possível vazamento de informações sigilosas e destruição de provas; a Justiça Eleitoral impôs cautelares diversas da prisão a dois investigados, entre eles o deputado e um assessor.",
+    fontes:[
+      {t:"Operação da Polícia Federal tem como alvo deputado estadual na Paraíba", u:"https://marcelojose.com.br/2026/11/12/operacao-da-policia-federal-tem-como-alvo-deputado-estadual-na-paraiba-e-cumpre-mandados-em-jp-cabedelo-e-bananeiras/", v:"Marcelo José", l:"centro"},
+      {t:"PF investiga compra de votos nas eleições de 2026 na Paraíba", u:"https://sbtnews.sbt.com.br/noticia/brasil/pf-investiga-compra-de-votos-nas-eleicoes-de-2026-na-paraiba", v:"SBT News", l:"centro"}
+    ]},
+  { id:"portfolio", tipo:"caso", corrida:"ALE", nome:"Operação Portfólio", sub:"MPMG · Alfenas", status:"reu",
+    orgao:"Ministério Público de Minas Gerais", periodo:"até 2026",
+    resumo:"O MPMG denunciou nove pessoas, entre elas o deputado estadual Luizinho (PT), por um suposto esquema de corrupção na prefeitura de Alfenas, que ele comandou antes de se eleger.",
+    nota:"As fontes consultadas não datam com precisão o oferecimento da denúncia; o registro indica período anterior a 2026.",
+    fontes:[
+      {t:"MP denuncia deputado mineiro por suposto esquema de corrupção em prefeitura", u:"https://ofator.com.br/informacao/mp-denuncia-deputado-mineiro-por-suposto-esquema-de-corrupcao-em-prefeitura/", v:"O Fator", l:"centro"}
+    ]},
+  { id:"bosco_verba", tipo:"caso", corrida:"ALE", nome:"Verba indenizatória na campanha do filho", sub:"MPMG · ALMG", status:"investigado",
+    orgao:"Ministério Público de Minas Gerais", periodo:"2025–2026",
+    resumo:"O MPMG apura se o deputado estadual Bosco usou recursos da verba indenizatória da Assembleia Legislativa de Minas Gerais para ajudar a campanha do filho. Ele nega irregularidades.",
+    nota:"Verba indenizatória é dinheiro público para custear o exercício do mandato; usá-la em campanha é desvio de finalidade, não apenas questão eleitoral.",
+    fontes:[
+      {t:"MP investiga se deputado mineiro usou verba da ALMG para ajudar campanha do filho", u:"https://ofator.com.br/informacao/mp-investiga-se-deputado-mineiro-usou-verba-da-almg-para-ajudar-campanha-do-filho/", v:"O Fator", l:"centro"},
+      {t:"MP investiga se deputado estadual usou dinheiro público em campanha", u:"https://www.otempo.com.br/politica/mp-investiga-se-deputado-estadual-usou-dinheiro-publico-em-campanha-1.2123002", v:"O Tempo", l:"centro"}
     ]}
 ];
 
@@ -1562,7 +1641,21 @@ const LINKS = [
   { s:"nenorazuk", t:"bicho_ms", st:"condenado", rel:"direto", rot:"15 anos por explorar o jogo do bicho; Gaeco pede pena maior" },
   { s:"moraes", t:"revoga_prisao", st:"judicial", rel:"judicial", rot:"Propôs limitar o poder das assembleias de revogar prisões" },
   { s:"bacellar", t:"revoga_prisao", st:"citado", rel:"direto", rot:"Solto por 42 a 21 na Alerj antes de perder o mandato" },
-  { s:"rangel", t:"revoga_prisao", st:"citado", rel:"direto", rot:"Foi ao manter sua prisão que Moraes levantou a questão" }
+  { s:"rangel", t:"revoga_prisao", st:"citado", rel:"direto", rot:"Foi ao manter sua prisão que Moraes levantou a questão" },
+
+  /* --- varredura por estado --- */
+  { s:"marcinhooliveira", t:"serrinha", st:"investigado", rel:"direto", rot:"Busca no gabinete da ALBA; empresa ligada a ele pagava em espécie" },
+  { s:"adrianolima", t:"serrinha", st:"investigado", rel:"direto", rot:"Ex-prefeito apontado como responsável pela fraude nas licitações" },
+  { s:"marcinhooliveira", t:"elmar", st:"citado", rel:"politico", rot:"Aliado do deputado federal na Bahia" },
+  { s:"sobral", t:"sobral_cjs", st:"investigado", rel:"direto", rot:"Alvo da PF semanas depois de eleito deputado estadual" },
+  { s:"elizeu", t:"emenda_oculta", st:"investigado", rel:"direto", rot:"R$ 5,9 mi em emendas aos institutos; R$ 150 mil apreendidos em casa" },
+  { s:"cezinha", t:"emenda_oculta", st:"investigado", rel:"direto", rot:"R$ 1 mi em emendas; R$ 50 mil apreendidos em imóvel" },
+  { s:"elizeu", t:"cezinha", st:"citado", rel:"familiar", rot:"Irmãos; deputado estadual e vereador em Cuiabá" },
+  { s:"picanco", t:"cota_parte", st:"investigado", rel:"direto", rot:"R$ 300 mil apreendidos em casa no domingo da eleição" },
+  { s:"belota", t:"cota_parte", st:"investigado", rel:"direto", rot:"R$ 400 por voto segundo a apuração; busca autorizada, sem prisão" },
+  { s:"caioroberto", t:"zona_influencia", st:"investigado", rel:"direto", rot:"Cautelares diversas da prisão; apura vazamento e destruição de provas" },
+  { s:"luizinho", t:"portfolio", st:"reu", rel:"direto", rot:"Denunciado pelo MPMG com outras oito pessoas" },
+  { s:"bosco", t:"bosco_verba", st:"investigado", rel:"direto", rot:"Suspeita de uso da verba da ALMG na campanha do filho; nega" }
 ];
 
 /* ============================================================
